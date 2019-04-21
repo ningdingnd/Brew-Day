@@ -1,42 +1,35 @@
-import java.util.Arrays;
+
+//This is to test methods "convertValue", "produceShoppingList" and "converUnit".
+//Author: Jason 1630003004
+
 import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
 public class RecipeTest {
-	private static String name;
-	private static float quantity;
-	private static String unit;
-	private static RecipeIngredient[] recipeIngredient;
-	
+	private static Recipe recipe = new Recipe();
+
 	@Before
-	public RecipeIngredient[] convertValue (int batchSize) {
-		quantity = 500.0;
-		batchSize = 1000;
-		RecipeIngredient[0] = 15;
-		assertEquals(30, Recipe.convertValue (batchSize) / quantity * RecipeIngredient[0]);
-	}
-	
-	public static void setQuantity(float quantity) {
-		RecipeTest.quantity = quantity;
+	public void setUp() throws Exception {
 	}
 
-	public ShoppingList produceShoppingList() {
-		
+	@Ignore
+	@Test
+	public void testproduceShoppingList() {
+		// can not be tested yet.
 	}
-	
-	public float converUnit (float originalQuantity, String originalUnit, String targetUnit) {
-		if (originalUnit == "gallons" && targetUnit == "liters") {
-			originalQuantity *= 3.7;
-		}
-		
-		
-		if (originalUnit == "liters" && targetUnit == "gallons") {
-			originalQuantity /= 3.7;
-		}
-		assertEquals(37, Recipe.converUnit(10.0, "gallons", "liters")); // expect answer should be 37
-		assertEquals(20, Recipe.converUnit(74.0, "liters", "gallons")); // expect answer should be 20
+
+	@Test
+	public void testconvertValue() {
+		assertEquals(30.0, recipe.convertValue(1000), 0.1);
 	}
-	
+
+	@Test
+	public void testconvertUnit() {
+		assertEquals(37.0, recipe.convertUnit(10.0, "gallons", "liters"), 0.1);
+		assertEquals(20.0, recipe.convertUnit(74.0, "liters", "gallons"), 0.1);
+	}
+
 }

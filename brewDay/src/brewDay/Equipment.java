@@ -4,6 +4,7 @@ public class Equipment {
 	private int capacity;
 	private int id;
 
+	//	the constructor
 	public Equipment(int id, int capacity) {
 		this.id = id;
 		this.capacity = capacity;

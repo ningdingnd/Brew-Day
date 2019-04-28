@@ -1,5 +1,0 @@
-package brewDay;
-
-public class Recipe {
-	
-}

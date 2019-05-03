@@ -141,7 +141,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+#lib/
 lib64/
 parts/
 sdist/
@@ -255,7 +255,7 @@ dmypy.json
 .mtj.tmp/
 
 # Package Files #
-*.jar
+# *.jar
 *.war
 *.nar
 *.ear

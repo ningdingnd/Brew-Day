@@ -29,7 +29,7 @@ public class Recipe {
 		return this.recipeIngredient;
 	}
 
-	// update the recipe ingredient
+	// update the recipe ingredient quantity only
 	public boolean update(String name, float newQuantity) {
 
 		// get the recipe ingredient list, find out the correct one
@@ -43,6 +43,7 @@ public class Recipe {
 		return false;
 	}
 
+	//	update the ingredient unit only
 	public boolean update(String name, String newUnit) {
 
 		// get the recipe ingredient list, find out the correct one
@@ -56,6 +57,7 @@ public class Recipe {
 		return false;
 	}
 
+	
 	public RecipeIngredient[] convertValue(int batchSize) {
 		// get the recipe ingredient list, find out the correct one
 		for (int i = 0; i < recipeIngredient.length; i++) {

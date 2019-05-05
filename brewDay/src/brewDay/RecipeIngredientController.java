@@ -21,7 +21,7 @@ public class RecipeIngredientController extends Controller {
 	      statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
 	      statement.executeUpdate("UPDATE RecipeIngredient SET amount = " + amount 
-	    		  + "WHERE ID = " + ID);
+	    		  + " WHERE ID  = " + ID);
 	    }
 	    catch(SQLException e)
 	    {
@@ -43,5 +43,12 @@ public class RecipeIngredientController extends Controller {
 	      }
 	    }
 	    return true;
+	}
+	
+	public static void testRecipeIngredientController() {
+		Workbench w = new Workbench();
+		RecipeIngredientController r = new RecipeIngredientController(w);
+		
+		r.updateAmount(1, 5);
 	}
 }

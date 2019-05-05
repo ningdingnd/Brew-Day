@@ -4,7 +4,9 @@ public class GUI {
 	public static void main(String[] args) {
 		
 		/* ADD YOUR TEST HERE*/
-		StorageIngredientController.testStorageIngredientController();
+		//StorageIngredientController.testStorageIngredientController();
+		//RecipeIngredientController.testRecipeIngredientController();
+		RecipeController.testRecipeController();
 		
 		javax.swing.SwingUtilities.invokeLater(new Runnable(){
 			
@@ -12,7 +14,7 @@ public class GUI {
 				Workbench w = new Workbench();
 
 				RecipeIngredientController c1 = new RecipeIngredientController(w);
-
+				
 				
 			}
 

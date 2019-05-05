@@ -20,7 +20,6 @@ public class inputNameAndQuantity {
 		JLabel label1 = new JLabel("name");
 		JLabel label2 = new JLabel("capacity");
 		JButton b1 = new JButton("Confirm");
-		// b1.setSize(20, 20);
 		JButton b2 = new JButton("Cancel");
 		JPanel cards = new JPanel(new CardLayout());
 		p.add(label1);
@@ -29,10 +28,7 @@ public class inputNameAndQuantity {
 		p.add(new JTextField("", 27));
 		p.add(b1);
 		p.add(b2);
-		cards.add(p, "card");
-		CardLayout c = (CardLayout) (cards.getLayout());
-		c.show(cards, "card");
-		frame.add(cards);
+		frame.add(p);
 		frame.setBounds(300, 200, 400, 200);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

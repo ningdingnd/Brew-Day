@@ -3,12 +3,14 @@ package brewDay;
 
 
 public class Ingredient {
+	private int id;
 	private String name;
 	private float amount;
 	private String unit;
 	
 	
-	public Ingredient(String name, float amount, String unit) {
+	public Ingredient(String name, float amount, String unit, int id) {
+		this.id = id;
 		this.name = name;
 		this.amount = amount;
 		this.unit = unit;

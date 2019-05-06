@@ -13,9 +13,14 @@ public class GUI {
 			public void run() {
 				Workbench w = new Workbench();
 
+				
 				RecipeIngredientController c1 = new RecipeIngredientController(w);
+				MainPageView mv = new MainPageView(w, c1);
+				
+				StorageIngredientController sc = new StorageIngredientController(w);
 				
 				
+				w.addListener(mv);
 			}
 
 		});

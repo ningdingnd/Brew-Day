@@ -17,8 +17,8 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class MainPageView {
-
+public class MainPageView extends View {
+	private Controller c;
 	private JFrame frame;
 	private JTextField txtEquipmentInfo;
 	private JTextField txtIngredientsInfo;
@@ -28,7 +28,7 @@ public class MainPageView {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -40,11 +40,13 @@ public class MainPageView {
 			}
 		});
 	}
-
+*/
 	/**
 	 * Create the application.
 	 */
-	public MainPageView() {
+	public MainPageView(Workbench w, Controller c) {
+		super(w);
+		this.c = c;
 		initialize();
 	}
 
@@ -171,6 +173,13 @@ public class MainPageView {
 		txtRecipeNotesWith.setColumns(10);
 		txtRecipeNotesWith.setBounds(10, 76, 319, 365);
 		panel_3.add(txtRecipeNotesWith);
+		
+	}
+	
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
 		
 	}
 }

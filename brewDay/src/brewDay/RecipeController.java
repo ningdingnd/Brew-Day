@@ -18,28 +18,26 @@ public class RecipeController extends Controller {
 			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
-			
-			
+
 			System.out.println("recipe id  = " + ID);
 			// get the recipe with corresponding ingredient table
 			ResultSet rs = statement.executeQuery("select ingredientID from RecipeAndIngredients WHERE rID = " + ID);
 
 			// search for the recipe ingredients
-			/*
-			 * while (rs.next()) { System.out.println("ingredient id  = " +
-			 * rs.getInt("ingredientID")); //int rid = rs.getInt("ingredientID");
-			 * 
-			 * ResultSet rs1 =
-			 * statement.executeQuery("select * from RecipeIngredient WHERE ID = " +
-			 * rs.getInt("ingredientID"));
-			 * 
-			 * // get the result set //System.out.println("ingredient = " +
-			 * rs1.getString("name")); //System.out.println("amount = " +
-			 * rs1.getInt("amount")); //System.out.println("unit = " +
-			 * rs1.getString("unit"));
-			 * 
-			 * }
-			 */
+
+			while (rs.next()) {
+				System.out.println("ingredient id  = " + rs.getInt("ingredientID")); // int rid =
+																						// rs.getInt("ingredientID");
+
+				ResultSet rs1 = statement
+						.executeQuery("select * from RecipeIngredient WHERE ID = " + rs.getInt("ingredientID"));
+
+				// get the result set //System.out.println("ingredient = " +
+				// rs1.getString("name")); //System.out.println("amount = " +
+				// rs1.getInt("amount")); //System.out.println("unit = " +
+				// rs1.getString("unit"));
+
+			}
 
 		} catch (SQLException e) {
 			// if the error message is "out of memory",
@@ -56,15 +54,16 @@ public class RecipeController extends Controller {
 		}
 		return true;
 	}
-	
-	//public boolean update(int ID, String name, float newQuantity) {	//	update ingredient quantity of recipe
-		
-	//}
+
+	// public boolean update(int ID, String name, float newQuantity) { // update
+	// ingredient quantity of recipe
+
+	// }
 
 	public static void testRecipeController() {
 		Workbench w = new Workbench();
 		RecipeController r = new RecipeController(w);
 
-		r.viewRecipe(1);
+		r.viewRecipe(2);
 	}
 }

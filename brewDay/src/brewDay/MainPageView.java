@@ -18,7 +18,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class MainPageView extends View {
-	private Controller c;
+	private StorageIngredientController sc;
 	private JFrame frame;
 	private JTextField txtEquipmentInfo;
 	private JTextField txtIngredientsInfo;
@@ -44,9 +44,9 @@ public class MainPageView extends View {
 	/**
 	 * Create the application.
 	 */
-	public MainPageView(Workbench w, Controller c) {
+	public MainPageView(Workbench w, StorageIngredientController sc) {
 		super(w);
-		this.c = c;
+		this.sc = sc;
 		initialize();
 	}
 

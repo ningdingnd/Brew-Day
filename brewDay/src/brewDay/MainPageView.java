@@ -55,6 +55,7 @@ public class MainPageView extends View {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -104,6 +105,17 @@ public class MainPageView extends View {
 		button_4.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_4.setBounds(574, 11, 97, 54);
 		panel_1.add(button_4);
+		
+		button_4.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+	
 		
 		JButton btnDelete = new JButton("delete");
 		btnDelete.setFont(new Font("Tahoma", Font.BOLD, 17));

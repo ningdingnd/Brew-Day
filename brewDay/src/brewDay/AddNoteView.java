@@ -8,6 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Color;
+import javax.swing.JScrollBar;
+import javax.swing.JTextArea;
 
 public class AddNoteView {
 
@@ -41,31 +46,59 @@ public class AddNoteView {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1000, 657);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		frame.setFont(new Font("Arial", Font.PLAIN, 15));
+		frame.getContentPane().setBackground(new Color(245, 222, 179));
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setBounds(100, 100, 511, 510);
 		frame.getContentPane().setLayout(null);
 		
 		JButton buttonAdd = new JButton("add");
+		buttonAdd.setForeground(new Color(255, 255, 255));
+		buttonAdd.setBackground(new Color(255, 140, 0));
+		buttonAdd.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//connected with database
+				frame.dispose();
+			}
+		});
 		buttonAdd.setFont(new Font("Tahoma", Font.BOLD, 17));
-		buttonAdd.setBounds(304, 472, 135, 54);
+		buttonAdd.setBounds(80, 388, 135, 54);
 		frame.getContentPane().add(buttonAdd);
 		
 		JButton button_1 = new JButton("cancel");
+		button_1.setForeground(new Color(255, 255, 255));
+		button_1.setBackground(new Color(255, 140, 0));
+		button_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				frame.dispose();
+			}
+		});
 		button_1.setFont(new Font("Tahoma", Font.BOLD, 17));
-		button_1.setBounds(505, 472, 135, 54);
+		button_1.setBounds(281, 388, 135, 54);
 		frame.getContentPane().add(button_1);
 		
 		JTextPane txtpnPleaseTypeYour = new JTextPane();
+		txtpnPleaseTypeYour.setEditable(false);
 		txtpnPleaseTypeYour.setText("Please type your notes here:");
 		txtpnPleaseTypeYour.setFont(new Font("Tahoma", Font.BOLD, 17));
-		txtpnPleaseTypeYour.setBackground(SystemColor.menu);
-		txtpnPleaseTypeYour.setBounds(244, 95, 291, 38);
+		txtpnPleaseTypeYour.setBackground(new Color(245, 222, 179));
+		txtpnPleaseTypeYour.setBounds(20, 11, 291, 38);
 		frame.getContentPane().add(txtpnPleaseTypeYour);
 		
-		JTextField textField = new JTextField();
-		textField.setBounds(244, 144, 448, 296);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		JTextArea noteTextField = new JTextArea();
+		noteTextField.setFont(new Font("Arial", Font.PLAIN, 18));
+		noteTextField.setText("Type in notes...");
+		
+		//Automatically change line
+		noteTextField.setLineWrap(true);
+		noteTextField.setWrapStyleWord(true);
+		noteTextField.setBackground(new Color(255, 250, 205));
+		noteTextField.setBounds(20, 60, 448, 296);
+		frame.getContentPane().add(noteTextField);
+		noteTextField.setColumns(10);
 	}
-
 }

@@ -6,16 +6,23 @@ public class GUI {
 		/* ADD YOUR TEST HERE*/
 		//StorageIngredientController.testStorageIngredientController();
 		//RecipeIngredientController.testRecipeIngredientController();
-		RecipeController.testRecipeController();
+		//RecipeController.testRecipeController();
 		
 		javax.swing.SwingUtilities.invokeLater(new Runnable(){
 			
 			public void run() {
 				Workbench w = new Workbench();
 
-				RecipeIngredientController c1 = new RecipeIngredientController(w);
+				//MainPageController mc = new MainPageController(w);
+				StorageIngredientController sc = new StorageIngredientController(w);
+				MainPageView mv = new MainPageView(w, sc);
 				
 				
+				
+				
+				
+				
+				w.addListener(mv);
 			}
 
 		});

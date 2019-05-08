@@ -9,15 +9,19 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class InputNameQuantityTextBox {
+public class InputNameQuantityTextBox extends View{
 
 	private JFrame frame;
 	private JTextField textField;
 	private JTextField textFieldName;
+	
+	private Workbench w;
+	private StorageIngredientController sc;
 
 	/**
 	 * Launch the application.
 	 */
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -30,11 +34,13 @@ public class InputNameQuantityTextBox {
 			}
 		});
 	}
+	*/
 
 	/**
 	 * Create the application.
 	 */
-	public InputNameQuantityTextBox() {
+	public InputNameQuantityTextBox(Workbench w, StorageIngredientController sc) {
+		super(w, sc);
 		initialize();
 	}
 
@@ -80,6 +86,12 @@ public class InputNameQuantityTextBox {
 		txtpnName.setBackground(SystemColor.menu);
 		txtpnName.setBounds(284, 229, 96, 38);
 		frame.getContentPane().add(txtpnName);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

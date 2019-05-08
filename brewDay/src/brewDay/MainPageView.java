@@ -16,6 +16,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+<<<<<<< HEAD
 import javax.swing.JTextPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -23,12 +24,17 @@ import javax.swing.JComboBox;
 import java.awt.TextArea;
 public class MainPageView {
 
+=======
+
+public class MainPageView extends View {
+	private StorageIngredientController sc;
+>>>>>>> branch 'master' of https://github.com/comp3053/Babbage.git
 	private JFrame frame;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -39,11 +45,13 @@ public class MainPageView {
 			}
 		});
 	}
-
+*/
 	/**
 	 * Create the application.
 	 */
-	public MainPageView() {
+	public MainPageView(Workbench w, StorageIngredientController sc) {
+		super(w);
+		this.sc = sc;
 		initialize();
 	}
 
@@ -107,6 +115,17 @@ public class MainPageView {
 		button_4.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_4.setBounds(574, 11, 97, 54);
 		panel_1.add(button_4);
+		
+		button_4.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+	
 		
 		JButton btnDelete = new JButton("delete");
 		btnDelete.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -180,6 +199,13 @@ public class MainPageView {
 		textArea_2.setFont(new Font("Arial", Font.PLAIN, 12));
 		textArea_2.setBounds(10, 71, 319, 371);
 		panel_3.add(textArea_2);
+		
+	}
+	
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
 		
 	}
 }

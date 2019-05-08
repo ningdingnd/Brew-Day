@@ -16,19 +16,18 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-<<<<<<< HEAD
+
 import javax.swing.JTextPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
 import java.awt.TextArea;
-public class MainPageView {
 
-=======
+
 
 public class MainPageView extends View {
 	private StorageIngredientController sc;
->>>>>>> branch 'master' of https://github.com/comp3053/Babbage.git
+
 	private JFrame frame;
 
 	/**

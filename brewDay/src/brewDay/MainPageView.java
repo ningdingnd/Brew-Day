@@ -16,14 +16,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+import javax.swing.JTextPane;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
+import java.awt.TextArea;
 public class MainPageView {
 
 	private JFrame frame;
-	private JTextField txtEquipmentInfo;
-	private JTextField txtIngredientsInfo;
-	private JTextField txtRecipeInfo;
-	private JTextField txtRecipeNotesWith;
 
 	/**
 	 * Launch the application.
@@ -33,7 +33,6 @@ public class MainPageView {
 			public void run() {
 				try {
 					MainPageView window = new MainPageView();
-					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -53,6 +52,7 @@ public class MainPageView {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -63,7 +63,19 @@ public class MainPageView {
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
+		TextArea textArea = new TextArea();
+		textArea.setFont(new Font("Arial", Font.PLAIN, 12));
+		textArea.setText("equipment");
+		textArea.setBounds(10, 126, 267, 475);
+		panel.add(textArea);
+		
 		JButton btnAdd = new JButton("add");
+		btnAdd.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
 		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnAdd.setBounds(10, 79, 113, 41);
 		panel.add(btnAdd);
@@ -73,14 +85,14 @@ public class MainPageView {
 		btnModify.setBounds(164, 79, 113, 41);
 		panel.add(btnModify);
 		
-		txtEquipmentInfo = new JTextField();
-		txtEquipmentInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtEquipmentInfo.setBounds(10, 131, 267, 469);
-		txtEquipmentInfo.setText("equipment info");
-		panel.add(txtEquipmentInfo);
-		txtEquipmentInfo.setColumns(10);
-		
 		JButton btnWhatToBrew = new JButton("what to brew today");
+		btnWhatToBrew.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new InputBatchSizeView();
+				frame.dispose();
+			}
+		});
 		btnWhatToBrew.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnWhatToBrew.setBounds(10, 11, 267, 57);
 		panel.add(btnWhatToBrew);
@@ -91,13 +103,6 @@ public class MainPageView {
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		txtIngredientsInfo = new JTextField();
-		txtIngredientsInfo.setBounds(10, 11, 554, 126);
-		txtIngredientsInfo.setText("ingredients info");
-		txtIngredientsInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtIngredientsInfo.setColumns(10);
-		panel_1.add(txtIngredientsInfo);
-		
 		JButton button_4 = new JButton("add");
 		button_4.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_4.setBounds(574, 11, 97, 54);
@@ -107,6 +112,12 @@ public class MainPageView {
 		btnDelete.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnDelete.setBounds(574, 76, 97, 54);
 		panel_1.add(btnDelete);
+		
+		TextArea textArea_3 = new TextArea();
+		textArea_3.setText("equipment");
+		textArea_3.setFont(new Font("Arial", Font.PLAIN, 12));
+		textArea_3.setBounds(10, 10, 558, 128);
+		panel_1.add(textArea_3);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -123,26 +134,25 @@ public class MainPageView {
 		btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 17));
 		panel_2.add(btnUpdate);
 		
-		JButton btnAdd_1 = new JButton("delete");
-		btnAdd_1.addActionListener(new ActionListener() {
+		JButton recipeDelete = new JButton("delete");
+		recipeDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnAdd_1.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnAdd_1.setBounds(225, 11, 104, 54);
-		panel_2.add(btnAdd_1);
+		recipeDelete.setFont(new Font("Tahoma", Font.BOLD, 17));
+		recipeDelete.setBounds(225, 11, 104, 54);
+		panel_2.add(recipeDelete);
 		
-		JButton button = new JButton("add");
-		button.setFont(new Font("Tahoma", Font.BOLD, 17));
-		button.setBounds(123, 11, 86, 54);
-		panel_2.add(button);
+		JButton recipeAdd = new JButton("add");
+		recipeAdd.setFont(new Font("Tahoma", Font.BOLD, 17));
+		recipeAdd.setBounds(123, 11, 86, 54);
+		panel_2.add(recipeAdd);
 		
-		txtRecipeInfo = new JTextField();
-		txtRecipeInfo.setText("recipe info");
-		txtRecipeInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtRecipeInfo.setColumns(10);
-		txtRecipeInfo.setBounds(10, 76, 319, 365);
-		panel_2.add(txtRecipeInfo);
+		TextArea textArea_1 = new TextArea();
+		textArea_1.setText("recipe");
+		textArea_1.setFont(new Font("Arial", Font.PLAIN, 12));
+		textArea_1.setBounds(10, 71, 319, 371);
+		panel_2.add(textArea_1);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -165,12 +175,11 @@ public class MainPageView {
 		button_3.setBounds(123, 11, 86, 54);
 		panel_3.add(button_3);
 		
-		txtRecipeNotesWith = new JTextField();
-		txtRecipeNotesWith.setText("recipe notes with instances");
-		txtRecipeNotesWith.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtRecipeNotesWith.setColumns(10);
-		txtRecipeNotesWith.setBounds(10, 76, 319, 365);
-		panel_3.add(txtRecipeNotesWith);
+		TextArea textArea_2 = new TextArea();
+		textArea_2.setText("recipe");
+		textArea_2.setFont(new Font("Arial", Font.PLAIN, 12));
+		textArea_2.setBounds(10, 71, 319, 371);
+		panel_3.add(textArea_2);
 		
 	}
 }

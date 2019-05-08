@@ -25,7 +25,6 @@ public class IngredientUpdateView {
 			public void run() {
 				try {
 					IngredientUpdateView window = new IngredientUpdateView();
-					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -45,6 +44,7 @@ public class IngredientUpdateView {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);

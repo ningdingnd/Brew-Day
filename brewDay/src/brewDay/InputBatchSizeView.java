@@ -9,6 +9,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class InputBatchSizeView {
 
@@ -23,7 +25,6 @@ public class InputBatchSizeView {
 			public void run() {
 				try {
 					InputBatchSizeView window = new InputBatchSizeView();
-					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -43,6 +44,7 @@ public class InputBatchSizeView {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -60,6 +62,12 @@ public class InputBatchSizeView {
 		textField.setColumns(10);
 		
 		JButton btnConfirm = new JButton("confirm");
+		btnConfirm.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+			}
+		});
 		btnConfirm.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnConfirm.setBounds(370, 315, 135, 54);
 		frame.getContentPane().add(btnConfirm);

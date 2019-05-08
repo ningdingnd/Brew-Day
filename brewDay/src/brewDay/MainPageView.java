@@ -72,7 +72,9 @@ public class MainPageView extends View {
 		btnAdd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//connected with database
+				
+				InputNameCapacityTextBox addEquip = new InputNameCapacityTextBox(w);
+				w.addListener(addEquip);
 			}
 		});
 		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -89,9 +91,10 @@ public class MainPageView extends View {
 		btnWhatToBrew.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new InputBatchSizeView();
-				//connected with database?
-				// frame.dispose();
+				//	create the new view to input batch size
+				InputBatchSizeView brew = new InputBatchSizeView(w);
+				w.addListener(brew);
+				
 			}
 		});
 		btnWhatToBrew.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -120,6 +123,7 @@ public class MainPageView extends View {
 				// TODO Auto-generated method stub
 				InputNameQuantityTextBox addIngre = new InputNameQuantityTextBox(w, sc);
 				w.addListener(addIngre);
+				
 			}
 
 		});

@@ -12,7 +12,7 @@ import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class InputBatchSizeView {
+public class InputBatchSizeView extends View{
 
 	private JFrame frame;
 	private JTextField textField;
@@ -24,7 +24,8 @@ public class InputBatchSizeView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InputBatchSizeView window = new InputBatchSizeView();
+					Workbench w = new Workbench();
+					InputBatchSizeView window = new InputBatchSizeView(w);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -35,7 +36,8 @@ public class InputBatchSizeView {
 	/**
 	 * Create the application.
 	 */
-	public InputBatchSizeView() {
+	public InputBatchSizeView(Workbench w) {
+		super(w);
 		initialize();
 	}
 
@@ -46,7 +48,7 @@ public class InputBatchSizeView {
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JTextPane txtpnQuantity_1 = new JTextPane();
@@ -65,7 +67,7 @@ public class InputBatchSizeView {
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				//connected with database
+				
 			}
 		});
 		btnConfirm.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -76,6 +78,12 @@ public class InputBatchSizeView {
 		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnCancel.setBounds(521, 315, 135, 54);
 		frame.getContentPane().add(btnCancel);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

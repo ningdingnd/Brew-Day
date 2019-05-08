@@ -75,20 +75,7 @@ public class InputNameQuantityTextBox extends View{
 		textField.setColumns(10);
 		textField.setBounds(390, 290, 332, 38);
 		frame.getContentPane().add(textField);
-		
-	/*	
-		JTextPane unitPane = new JTextPane();
-		unitPane.setText("Unit:");
-		unitPane.setFont(new Font("Tahoma", Font.BOLD, 17));
-		unitPane.setBackground(SystemColor.menu);
-		unitPane.setBounds(262, 290, 118, 38);
-		frame.getContentPane().add(unitPane);
-		
-		unitField = new JTextField();
-		unitField.setColumns(10);
-		unitField.setBounds(390, 290, 332, 38);
-		frame.getContentPane().add(unitField);
-	*/	
+	
 		JButton buttonConfirm = new JButton("confirm");
 		buttonConfirm.setFont(new Font("Tahoma", Font.BOLD, 17));
 		buttonConfirm.setBounds(357, 361, 135, 54);

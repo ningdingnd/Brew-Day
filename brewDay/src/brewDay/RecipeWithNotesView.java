@@ -14,7 +14,7 @@ import javax.swing.JTextPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-public class RecipeWithNotesView {
+public class RecipeWithNotesView extends View{
 
 	private JFrame frame;
 	private JTable table;
@@ -26,7 +26,8 @@ public class RecipeWithNotesView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RecipeWithNotesView window = new RecipeWithNotesView();
+					Workbench w = new Workbench();
+					RecipeWithNotesView window = new RecipeWithNotesView(w);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -37,7 +38,8 @@ public class RecipeWithNotesView {
 	/**
 	 * Create the application.
 	 */
-	public RecipeWithNotesView() {
+	public RecipeWithNotesView(Workbench w) {
+		super(w);
 		initialize();
 	}
 
@@ -48,7 +50,7 @@ public class RecipeWithNotesView {
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 		
 		JPanel panel = new JPanel();
@@ -66,5 +68,11 @@ public class RecipeWithNotesView {
 		
 		table.setBounds(10, 61, 968, 550);
 		panel.add(table);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 }

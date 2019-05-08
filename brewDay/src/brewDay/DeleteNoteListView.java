@@ -6,6 +6,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JCheckBox;
 
 public class DeleteNoteListView {
 
@@ -39,22 +40,22 @@ public class DeleteNoteListView {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1000, 657);
+		frame.setBounds(100, 100, 439, 548);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JButton buttonCancel = new JButton("cancel");
 		buttonCancel.setFont(new Font("Tahoma", Font.BOLD, 17));
-		buttonCancel.setBounds(516, 467, 135, 54);
+		buttonCancel.setBounds(240, 419, 135, 54);
 		frame.getContentPane().add(buttonCancel);
 		
 		JButton buttonDelete = new JButton("delete");
 		buttonDelete.setFont(new Font("Tahoma", Font.BOLD, 17));
-		buttonDelete.setBounds(315, 467, 135, 54);
+		buttonDelete.setBounds(39, 419, 135, 54);
 		frame.getContentPane().add(buttonDelete);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(315, 71, 336, 358);
+		panel.setBounds(39, 23, 336, 358);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -63,10 +64,9 @@ public class DeleteNoteListView {
 		buttonNooo.setFont(new Font("Tahoma", Font.BOLD, 17));
 		panel.add(buttonNooo);
 		
-		JButton button01 = new JButton("note 01");
-		button01.setFont(new Font("Tahoma", Font.BOLD, 17));
-		button01.setBounds(0, 50, 336, 39);
-		panel.add(button01);
+		JCheckBox chckbxNewCheckBox = new JCheckBox("note1");
+		chckbxNewCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		chckbxNewCheckBox.setBounds(10, 46, 101, 23);
+		panel.add(chckbxNewCheckBox);
 	}
-
 }

@@ -118,22 +118,6 @@ public class InputNameQuantityTextBox extends View{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				try {
-					float amount = Float.parseFloat(textField.getText());
-					System.out.println("amount = " + amount);
-					String name = textFieldName.getText();
-					System.out.println("name = " + name);
-					w.createIngredient(name, amount, "kg");
-				}
-				catch(Exception e1){
-					System.out.println("Convert failed.");
-				}
-				
-				//if (!result.equals("")) {
-					//JOptionPane.showMessageDialog(null, result);
-				//}
-				
-				/*
 				Connection connection = null;
 			    try
 			    {
@@ -150,8 +134,6 @@ public class InputNameQuantityTextBox extends View{
 			      // if the error message is "out of memory",
 			      // it probably means no database file is found
 			      System.err.println(e1.getMessage());
-			      System.out.println("Failed because of no database file found!");
-			      //return e.getMessage();
 			    }
 			    finally
 			    {
@@ -164,15 +146,9 @@ public class InputNameQuantityTextBox extends View{
 			      {
 			        // connection close failed.
 			        System.err.println(e1.getMessage());
-			        System.out.println("Close connection to database failed.");
-			        //return "Close connection to database failed.";
 			      }
 			    }
-			    //return "Add new ingredient success.";
-			     * */
-			     
 			}
-			
 		});
 		
 		

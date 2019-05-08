@@ -3,6 +3,7 @@ package brewDay;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
@@ -67,7 +68,13 @@ public class InputBatchSizeView extends View{
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				int batchSize = Integer.parseInt(textField.getText());
+				boolean equipAvailable = w.checkBatchSize(batchSize);
+				if(equipAvailable) {
+					w.availableRecipe(batchSize);
+				}else {
+					//JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 		});
 		btnConfirm.setFont(new Font("Tahoma", Font.BOLD, 17));

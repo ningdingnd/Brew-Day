@@ -52,7 +52,45 @@ public class Workbench {
 				System.err.println(e.getMessage());
 			}
 		}
-		return true;
+		return false;
+	}
+	
+	
+	public void availableRecipe(int batchSize) {
+		Connection connection = null;
+		try {
+			//ArrayList<RecipeIngredient> ri = new ArrayList<RecipeIngredient>();
+			
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:sample.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+			
+			
+			//	get all available recipe id in database
+			ResultSet rs = statement.executeQuery("select DISTINCT rID from RecipeAndIngredients");
+			
+			
+			// for every recipe, check whether it is available one by one
+			while (rs.next()) {
+				int rid = rs.getInt("rID");
+				
+				
+				
+			}
+		} catch (SQLException e) {
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+			System.err.println(e.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				// connection close failed.
+				System.err.println(e.getMessage());
+			}
+		}
 	}
 
 	/*

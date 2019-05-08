@@ -37,7 +37,6 @@ public class InputNameQuantityTextBox extends View{
 					Workbench w = new Workbench();
 					StorageIngredientController sc = new StorageIngredientController(w);
 					InputNameQuantityTextBox window = new InputNameQuantityTextBox(w, sc);
-					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -59,6 +58,7 @@ public class InputNameQuantityTextBox extends View{
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setVisible(true);
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

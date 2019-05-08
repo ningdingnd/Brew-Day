@@ -23,7 +23,6 @@ public class InputNameCapacityTextBox {
 			public void run() {
 				try {
 					InputNameCapacityTextBox window = new InputNameCapacityTextBox();
-					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -43,6 +42,7 @@ public class InputNameCapacityTextBox {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);

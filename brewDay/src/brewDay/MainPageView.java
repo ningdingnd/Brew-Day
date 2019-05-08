@@ -72,7 +72,7 @@ public class MainPageView extends View {
 		btnAdd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				//connected with database
 			}
 		});
 		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -90,6 +90,7 @@ public class MainPageView extends View {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				new InputBatchSizeView();
+				//connected with database?
 				// frame.dispose();
 			}
 		});

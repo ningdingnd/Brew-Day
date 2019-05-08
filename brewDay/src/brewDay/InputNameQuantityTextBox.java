@@ -117,23 +117,23 @@ public class InputNameQuantityTextBox extends View{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				/*
+				
 				try {
 					float amount = Float.parseFloat(textField.getText());
 					System.out.println("amount = " + amount);
 					String name = textFieldName.getText();
 					System.out.println("name = " + name);
-					String result = sc.createIngredient(textFieldName.getText(), amount, "kg");
+					w.createIngredient(name, amount, "kg");
 				}
 				catch(Exception e1){
 					System.out.println("Convert failed.");
 				}
-				*/
+				
 				//if (!result.equals("")) {
 					//JOptionPane.showMessageDialog(null, result);
 				//}
 				
-				
+				/*
 				Connection connection = null;
 			    try
 			    {
@@ -169,6 +169,8 @@ public class InputNameQuantityTextBox extends View{
 			      }
 			    }
 			    //return "Add new ingredient success.";
+			     * */
+			     
 			}
 			
 		});

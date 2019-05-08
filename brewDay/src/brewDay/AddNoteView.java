@@ -26,7 +26,6 @@ public class AddNoteView {
 			public void run() {
 				try {
 					AddNoteView window = new AddNoteView();
-					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -74,6 +73,7 @@ public class AddNoteView {
 		button_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				//connected with database
 				frame.dispose();
 			}
 		});

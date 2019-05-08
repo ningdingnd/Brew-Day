@@ -22,7 +22,6 @@ public class InputCapacityTextBox {
 			public void run() {
 				try {
 					InputCapacityTextBox window = new InputCapacityTextBox();
-					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -42,6 +41,7 @@ public class InputCapacityTextBox {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);

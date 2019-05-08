@@ -65,7 +65,7 @@ public class InputBatchSizeView {
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				//connected with database
 			}
 		});
 		btnConfirm.setFont(new Font("Tahoma", Font.BOLD, 17));

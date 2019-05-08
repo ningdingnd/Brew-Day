@@ -27,7 +27,6 @@ public class RecipeWithNotesView {
 			public void run() {
 				try {
 					RecipeWithNotesView window = new RecipeWithNotesView();
-					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,6 +46,7 @@ public class RecipeWithNotesView {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));

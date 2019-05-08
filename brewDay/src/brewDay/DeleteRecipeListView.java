@@ -19,7 +19,6 @@ public class DeleteRecipeListView {
 			public void run() {
 				try {
 					DeleteRecipeListView window = new DeleteRecipeListView();
-					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -39,6 +38,7 @@ public class DeleteRecipeListView {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);

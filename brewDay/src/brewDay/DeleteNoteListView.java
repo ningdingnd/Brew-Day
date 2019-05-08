@@ -20,7 +20,6 @@ public class DeleteNoteListView {
 			public void run() {
 				try {
 					DeleteNoteListView window = new DeleteNoteListView();
-					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -40,6 +39,7 @@ public class DeleteNoteListView {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setVisible(true);
 		frame.setBounds(100, 100, 439, 548);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);

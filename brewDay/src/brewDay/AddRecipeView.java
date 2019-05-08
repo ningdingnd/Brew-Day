@@ -74,6 +74,7 @@ public class AddRecipeView {
 		button_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				//connected with database
 				frame.dispose();
 			}
 		});

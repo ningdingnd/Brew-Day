@@ -16,6 +16,9 @@ public class GUI {
 				//MainPageController mc = new MainPageController(w);
 				StorageIngredientController sc = new StorageIngredientController(w);
 				MainPageView mv = new MainPageView(w, sc);
+				
+				
+				
 				w.addListener(mv);
 			}
 

@@ -59,12 +59,15 @@ public class MainPageView extends View {
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
+		
+		//	equipment text area
 		TextArea textArea = new TextArea();
 		textArea.setFont(new Font("Arial", Font.PLAIN, 12));
 		textArea.setText("equipment");
 		textArea.setBounds(10, 126, 267, 475);
 		panel.add(textArea);
 
+		//	equipment button add
 		JButton btnAdd = new JButton("add");
 		btnAdd.addMouseListener(new MouseAdapter() {
 			@Override
@@ -76,7 +79,8 @@ public class MainPageView extends View {
 		btnAdd.setBounds(10, 79, 113, 41);
 		panel.add(btnAdd);
 
-		JButton btnModify = new JButton("modify");
+		//	equipment button modify
+		JButton btnModify = new JButton("update");
 		btnModify.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnModify.setBounds(164, 79, 113, 41);
 		panel.add(btnModify);
@@ -93,12 +97,16 @@ public class MainPageView extends View {
 		btnWhatToBrew.setBounds(10, 11, 267, 57);
 		panel.add(btnWhatToBrew);
 
+		
+		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_1.setBounds(297, 463, 681, 148);
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 
+		
+		//	ingredient add
 		JButton button_4 = new JButton("add");
 		button_4.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_4.setBounds(574, 11, 97, 54);
@@ -109,16 +117,21 @@ public class MainPageView extends View {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-
+				InputNameQuantityTextBox addIngre = new InputNameQuantityTextBox(w, sc);
+				w.addListener(addIngre);
 			}
 
 		});
 
-		JButton btnDelete = new JButton("delete");
+		
+		//	ingredient delete
+		JButton btnDelete = new JButton("update");
 		btnDelete.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnDelete.setBounds(574, 76, 97, 54);
 		panel_1.add(btnDelete);
 
+		
+		//	ingredient text area
 		TextArea textArea_3 = new TextArea();
 		textArea_3.setText("equipment");
 		textArea_3.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -131,9 +144,12 @@ public class MainPageView extends View {
 		frame.getContentPane().add(panel_2);
 		panel_2.setLayout(null);
 
+		
+		//	recipe update
 		JButton btnUpdate = new JButton("update");
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		btnUpdate.setBounds(10, 11, 104, 54);
@@ -154,6 +170,8 @@ public class MainPageView extends View {
 		recipeAdd.setBounds(123, 11, 86, 54);
 		panel_2.add(recipeAdd);
 
+		
+		//	recipe text area
 		TextArea textArea_1 = new TextArea();
 		textArea_1.setText("recipe");
 		textArea_1.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -166,21 +184,29 @@ public class MainPageView extends View {
 		frame.getContentPane().add(panel_3);
 		panel_3.setLayout(null);
 
+		
+		//	note update
 		JButton button_1 = new JButton("update");
 		button_1.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_1.setBounds(10, 11, 104, 54);
 		panel_3.add(button_1);
 
+		
+		//	note delete
 		JButton button_2 = new JButton("delete");
 		button_2.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_2.setBounds(225, 11, 104, 54);
 		panel_3.add(button_2);
 
+		
+		//	note add
 		JButton button_3 = new JButton("add");
 		button_3.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_3.setBounds(123, 11, 86, 54);
 		panel_3.add(button_3);
 
+		
+		//	note text area
 		TextArea textArea_2 = new TextArea();
 		textArea_2.setText("recipe");
 		textArea_2.setFont(new Font("Arial", Font.PLAIN, 12));

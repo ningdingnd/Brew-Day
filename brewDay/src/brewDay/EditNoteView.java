@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-public class EditNoteView {
+public class EditNoteView extends View{
 
 	private JFrame frame;
 
@@ -20,7 +20,8 @@ public class EditNoteView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EditNoteView window = new EditNoteView();
+					Workbench w = new Workbench();
+					EditNoteView window = new EditNoteView(w);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -31,7 +32,8 @@ public class EditNoteView {
 	/**
 	 * Create the application.
 	 */
-	public EditNoteView() {
+	public EditNoteView(Workbench w) {
+		super(w);
 		initialize();
 	}
 
@@ -42,7 +44,7 @@ public class EditNoteView {
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JButton buttonUpdate = new JButton("update");
@@ -66,5 +68,11 @@ public class EditNoteView {
 		textField.setBounds(244, 144, 448, 296);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

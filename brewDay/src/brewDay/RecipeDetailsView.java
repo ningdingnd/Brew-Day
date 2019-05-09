@@ -15,7 +15,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class RecipeDetailsView {
+public class RecipeDetailsView extends View{
 
 	private JFrame frame;
 	private JTextField textField;
@@ -27,7 +27,8 @@ public class RecipeDetailsView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RecipeDetailsView window = new RecipeDetailsView();
+					Workbench w = new Workbench();
+					RecipeDetailsView window = new RecipeDetailsView(w);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -38,7 +39,8 @@ public class RecipeDetailsView {
 	/**
 	 * Create the application.
 	 */
-	public RecipeDetailsView() {
+	public RecipeDetailsView(Workbench w) {
+		super(w);
 		initialize();
 	}
 
@@ -49,7 +51,7 @@ public class RecipeDetailsView {
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JTextPane txtpnRecipeName = new JTextPane();
@@ -91,6 +93,12 @@ public class RecipeDetailsView {
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnNewButton_1.setBounds(339, 54, 128, 40);
 		panel.add(btnNewButton_1);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JTextField;
 
-public class EnquipmentUpdateView {
+public class EnquipmentUpdateView extends View{
 
 	private JFrame frame;
 	private JTextField textField;
@@ -23,7 +23,8 @@ public class EnquipmentUpdateView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EnquipmentUpdateView window = new EnquipmentUpdateView();
+					Workbench w = new Workbench();
+					EnquipmentUpdateView window = new EnquipmentUpdateView(w);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -34,7 +35,8 @@ public class EnquipmentUpdateView {
 	/**
 	 * Create the application.
 	 */
-	public EnquipmentUpdateView() {
+	public EnquipmentUpdateView(Workbench w) {
+		super(w);
 		initialize();
 	}
 
@@ -45,7 +47,7 @@ public class EnquipmentUpdateView {
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
@@ -82,6 +84,12 @@ public class EnquipmentUpdateView {
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
 		panelName.add(textField_1);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

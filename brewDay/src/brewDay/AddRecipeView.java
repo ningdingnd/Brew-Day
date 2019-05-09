@@ -14,7 +14,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
 
-public class AddRecipeView {
+public class AddRecipeView extends View{
 
 	private JFrame frame;
 	private JTextField textField;
@@ -26,7 +26,8 @@ public class AddRecipeView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddRecipeView window = new AddRecipeView();
+					Workbench w = new Workbench();
+					AddRecipeView window = new AddRecipeView(w);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -38,7 +39,8 @@ public class AddRecipeView {
 	/**
 	 * Create the application.
 	 */
-	public AddRecipeView() {
+	public AddRecipeView(Workbench w) {
+		super(w);
 		initialize();
 	}
 
@@ -101,4 +103,10 @@ public class AddRecipeView {
 		frame.getContentPane().add(noteTextField);
 		noteTextField.setColumns(10);
 }
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 }

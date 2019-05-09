@@ -9,7 +9,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 
-public class UpdateListView {
+public class UpdateListView extends View{
 
 	private JFrame frame;
 
@@ -20,7 +20,8 @@ public class UpdateListView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UpdateListView window = new UpdateListView();
+					Workbench w = new Workbench();
+					UpdateListView window = new UpdateListView(w);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -31,7 +32,8 @@ public class UpdateListView {
 	/**
 	 * Create the application.
 	 */
-	public UpdateListView() {
+	public UpdateListView(Workbench w) {
+		super(w);
 		initialize();
 	}
 
@@ -42,7 +44,7 @@ public class UpdateListView {
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JButton buttonCancel = new JButton("cancel");
@@ -69,5 +71,11 @@ public class UpdateListView {
 		button01.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button01.setBounds(0, 50, 336, 39);
 		panel.add(button01);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -9,7 +9,7 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 
-public class InputCapacityTextBox {
+public class InputCapacityTextBox extends View{
 
 	private JFrame frame;
 	private JTextField textField;
@@ -21,7 +21,8 @@ public class InputCapacityTextBox {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InputCapacityTextBox window = new InputCapacityTextBox();
+					Workbench w = new Workbench();
+					InputCapacityTextBox window = new InputCapacityTextBox(w);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -32,7 +33,8 @@ public class InputCapacityTextBox {
 	/**
 	 * Create the application.
 	 */
-	public InputCapacityTextBox() {
+	public InputCapacityTextBox(Workbench w) {
+		super(w);
 		initialize();
 	}
 
@@ -43,7 +45,7 @@ public class InputCapacityTextBox {
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JTextPane txtpnCapacity = new JTextPane();
@@ -67,6 +69,12 @@ public class InputCapacityTextBox {
 		buttonCancel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		buttonCancel.setBounds(507, 298, 135, 54);
 		frame.getContentPane().add(buttonCancel);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

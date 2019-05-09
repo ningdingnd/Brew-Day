@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 
-public class InputQuantityTextBox {
+public class InputQuantityTextBox extends View{
 
 	private JFrame frame;
 	private JTextField textField;
@@ -21,7 +21,8 @@ public class InputQuantityTextBox {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					InputQuantityTextBox window = new InputQuantityTextBox();
+					Workbench w = new Workbench();
+					InputQuantityTextBox window = new InputQuantityTextBox(w);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -32,7 +33,8 @@ public class InputQuantityTextBox {
 	/**
 	 * Create the application.
 	 */
-	public InputQuantityTextBox() {
+	public InputQuantityTextBox(Workbench w) {
+		super(w);
 		initialize();
 	}
 
@@ -43,7 +45,7 @@ public class InputQuantityTextBox {
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JTextPane txtpnQuantity_1 = new JTextPane();
@@ -67,6 +69,12 @@ public class InputQuantityTextBox {
 		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnCancel.setBounds(521, 315, 135, 54);
 		frame.getContentPane().add(btnCancel);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

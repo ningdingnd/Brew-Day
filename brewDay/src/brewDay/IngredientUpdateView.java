@@ -11,7 +11,7 @@ import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class IngredientUpdateView {
+public class IngredientUpdateView extends View{
 
 	private JFrame frame;
 	private JTextField textFieldIngredientName;
@@ -24,7 +24,8 @@ public class IngredientUpdateView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IngredientUpdateView window = new IngredientUpdateView();
+					Workbench w = new Workbench();
+					IngredientUpdateView window = new IngredientUpdateView(w);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -35,7 +36,8 @@ public class IngredientUpdateView {
 	/**
 	 * Create the application.
 	 */
-	public IngredientUpdateView() {
+	public IngredientUpdateView(Workbench w) {
+		super(w);
 		initialize();
 	}
 
@@ -46,7 +48,7 @@ public class IngredientUpdateView {
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
@@ -83,6 +85,12 @@ public class IngredientUpdateView {
 		textFieldIngredientName = new JTextField();
 		panelNames.add(textFieldIngredientName);
 		textFieldIngredientName.setColumns(10);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

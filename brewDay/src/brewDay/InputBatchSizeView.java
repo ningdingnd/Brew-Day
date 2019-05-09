@@ -89,6 +89,7 @@ public class InputBatchSizeView extends View{
 					//	show the dialog that the batch size cannot be larger than equipment capacity, unfinished
 					//JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
 				}
+				frame.dispose();
 			}
 		});
 		btnConfirm.setFont(new Font("Tahoma", Font.BOLD, 17));

@@ -3,6 +3,8 @@ package brewDay;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -67,6 +69,17 @@ public class InputQuantityTextBox {
 		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnCancel.setBounds(521, 315, 135, 54);
 		frame.getContentPane().add(btnCancel);
+		btnCancel.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				frame.setVisible(false);
+				//w.addListener(editNote);
+				
+			}
+
+		});
 	}
 
 }

@@ -13,19 +13,20 @@ public class Recipe {
 		this.recipeIngredient = recipeIngredient;
 	}
 
-	public String getName() {
+	public String getName() {	//	get name attribute of recipe
 		return this.name;
 	}
 
-	public float getQuantity() {
-		return this.quantity;
+	public float getQuantity() {	//	get quantity attribute of recipe
+		return this.quantity;	
 	}
 
-	public String getUnit() {
+	public String getUnit() {	//	get unit attribute of recipe
 		return this.unit;
 	}
+	
 
-	public RecipeIngredient[] viewRecipe() {
+	public RecipeIngredient[] getIngredients() {	//	get ingredients of recipe
 		return this.recipeIngredient;
 	}
 

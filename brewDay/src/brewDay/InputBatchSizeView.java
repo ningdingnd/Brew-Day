@@ -71,10 +71,10 @@ public class InputBatchSizeView extends View{
 				int batchSize = Integer.parseInt(textField.getText());
 				boolean equipAvailable = w.checkBatchSize(batchSize);
 				if(equipAvailable) {
-					boolean brewAvailable = w.checkBatchSize(batchSize);
+					boolean brewAvailable = w.checkBrewAvailable(batchSize);
 					if(brewAvailable == true) {
-						//	go to available recipe with notes page
-						w.checkBrewAvailable(batchSize);
+						//	go to available recipe page
+						
 					}else
 					{
 						//	go to shopping list page

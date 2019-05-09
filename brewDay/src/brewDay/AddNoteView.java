@@ -14,7 +14,7 @@ import java.awt.Color;
 import javax.swing.JScrollBar;
 import javax.swing.JTextArea;
 
-public class AddNoteView {
+public class AddNoteView extends View{
 
 	private JFrame frame;
 
@@ -25,7 +25,8 @@ public class AddNoteView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddNoteView window = new AddNoteView();
+					Workbench w = new Workbench();
+					AddNoteView window = new AddNoteView(w);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -36,7 +37,8 @@ public class AddNoteView {
 	/**
 	 * Create the application.
 	 */
-	public AddNoteView() {
+	public AddNoteView(Workbench w) {
+		super(w);
 		initialize();
 	}
 
@@ -100,5 +102,11 @@ public class AddNoteView {
 		noteTextField.setBounds(20, 60, 448, 296);
 		frame.getContentPane().add(noteTextField);
 		noteTextField.setColumns(10);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 }

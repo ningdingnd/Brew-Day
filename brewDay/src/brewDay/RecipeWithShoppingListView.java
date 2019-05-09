@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JTable;
 
-public class RecipeWithShoppingListView {
+public class RecipeWithShoppingListView extends View{
 
 	private JFrame frame;
 	private JTable table;
@@ -22,7 +22,8 @@ public class RecipeWithShoppingListView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RecipeWithShoppingListView window = new RecipeWithShoppingListView();
+					Workbench w = new Workbench();
+					RecipeWithShoppingListView window = new RecipeWithShoppingListView(w);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -33,7 +34,8 @@ public class RecipeWithShoppingListView {
 	/**
 	 * Create the application.
 	 */
-	public RecipeWithShoppingListView() {
+	public RecipeWithShoppingListView(Workbench w) {
+		super(w);
 		initialize();
 	}
 
@@ -44,7 +46,7 @@ public class RecipeWithShoppingListView {
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
@@ -61,6 +63,12 @@ public class RecipeWithShoppingListView {
 		table = new JTable();
 		table.setBounds(10, 61, 968, 550);
 		panel.add(table);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

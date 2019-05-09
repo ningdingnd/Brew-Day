@@ -7,7 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class NoteListView {
+public class NoteListView extends View{
 
 	private JFrame frame;
 
@@ -18,7 +18,8 @@ public class NoteListView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					NoteListView window = new NoteListView();
+					Workbench w = new Workbench();
+					NoteListView window = new NoteListView(w);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -29,7 +30,8 @@ public class NoteListView {
 	/**
 	 * Create the application.
 	 */
-	public NoteListView() {
+	public NoteListView(Workbench w) {
+		super(w);
 		initialize();
 	}
 
@@ -40,7 +42,7 @@ public class NoteListView {
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JButton buttonCancel = new JButton("cancel");
@@ -67,6 +69,12 @@ public class NoteListView {
 		button01.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button01.setBounds(0, 50, 336, 39);
 		panel.add(button01);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

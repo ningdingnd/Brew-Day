@@ -83,6 +83,12 @@ public class MainPageView extends View {
 
 		//	equipment button modify
 		JButton btnModify = new JButton("update");
+		btnModify.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new EnquipmentUpdateView(w);
+			}
+		});
 		btnModify.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnModify.setBounds(164, 79, 113, 41);
 		panel.add(btnModify);
@@ -112,6 +118,12 @@ public class MainPageView extends View {
 		
 		//	ingredient add
 		JButton button_4 = new JButton("add");
+		button_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new InputNameCapacityTextBox(w);
+			}
+		});
 		button_4.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_4.setBounds(574, 11, 97, 54);
 		panel_1.add(button_4);
@@ -131,6 +143,12 @@ public class MainPageView extends View {
 		
 		//	ingredient delete
 		JButton btnDelete = new JButton("update");
+		btnDelete.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new EnquipmentUpdateView(w);
+			}
+		});
 		btnDelete.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnDelete.setBounds(574, 76, 97, 54);
 		panel_1.add(btnDelete);
@@ -152,6 +170,12 @@ public class MainPageView extends View {
 		
 		//	recipe update
 		JButton btnUpdate = new JButton("update");
+		btnUpdate.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new UpdateListView(w);
+			}
+		});
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -171,6 +195,12 @@ public class MainPageView extends View {
 		panel_2.add(recipeDelete);
 
 		JButton recipeAdd = new JButton("add");
+		recipeAdd.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new AddRecipeView(w);
+			}
+		});
 		recipeAdd.setFont(new Font("Tahoma", Font.BOLD, 17));
 		recipeAdd.setBounds(123, 11, 86, 54);
 		panel_2.add(recipeAdd);
@@ -192,6 +222,12 @@ public class MainPageView extends View {
 		
 		//	note update
 		JButton button_1 = new JButton("update");
+		button_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new NoteListView(w);
+			}
+		});
 		button_1.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_1.setBounds(10, 11, 104, 54);
 		panel_3.add(button_1);
@@ -199,6 +235,12 @@ public class MainPageView extends View {
 		
 		//	note delete
 		JButton button_2 = new JButton("delete");
+		button_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new DeleteRecipeListView(w);
+			}
+		});
 		button_2.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_2.setBounds(225, 11, 104, 54);
 		panel_3.add(button_2);
@@ -206,10 +248,28 @@ public class MainPageView extends View {
 		
 		//	note add
 		JButton button_3 = new JButton("add");
+		button_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new AddNoteView(w);
+			}
+		});
 		button_3.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_3.setBounds(123, 11, 86, 54);
 		panel_3.add(button_3);
 
+		button_3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				EditNoteView editNote = new EditNoteView();
+				//w.addListener(editNote);
+				
+			}
+
+		});
+		 
 		
 		//	note text area
 		TextArea textArea_2 = new TextArea();

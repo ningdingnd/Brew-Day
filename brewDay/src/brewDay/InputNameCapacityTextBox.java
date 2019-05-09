@@ -80,6 +80,17 @@ public class InputNameCapacityTextBox extends View{
 		buttonCancel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		buttonCancel.setBounds(508, 361, 135, 54);
 		frame.getContentPane().add(buttonCancel);
+		buttonCancel.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				frame.setVisible(false);
+				//w.addListener(editNote);
+				
+			}
+
+		});
 		
 		textFieldName = new JTextField();
 		textFieldName.setColumns(10);

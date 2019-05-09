@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JCheckBox;
 
-public class DeleteNoteListView {
+public class DeleteNoteListView extends View{
 
 	private JFrame frame;
 
@@ -19,7 +19,8 @@ public class DeleteNoteListView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DeleteNoteListView window = new DeleteNoteListView();
+					Workbench w = new Workbench();
+					DeleteNoteListView window = new DeleteNoteListView(w);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -30,7 +31,8 @@ public class DeleteNoteListView {
 	/**
 	 * Create the application.
 	 */
-	public DeleteNoteListView() {
+	public DeleteNoteListView(Workbench w) {
+		super(w);
 		initialize();
 	}
 
@@ -41,7 +43,7 @@ public class DeleteNoteListView {
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 439, 548);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JButton buttonCancel = new JButton("cancel");
@@ -68,5 +70,11 @@ public class DeleteNoteListView {
 		chckbxNewCheckBox.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		chckbxNewCheckBox.setBounds(10, 46, 101, 23);
 		panel.add(chckbxNewCheckBox);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 }

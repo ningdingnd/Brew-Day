@@ -55,7 +55,7 @@ public class InputBatchSizeView extends View{
 		JTextPane txtpnQuantity_1 = new JTextPane();
 		txtpnQuantity_1.setBackground(SystemColor.control);
 		txtpnQuantity_1.setFont(new Font("Tahoma", Font.BOLD, 17));
-		txtpnQuantity_1.setText("Quantity:");
+		txtpnQuantity_1.setText("Quantity(L):");
 		txtpnQuantity_1.setBounds(275, 244, 118, 38);
 		frame.getContentPane().add(txtpnQuantity_1);
 		
@@ -70,10 +70,12 @@ public class InputBatchSizeView extends View{
 			public void mouseClicked(MouseEvent e) {
 				
 				//	check whether the batch size input is smaller than capacity of equipment
-				int batchSize = Integer.parseInt(textField.getText());
+				double batchSize = Integer.parseInt(textField.getText());
 				boolean equipAvailable = w.checkBatchSize(batchSize);
 				if(equipAvailable) {
 					
+					
+					System.out.println("Equipment is available");
 					//	check whether there is any recipe available according to batch size
 					boolean brewAvailable = w.checkBrewAvailable(batchSize);
 					if(brewAvailable == true) {
@@ -86,6 +88,7 @@ public class InputBatchSizeView extends View{
 					}
 						
 				}else {
+					System.out.println("Equipment not available");
 					//	show the dialog that the batch size cannot be larger than equipment capacity, unfinished
 					//JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
 				}

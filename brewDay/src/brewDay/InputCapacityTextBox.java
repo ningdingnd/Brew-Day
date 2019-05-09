@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JTextPane;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -69,6 +71,17 @@ public class InputCapacityTextBox extends View{
 		buttonCancel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		buttonCancel.setBounds(507, 298, 135, 54);
 		frame.getContentPane().add(buttonCancel);
+		buttonCancel.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				frame.setVisible(false);
+				//w.addListener(editNote);
+				
+			}
+
+		});
 	}
 
 	@Override

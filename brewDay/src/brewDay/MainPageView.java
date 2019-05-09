@@ -258,6 +258,18 @@ public class MainPageView extends View {
 		button_3.setBounds(123, 11, 86, 54);
 		panel_3.add(button_3);
 
+		button_3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				EditNoteView editNote = new EditNoteView();
+				//w.addListener(editNote);
+				
+			}
+
+		});
+		 
 		
 		//	note text area
 		TextArea textArea_2 = new TextArea();

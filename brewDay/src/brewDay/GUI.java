@@ -8,8 +8,6 @@ public class GUI {
 		//RecipeIngredientController.testRecipeIngredientController();
 		//RecipeController.testRecipeController();
 		
-		
-		
 		javax.swing.SwingUtilities.invokeLater(new Runnable(){
 			
 			public void run() {

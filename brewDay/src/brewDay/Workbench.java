@@ -30,7 +30,7 @@ public class Workbench {
 		Connection connection = null;
 		try {
 			// create a database connection
-			connection = DriverManager.getConnection("jdbc:sqlite:sample.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
 
@@ -113,7 +113,7 @@ public class Workbench {
 	    try
 	    {
 	      // create a database connection
-	      connection = DriverManager.getConnection("jdbc:sqlite:sample.db");
+	      connection = DriverManager.getConnection("jdbc:sqlite:data.db");
 	      Statement statement = connection.createStatement();
 	      statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
@@ -167,7 +167,7 @@ public class Workbench {
 		try {
 			
 			// create a database connection
-			connection = DriverManager.getConnection("jdbc:sqlite:sample.db");
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
 			

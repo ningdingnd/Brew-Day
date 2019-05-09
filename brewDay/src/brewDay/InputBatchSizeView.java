@@ -71,8 +71,17 @@ public class InputBatchSizeView extends View{
 				int batchSize = Integer.parseInt(textField.getText());
 				boolean equipAvailable = w.checkBatchSize(batchSize);
 				if(equipAvailable) {
-					w.availableRecipe(batchSize);
+					boolean brewAvailable = w.checkBatchSize(batchSize);
+					if(brewAvailable == true) {
+						//	go to available recipe with notes page
+						w.checkBrewAvailable(batchSize);
+					}else
+					{
+						//	go to shopping list page
+					}
+						
 				}else {
+					//	show the dialog that the batch size cannot be larger than equipment capacity
 					//JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
 				}
 			}

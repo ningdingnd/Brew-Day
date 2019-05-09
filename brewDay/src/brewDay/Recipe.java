@@ -59,11 +59,15 @@ public class Recipe {
 
 	
 	public RecipeIngredient[] convertValue(int batchSize) {
-		// get the recipe ingredient list, find out the correct one
+		RecipeIngredient[] conIngre= new RecipeIngredient[recipeIngredient.length];
 		for (int i = 0; i < recipeIngredient.length; i++) {
-			recipeIngredient[i].setAmount((batchSize / quantity) * recipeIngredient[i].getAmount());
+		
+			conIngre[i].setName(recipeIngredient[i].getName());
+			//	convert the amount
+			conIngre[i].setAmount((batchSize / quantity) * recipeIngredient[i].getAmount());
+			
 		}
-		return recipeIngredient;
+		return conIngre;
 	}
 /*
 	public ShoppingList produceShoppingList(){ 

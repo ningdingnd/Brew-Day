@@ -186,6 +186,12 @@ public class MainPageView extends View {
 		panel_2.add(btnUpdate);
 
 		JButton recipeDelete = new JButton("delete");
+		recipeDelete.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new DeleteRecipeListView(w);
+			}
+		});
 		recipeDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -263,7 +269,7 @@ public class MainPageView extends View {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				EditNoteView editNote = new EditNoteView();
+				EditNoteView editNote = new EditNoteView(w);
 				//w.addListener(editNote);
 				
 			}

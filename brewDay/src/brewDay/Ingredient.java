@@ -1,8 +1,8 @@
 package brewDay;
 
+import java.io.Serializable;
 
-
-public class Ingredient {
+public class Ingredient implements Serializable{
 	private int id;
 	private String name;
 	private double amount;

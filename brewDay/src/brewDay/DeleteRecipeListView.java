@@ -2,6 +2,8 @@ package brewDay;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -49,6 +51,17 @@ public class DeleteRecipeListView extends View{
 		buttonCancel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		buttonCancel.setBounds(516, 467, 135, 54);
 		frame.getContentPane().add(buttonCancel);
+		buttonCancel.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				frame.setVisible(false);
+				//w.addListener(editNote);
+				
+			}
+
+		});
 		
 		JButton buttonDelete = new JButton("delete");
 		buttonDelete.setFont(new Font("Tahoma", Font.BOLD, 17));

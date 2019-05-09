@@ -156,7 +156,7 @@ public class MainPageView extends View {
 		
 		//	ingredient text area
 		TextArea textArea_3 = new TextArea();
-		textArea_3.setText("equipment");
+		textArea_3.setText("ingredient text");
 		textArea_3.setFont(new Font("Arial", Font.PLAIN, 12));
 		textArea_3.setBounds(10, 10, 558, 128);
 		panel_1.add(textArea_3);
@@ -205,7 +205,6 @@ public class MainPageView extends View {
 		recipeAdd.setBounds(123, 11, 86, 54);
 		panel_2.add(recipeAdd);
 
-		
 		//	recipe text area
 		TextArea textArea_1 = new TextArea();
 		textArea_1.setText("recipe");
@@ -257,19 +256,6 @@ public class MainPageView extends View {
 		button_3.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_3.setBounds(123, 11, 86, 54);
 		panel_3.add(button_3);
-
-		button_3.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				EditNoteView editNote = new EditNoteView();
-				//w.addListener(editNote);
-				
-			}
-
-		});
-		 
 		
 		//	note text area
 		TextArea textArea_2 = new TextArea();

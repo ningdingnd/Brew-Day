@@ -39,6 +39,14 @@ public class Ingredient {
 	public void setUnit(String newUnit) {
 		this.unit = newUnit;
 	}
+	
+	public boolean convertUnit(Ingredient ingredient, String targetUnit) {
+		if(ingredient.getUnit().equals("g")) {
+			
+		}
+		
+		return true;
+	}
 }
 
 

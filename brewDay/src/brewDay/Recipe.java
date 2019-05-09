@@ -83,25 +83,5 @@ public class Recipe {
 		return ShoppingList;
 	}
 */
-	/*
-	 * public double convertUnit(double originalQuantity, String originalUnit,
-	 * String targetUnit) { quantity = originalQuantity; unit = targetUnit; for (int
-	 * i = 0; i < recipeIngredient.length; i++) { if (recipeIngredient[i].getUnit()
-	 * == "gallons"){ quantity *= 3.7; }
-	 * 
-	 * } if (originalUnit == "gallons" && targetUnit == "liters") { quantity *= 3.7;
-	 * // originalQuantity *= 3.7; // return originalQuantity; }
-	 * 
-	 * if (originalUnit == "liters" && targetUnit == "gallons") { quantity /= 3.7;
-	 * // originalQuantity /= 3.7; // return originalQuantity; } return quantity; }
-	 * 
-	 * public double convertUnit(String targetUnit) { float quantity,
-	 * originalQuantity; for (int i = 0; i < recipeIngredient.length; i++) { if
-	 * (recipeIngredient[i].getUnit() == targetUnit){
-	 * 
-	 * } else if (recipeIngredient[i].getUnit() == "gallons" && targetUnit
-	 * =="liters"){ recipeIngredient[i].amount *= 3.7; } else if
-	 * (recipeIngredient[i].getUnit() == "liters" && targetUnit =="gallons") {
-	 * recipeIngredient[i].amount /= 3.7; } } return recipeIngredient; }
-	 */
+	
 }

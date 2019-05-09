@@ -68,20 +68,25 @@ public class InputBatchSizeView extends View{
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+				//	check whether the batch size input is smaller than capacity of equipment
 				int batchSize = Integer.parseInt(textField.getText());
 				boolean equipAvailable = w.checkBatchSize(batchSize);
 				if(equipAvailable) {
+					
+					//	check whether there is any recipe available according to batch size
 					boolean brewAvailable = w.checkBrewAvailable(batchSize);
 					if(brewAvailable == true) {
-						//	go to available recipe page
-						
+						//	go to available recipe page, unfinished
+						System.out.println("Go to available recipe now");
 					}else
 					{
-						//	go to shopping list page
+						//	go to shopping list page, unfinished
+						System.out.println("Go to shopping list page now");
 					}
 						
 				}else {
-					//	show the dialog that the batch size cannot be larger than equipment capacity
+					//	show the dialog that the batch size cannot be larger than equipment capacity, unfinished
 					//JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
 				}
 			}

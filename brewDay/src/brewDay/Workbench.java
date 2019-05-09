@@ -34,11 +34,14 @@ public class Workbench {
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
 
+			
+			//	get all equipment information
 			ResultSet rs = statement.executeQuery("select * from Equipment");
 			while (rs.next()) {
-				// read the result set
+				// if there is any capacity available
 				if(rs.getInt("capacity") > batchSize)
 					return true;
+				
 			}
 		} catch (SQLException e) {
 			// if the error message is "out of memory",

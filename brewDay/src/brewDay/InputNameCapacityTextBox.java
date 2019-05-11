@@ -58,6 +58,7 @@ public class InputNameCapacityTextBox extends View{
 		
 		JTextPane txtpnCapacity = new JTextPane();
 		txtpnCapacity.setText("Capacity:");
+		txtpnCapacity.setEditable(false);
 		txtpnCapacity.setFont(new Font("Tahoma", Font.BOLD, 17));
 		txtpnCapacity.setBackground(SystemColor.menu);
 		txtpnCapacity.setBounds(262, 290, 118, 38);
@@ -99,6 +100,7 @@ public class InputNameCapacityTextBox extends View{
 		
 		JTextPane txtpnName = new JTextPane();
 		txtpnName.setText("Unit:");
+		txtpnName.setEditable(false);
 		txtpnName.setFont(new Font("Tahoma", Font.BOLD, 17));
 		txtpnName.setBackground(SystemColor.menu);
 		txtpnName.setBounds(284, 229, 96, 38);

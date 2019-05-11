@@ -121,13 +121,13 @@ public class MainPageView extends View {
 		button_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new InputNameCapacityTextBox(w);
+				new InputNameQuantityTextBox(w, sc);
 			}
 		});
 		button_4.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_4.setBounds(574, 11, 97, 54);
 		panel_1.add(button_4);
-
+		/*
 		button_4.addActionListener(new ActionListener() {
 
 			@Override
@@ -139,6 +139,7 @@ public class MainPageView extends View {
 			}
 
 		});
+		*/
 
 		
 		//	ingredient delete

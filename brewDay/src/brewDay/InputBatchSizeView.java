@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import java.awt.BorderLayout;
 import javax.swing.JTextField;
+import javax.naming.spi.DirStateFactory.Result;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.SystemColor;
@@ -14,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class InputBatchSizeView extends View{
 
@@ -55,6 +57,7 @@ public class InputBatchSizeView extends View{
 		frame.getContentPane().setLayout(null);
 		
 		JTextPane txtpnQuantity_1 = new JTextPane();
+		txtpnQuantity_1.setEditable(false);
 		txtpnQuantity_1.setBackground(SystemColor.control);
 		txtpnQuantity_1.setFont(new Font("Tahoma", Font.BOLD, 17));
 		txtpnQuantity_1.setText("Quantity(L):");
@@ -79,15 +82,8 @@ public class InputBatchSizeView extends View{
 					
 					System.out.println("Equipment is available");
 					//	check whether there is any recipe available according to batch size
-					boolean brewAvailable = w.checkBrewAvailable(batchSize);
-					if(brewAvailable == true) {
-						//	go to available recipe page, unfinished
-						System.out.println("Go to available recipe now");
-					}else
-					{
-						//	go to shopping list page, unfinished
-						System.out.println("Go to shopping list page now");
-					}
+					ArrayList shoppListRecipe = w.checkBrewAvailable(batchSize);
+					new ShoppingListOrRecipeView(w, shoppListRecipe);
 						
 				}else {
 					System.out.println("Equipment not available");

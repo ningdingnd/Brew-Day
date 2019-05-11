@@ -14,15 +14,15 @@ public class Sample
     try
     {
       // create a database connection
-      connection = DriverManager.getConnection("jdbc:sqlite:sample.db");
+      connection = DriverManager.getConnection("jdbc:sqlite:data.db");
       Statement statement = connection.createStatement();
       statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
-      statement.executeUpdate("drop table if exists person");
-      statement.executeUpdate("create table person (id integer, name string)");
-      statement.executeUpdate("insert into person values(1, 'leo')");
-      statement.executeUpdate("insert into person values(2, 'yui')");
-      ResultSet rs = statement.executeQuery("select * from person");
+      //statement.executeUpdate("drop table if exists person");
+      //statement.executeUpdate("create table person (id integer, name string)");
+      //statement.executeUpdate("insert into person values(1, 'leo')");
+      //statement.executeUpdate("insert into person values(2, 'yui')");
+      ResultSet rs = statement.executeQuery("select COUNT(DISTINCT rID) from person");
       while(rs.next())
       {
         // read the result set

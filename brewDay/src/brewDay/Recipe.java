@@ -82,13 +82,14 @@ public class Recipe {
 		}
 		
 		System.out.println("convert unit of recipe finished, start to convert ingredient amount.");
-		
+		double originalAmount;
 		//	convert the recipe ingredient value to absolute value with batch size
-		for (int i = 0; i < recipeIngredient.length; i++) {
-		
+		for (int i = 0; i < this.getIngredients().length; i++) {
 			//	convert the amount
-			this.getIngredients()[i].setAmount((batchSize / quantity) * recipeIngredient[i].getAmount());
 			
+			originalAmount = this.getIngredients()[i].getAmount();
+			System.out.println("Get ingredient amount done.");
+			this.getIngredients()[i].setAmount((batchSize / this.getQuantity()) * originalAmount);
 		}
 		System.out.println("convert all ingredient value to absolute value finishied.");
 		return true;

@@ -10,37 +10,41 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.util.ArrayList;
+
 import javax.swing.JTextPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
-public class RecipeWithNotesView extends View{
-
+public class ShoppingListOrRecipeView extends View{
+	private ArrayList shoppListRecipe;
 	private JFrame frame;
 	private JTable table;
+	
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Workbench w = new Workbench();
-					RecipeWithNotesView window = new RecipeWithNotesView(w);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Workbench w = new Workbench();
+//					ShoppingListOrRecipeView window = new ShoppingListOrRecipeView(w);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
 	 */
-	public RecipeWithNotesView(Workbench w) {
+	public ShoppingListOrRecipeView(Workbench w, ArrayList shoppListRecipe) {
 		super(w);
 		initialize();
+		this.shoppListRecipe = shoppListRecipe;
 	}
 
 	/**

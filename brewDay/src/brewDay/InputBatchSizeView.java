@@ -55,6 +55,7 @@ public class InputBatchSizeView extends View{
 		frame.getContentPane().setLayout(null);
 		
 		JTextPane txtpnQuantity_1 = new JTextPane();
+		txtpnQuantity_1.setEditable(false);
 		txtpnQuantity_1.setBackground(SystemColor.control);
 		txtpnQuantity_1.setFont(new Font("Tahoma", Font.BOLD, 17));
 		txtpnQuantity_1.setText("Quantity(L):");

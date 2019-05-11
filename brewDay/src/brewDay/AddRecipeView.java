@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import javax.swing.border.LineBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AddRecipeView extends View{
 
@@ -61,42 +63,10 @@ public class AddRecipeView extends View{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		//connect to database and get available ingredient from recipe
-		Connection connection = null;
-		int sizeAvailableIngredient = 0;
-		ArrayList availableIngredient= new ArrayList();
-		ArrayList currentUnit= new ArrayList();
-		try {
-			// create a database connection
-			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
-			Statement statement = connection.createStatement();
-			statement.setQueryTimeout(30); // set timeout to 30 sec.
-			
-			
-			//	get all available recipe id in database
-			ResultSet rsName = statement.executeQuery("select distinct name,unit from RecipeIngredient");
-			// for every recipe, check whether it is available one by one
-			while (rsName.next()) {
-				String name = rsName.getString(1);
-				availableIngredient.add(name);
-				String unit = rsName.getString(2);
-				currentUnit.add(unit);
-			}
-			sizeAvailableIngredient = availableIngredient.size();
-			
-		} catch (SQLException e) {
-			// if the error message is "out of memory",
-			// it probably means no database file is found
-			System.err.println(e.getMessage());
-		} finally {
-			try {
-				if (connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				// connection close failed.
-				System.err.println(e.getMessage());
-			}
-		}
+		//connect to database
+		ArrayList pack = w.getRecipe();
+		ArrayList availableIngredient= (ArrayList) pack.get(0);
+		ArrayList currentUnit= (ArrayList) pack.get(1);
 		
 		//Start GUI
 		frame = new JFrame();
@@ -114,7 +84,7 @@ public class AddRecipeView extends View{
 		//panel.setLayout(new FlowLayout(FlowLayout.LEFT, 2, 2));
 		ArrayList textfieled= new ArrayList();
 		//pan.setBorder(BorderFactory.createTitledBorder("Please add the amount of ingredient of recipe:"));
-		final int loopNum = sizeAvailableIngredient;
+		final int loopNum = availableIngredient.size();
 		for (int i = 0; i < loopNum+2; i++) {
 			JTextPane name = new JTextPane();
 			JTextArea amountTextField = new JTextArea();
@@ -142,6 +112,10 @@ public class AddRecipeView extends View{
 		frame.getContentPane().add(panel);
 		
 		JButton buttonAdd = new JButton("add");
+		buttonAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		buttonAdd.setForeground(new Color(255, 255, 255));
 		buttonAdd.setBackground(new Color(255, 140, 0));
 		buttonAdd.addMouseListener(new MouseAdapter() {
@@ -149,38 +123,7 @@ public class AddRecipeView extends View{
 			public void mouseClicked(MouseEvent a) {
 				//connected with database
 				//add the recipe to database
-				Connection connection1 = null;
-				try {
-					//final int loopNum = sizeAvailableIngredient;
-					// create a database connection
-					connection1 = DriverManager.getConnection("jdbc:sqlite:data.db");
-					Statement statement = connection1.createStatement();
-					statement.setQueryTimeout(30); // set timeout to 30 sec.
-					
-					// add the recipe to database
-					statement.executeUpdate("INSERT INTO Recipe(name,quantity,unit) VALUES ('"+((JTextArea)textfieled.get(0)).getText()+"','"+((JTextArea)textfieled.get(1)).getText()+"','L')");
-					ResultSet RecipeNum = statement.executeQuery("SELECT ID FROM Recipe ORDER BY ID DESC");
-					for (int i = 0; i < loopNum; i++) {
-						if (Float.parseFloat(((JTextArea)textfieled.get(i+2)).getText())!=0) {
-							statement.executeUpdate("INSERT INTO RecipeIngredient(name,amount,unit) VALUES ('"+ availableIngredient.get(i) +"','"+Float.parseFloat(((JTextArea)textfieled.get(i+2)).getText())+ "','"+currentUnit.get(i)+"');" );
-							ResultSet ingNum = statement.executeQuery("SELECT ID FROM RecipeIngredient ORDER BY ID DESC");
-							statement.executeUpdate("INSERT INTO RecipeAndIngredients VALUES ('"+ingNum.getInt(1)+"','"+RecipeNum.getInt(1)+"')");
-						}
-					}
-										
-				} catch (SQLException e) {
-					// if the error message is "out of memory",
-					// it probably means no database file is found
-					System.err.println(e.getMessage());
-				} finally {
-					try {
-						if (connection1 != null)
-							connection1.close();
-					} catch (SQLException e) {
-						// connection close failed.
-						System.err.println(e.getMessage());
-					}
-				}
+				w.insertRecipe(loopNum,textfieled,availableIngredient,currentUnit);
 				frame.dispose();
 			}
 		});

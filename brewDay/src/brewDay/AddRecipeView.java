@@ -2,10 +2,13 @@ package brewDay;
 
 import java.awt.Color;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+
 import java.awt.Font;
 import javax.swing.JTextPane;
 import java.awt.SystemColor;
@@ -13,6 +16,16 @@ import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JComboBox;
+//for database connection
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import javax.swing.border.LineBorder;
 
 public class AddRecipeView {
 
@@ -46,6 +59,44 @@ public class AddRecipeView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		//connect to database and get available ingredient from recipe
+		Connection connection = null;
+		int sizeAvailableIngredient = 0;
+		ArrayList availableIngredient= new ArrayList();
+		ArrayList currentUnit= new ArrayList();
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+			
+			
+			//	get all available recipe id in database
+			ResultSet rsName = statement.executeQuery("select distinct name,unit from RecipeIngredient");
+			// for every recipe, check whether it is available one by one
+			while (rsName.next()) {
+				String name = rsName.getString(1);
+				availableIngredient.add(name);
+				String unit = rsName.getString(2);
+				currentUnit.add(unit);
+			}
+			sizeAvailableIngredient = availableIngredient.size();
+			
+		} catch (SQLException e) {
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+			System.err.println(e.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				// connection close failed.
+				System.err.println(e.getMessage());
+			}
+		}
+		
+		//Start GUI
 		frame = new JFrame();
 		frame.setFont(new Font("Arial", Font.PLAIN, 15));
 		frame.getContentPane().setBackground(new Color(245, 222, 179));
@@ -53,14 +104,81 @@ public class AddRecipeView {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setBounds(100, 100, 511, 510);
 		frame.getContentPane().setLayout(null);
+
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(0,2));
+		panel.setBackground(new Color(245, 245, 245));
+		panel.setBounds(20, 59, 457, 307);
+		//panel.setLayout(new FlowLayout(FlowLayout.LEFT, 2, 2));
+		ArrayList textfieled= new ArrayList();
+		//pan.setBorder(BorderFactory.createTitledBorder("Please add the amount of ingredient of recipe:"));
+		final int loopNum = sizeAvailableIngredient;
+		for (int i = 0; i < loopNum+2; i++) {
+			JTextPane name = new JTextPane();
+			JTextArea amountTextField = new JTextArea();
+			name.setFont(new Font("Arial", Font.BOLD, 18));
+			if(i == 0)
+				name.setText("Recipe Name");
+			else if(i == 1)
+				name.setText("Total Auantity (L)");
+			else {
+				String nameOut = (String) availableIngredient.get(i-2);
+				String unitOut = (String) currentUnit.get(i-2);
+				name.setText(nameOut+" (" + unitOut + ")");
+			}
+			name.setEditable(false);
+			name.setBackground(new Color(245, 245, 245));
+			panel.add(name);
+			if(i == 0)
+				amountTextField.setText("Please input recipe name...");
+			else
+				amountTextField.setText("0");
+			amountTextField.setFont(new Font("Arial", Font.PLAIN, 18));
+			panel.add(amountTextField);
+			textfieled.add(amountTextField);
+		}
+		frame.getContentPane().add(panel);
 		
 		JButton buttonAdd = new JButton("add");
 		buttonAdd.setForeground(new Color(255, 255, 255));
 		buttonAdd.setBackground(new Color(255, 140, 0));
 		buttonAdd.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
+		@Override
+			public void mouseClicked(MouseEvent a) {
 				//connected with database
+				//add the recipe to database
+				Connection connection1 = null;
+				try {
+					//final int loopNum = sizeAvailableIngredient;
+					// create a database connection
+					connection1 = DriverManager.getConnection("jdbc:sqlite:data.db");
+					Statement statement = connection1.createStatement();
+					statement.setQueryTimeout(30); // set timeout to 30 sec.
+					
+					// add the recipe to database
+					statement.executeUpdate("INSERT INTO Recipe(name,quantity,unit) VALUES ('"+((JTextArea)textfieled.get(0)).getText()+"','"+((JTextArea)textfieled.get(1)).getText()+"','L')");
+					ResultSet RecipeNum = statement.executeQuery("SELECT ID FROM Recipe ORDER BY ID DESC");
+					for (int i = 0; i < loopNum; i++) {
+						if (Float.parseFloat(((JTextArea)textfieled.get(i+2)).getText())!=0) {
+							statement.executeUpdate("INSERT INTO RecipeIngredient(name,amount,unit) VALUES ('"+ availableIngredient.get(i) +"','"+Float.parseFloat(((JTextArea)textfieled.get(i+2)).getText())+ "','"+currentUnit.get(i)+"');" );
+							ResultSet ingNum = statement.executeQuery("SELECT ID FROM RecipeIngredient ORDER BY ID DESC");
+							statement.executeUpdate("INSERT INTO RecipeAndIngredients VALUES ('"+ingNum.getInt(1)+"','"+RecipeNum.getInt(1)+"')");
+						}
+					}
+										
+				} catch (SQLException e) {
+					// if the error message is "out of memory",
+					// it probably means no database file is found
+					System.err.println(e.getMessage());
+				} finally {
+					try {
+						if (connection1 != null)
+							connection1.close();
+					} catch (SQLException e) {
+						// connection close failed.
+						System.err.println(e.getMessage());
+					}
+				}
 				frame.dispose();
 			}
 		});
@@ -89,16 +207,5 @@ public class AddRecipeView {
 		txtpnPleaseTypeYour.setBackground(new Color(245, 222, 179));
 		txtpnPleaseTypeYour.setBounds(20, 11, 291, 38);
 		frame.getContentPane().add(txtpnPleaseTypeYour);
-		
-		JTextArea noteTextField = new JTextArea();
-		noteTextField.setFont(new Font("Arial", Font.PLAIN, 18));
-		
-		//Automatically change line
-		noteTextField.setLineWrap(true);
-		noteTextField.setWrapStyleWord(true);
-		noteTextField.setBackground(new Color(255, 250, 205));
-		noteTextField.setBounds(20, 60, 448, 296);
-		frame.getContentPane().add(noteTextField);
-		noteTextField.setColumns(10);
-}
+	}		
 }

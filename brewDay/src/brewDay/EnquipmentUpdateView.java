@@ -8,9 +8,12 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTextField;
 
-public class EnquipmentUpdateView {
+public class EnquipmentUpdateView extends View{
 
 	private JFrame frame;
 	private JTextField textField;
@@ -23,7 +26,8 @@ public class EnquipmentUpdateView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EnquipmentUpdateView window = new EnquipmentUpdateView();
+					Workbench w = new Workbench();
+					EnquipmentUpdateView window = new EnquipmentUpdateView(w);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -34,7 +38,8 @@ public class EnquipmentUpdateView {
 	/**
 	 * Create the application.
 	 */
-	public EnquipmentUpdateView() {
+	public EnquipmentUpdateView(Workbench w) {
+		super(w);
 		initialize();
 	}
 
@@ -45,7 +50,7 @@ public class EnquipmentUpdateView {
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JPanel panel = new JPanel();
@@ -58,6 +63,17 @@ public class EnquipmentUpdateView {
 		button.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button.setBounds(10, 11, 136, 29);
 		panel.add(button);
+		button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				frame.setVisible(false);
+				//w.addListener(editNote);
+				
+			}
+
+		});
 		
 		JPanel panelUpdates = new JPanel();
 		panelUpdates.setBounds(721, 61, 205, 550);
@@ -82,6 +98,12 @@ public class EnquipmentUpdateView {
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
 		panelName.add(textField_1);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -9,7 +9,7 @@ import javax.swing.JTextPane;
 import java.awt.SystemColor;
 import javax.swing.JTextField;
 
-public class EditRecipeView {
+public class EditRecipeView extends View{
 
 	private JFrame frame;
 	private JTextField textField;
@@ -21,7 +21,8 @@ public class EditRecipeView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EditRecipeView window = new EditRecipeView();
+					Workbench w = new Workbench();
+					EditRecipeView window = new EditRecipeView(w);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -32,7 +33,8 @@ public class EditRecipeView {
 	/**
 	 * Create the application.
 	 */
-	public EditRecipeView() {
+	public EditRecipeView(Workbench w) {
+		super(w);
 		initialize();
 	}
 
@@ -43,7 +45,7 @@ public class EditRecipeView {
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JButton buttonAdd = new JButton("add");
@@ -67,6 +69,12 @@ public class EditRecipeView {
 		textField.setBounds(244, 144, 448, 296);
 		frame.getContentPane().add(textField);
 		textField.setColumns(10);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

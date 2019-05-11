@@ -27,7 +27,7 @@ import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import javax.swing.border.LineBorder;
 
-public class AddRecipeView {
+public class AddRecipeView extends View{
 
 	private JFrame frame;
 	private JTextField textField;
@@ -39,7 +39,8 @@ public class AddRecipeView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddRecipeView window = new AddRecipeView();
+					Workbench w = new Workbench();
+					AddRecipeView window = new AddRecipeView(w);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +52,8 @@ public class AddRecipeView {
 	/**
 	 * Create the application.
 	 */
-	public AddRecipeView() {
+	public AddRecipeView(Workbench w) {
+		super(w);
 		initialize();
 	}
 
@@ -207,5 +209,25 @@ public class AddRecipeView {
 		txtpnPleaseTypeYour.setBackground(new Color(245, 222, 179));
 		txtpnPleaseTypeYour.setBounds(20, 11, 291, 38);
 		frame.getContentPane().add(txtpnPleaseTypeYour);
-	}		
+		
+		
+		JTextArea noteTextField = new JTextArea();
+
+
+		noteTextField.setFont(new Font("Arial", Font.PLAIN, 18));
+		
+		//Automatically change line
+		noteTextField.setLineWrap(true);
+		noteTextField.setWrapStyleWord(true);
+		noteTextField.setBackground(new Color(255, 250, 205));
+		noteTextField.setBounds(20, 60, 448, 296);
+		frame.getContentPane().add(noteTextField);
+		noteTextField.setColumns(10);
+		}
+	
+		@Override
+		public void update() {
+			// TODO Auto-generated method stub
+			
+		}
 }

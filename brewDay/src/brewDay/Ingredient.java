@@ -1,52 +1,53 @@
 package brewDay;
 
-
-
 public class Ingredient {
 	private int id;
 	private String name;
-	private float amount;
+	private double amount;
 	private String unit;
-	
-	
-	public Ingredient(String name, float amount, String unit, int id) {
+
+	public Ingredient(String name, double amount, String unit, int id) {
 		this.id = id;
 		this.name = name;
 		this.amount = amount;
 		this.unit = unit;
 	}
-	
+
 	public String getName() {
 		return this.name;
 	}
-	
-	public float getAmount() {
+
+	public double getAmount() {
 		return this.amount;
 	}
-	
+
 	public String getUnit() {
 		return this.unit;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public void setAmount(float amount) {
-		this.amount = amount;
+
+	public void setAmount(double d) {
+		this.amount = d;
 	}
-	
+
 	public void setUnit(String newUnit) {
 		this.unit = newUnit;
 	}
-	
-	public boolean convertUnit(Ingredient ingredient, String targetUnit) {
-		if(ingredient.getUnit().equals("g")) {
-			
+
+	// this method convert the ingredient amount and unit to equivalence amount
+	// of
+	// target unit
+	public boolean convertUnit(String targetUnit) {
+		if (this.getUnit().equals("g") && targetUnit.equals("kg")) {
+			this.setAmount(this.getAmount() * 0.001);
+		} else if (this.getUnit().equals("kg") && targetUnit.equals("g")) {
+			this.setAmount(this.getAmount() * 1000);
+		} else {
+			return false;
 		}
-		
 		return true;
 	}
 }
-
-

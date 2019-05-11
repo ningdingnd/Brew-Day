@@ -2,12 +2,14 @@ package brewDay;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class DeleteRecipeListView {
+public class DeleteRecipeListView extends View{
 
 	private JFrame frame;
 
@@ -18,7 +20,8 @@ public class DeleteRecipeListView {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DeleteRecipeListView window = new DeleteRecipeListView();
+					Workbench w = new Workbench();
+					DeleteRecipeListView window = new DeleteRecipeListView(w);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -29,7 +32,8 @@ public class DeleteRecipeListView {
 	/**
 	 * Create the application.
 	 */
-	public DeleteRecipeListView() {
+	public DeleteRecipeListView(Workbench w) {
+		super(w);
 		initialize();
 	}
 
@@ -40,13 +44,24 @@ public class DeleteRecipeListView {
 		frame = new JFrame();
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JButton buttonCancel = new JButton("cancel");
 		buttonCancel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		buttonCancel.setBounds(516, 467, 135, 54);
 		frame.getContentPane().add(buttonCancel);
+		buttonCancel.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				frame.setVisible(false);
+				//w.addListener(editNote);
+				
+			}
+
+		});
 		
 		JButton buttonDelete = new JButton("delete");
 		buttonDelete.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -67,6 +82,12 @@ public class DeleteRecipeListView {
 		button01.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button01.setBounds(0, 50, 336, 39);
 		panel.add(button01);
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

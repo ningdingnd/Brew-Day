@@ -130,9 +130,9 @@ public class Workbench {
 		
 		System.out.println("construct recipe finished.");
 		
-		// get the converted ingredients information
+		// get the absolute converted ingredients information
 		RecipeIngredient[] conIngre = new RecipeIngredient[recipe.getIngredients().length];
-		conIngre = recipe.convertValue(batchSize);
+		conIngre = recipe.convertValue(batchSize, "L");
 
 		// compare the recipe ingredients amount with corresponding storage ingredient
 		// one by one

@@ -59,7 +59,15 @@ public class Recipe {
 	}
 
 	
-	public RecipeIngredient[] convertValue(double batchSize) {
+	//	this method convert the recipe ingredient value to the batch size user specified
+	public RecipeIngredient[] convertValue(double batchSize, String b_unit) {
+		//	test whether the recipe unit and target unit same or not
+		//	if not, convert unit first
+		if(!this.getUnit().equals(b_unit)) {
+			this.convertUnit(b_unit);
+		}
+		
+		//	convert the recipe ingredient value to absolute value with batch size
 		RecipeIngredient[] conIngre= new RecipeIngredient[recipeIngredient.length];
 		for (int i = 0; i < recipeIngredient.length; i++) {
 		
@@ -69,6 +77,12 @@ public class Recipe {
 			
 		}
 		return conIngre;
+	}
+	
+	
+	//	this method convert recipe ingredient list in this instance to value of target unit
+	public void convertUnit(String targetUnit) {
+		
 	}
 /*
 	public ShoppingList produceShoppingList(){ 

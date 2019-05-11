@@ -59,7 +59,7 @@ public class Recipe {
 	}
 
 	
-	public RecipeIngredient[] convertValue(int batchSize) {
+	public RecipeIngredient[] convertValue(double batchSize) {
 		RecipeIngredient[] conIngre= new RecipeIngredient[recipeIngredient.length];
 		for (int i = 0; i < recipeIngredient.length; i++) {
 		

@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class UpdateListView extends View{
 
@@ -51,6 +53,17 @@ public class UpdateListView extends View{
 		buttonCancel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		buttonCancel.setBounds(516, 467, 135, 54);
 		frame.getContentPane().add(buttonCancel);
+		buttonCancel.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				frame.setVisible(false);
+				//w.addListener(editNote);
+				
+			}
+
+		});
 		
 		JButton buttonAdd = new JButton("add");
 		buttonAdd.setFont(new Font("Tahoma", Font.BOLD, 17));

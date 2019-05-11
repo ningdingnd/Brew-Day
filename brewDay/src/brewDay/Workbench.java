@@ -92,17 +92,87 @@ public class Workbench {
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
 
 			// get all available recipe id in database
-			ResultSet rs = statement.executeQuery("select DISTINCT rID from RecipeAndIngredients");
+			ResultSet recipes = statement.executeQuery("select DISTINCT rID from RecipeAndIngredients");
 
 			// for every recipe, check whether it is available one by one
-			while (rs.next()) {
-				int rid = rs.getInt("rID");
-				System.out.println("Call check recipe " + rid + " in checkBrew method");;
-				boolean availableRecipe = this.checkRecipeAvailable(rid, batchSize);
-				if (availableRecipe == true) // if one of the recipe is available, then available
-					return true;
+			while (recipes.next()) {
+				int rid = recipes.getInt("rID");
+				System.out.println("Call check recipe " + rid + " in checkBrew method");
+
+				//	!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+				ResultSet recipeWIngre = statement
+						.executeQuery("SELECT * FROM RecipeAndIngredients, RecipeIngredient, Recipe"
+								+ "WHERE RecipeAndIngredients.rID = Recipe.ID"
+								+ "AND RecipeIngredient.ID = RecipeAndIngredients.ingredientID"
+								+ "AND RecipeAndIngredients.rID = \'" + rid + "\'");
+
+				// start to construct the recipe instance
+				int ingreNumber = 0;
+				while(recipeWIngre.next()) {
+					ingreNumber++;
+					if(recipeWIngre.isLast())
+						break;
+				}
+				System.out.println("Recipe " + rid + "has " + ingreNumber + "ingredients.");
+
+				// the ingredient array part
+				RecipeIngredient[] recipeIngredient = new RecipeIngredient[ingreNumber];
+
+				int i = 0;
+				while (recipeWIngre.next()) {
+					recipeIngredient[i].setName(recipeWIngre.getString("RecipeIngredient.name"));
+					recipeIngredient[i].setAmount(recipeWIngre.getFloat("RecipeIngredient.amount"));
+					recipeIngredient[i].setUnit(recipeWIngre.getString("RecipeIngredient.unit"));
+					i++;
+				}
+
+				System.out.println("construct ingredient list finished.");
+
+				// the recipe information part
+				ResultSet recipeInfo = statement
+						.executeQuery("SELECT *" + "FROM Recipe" + "WHERE ID = \'" + rid + "\'");
+
+				String recipeName = recipeInfo.getString("name");
+				double recipeQuantity = recipeInfo.getDouble("quantity");
+				String recipeUnit = recipeInfo.getString("unit");
+
+				// construct the recipe instance
+				Recipe recipe = new Recipe(recipeName, recipeQuantity, recipeUnit, recipeIngredient);
+				System.out.println("construct recipe " + rid + "finished.");
+				System.out.println("Construct recipe finished.");
+
+				// get the absolute converted ingredients information
+				boolean converR = recipe.convertValue(batchSize, "L");
+				if (!converR) {
+					System.out.println("Convert ingredients value to absolute value failed.");
+					return false;
+				}
+
+				// compare the recipe ingredients amount with corresponding storage ingredient
+				// one by one
+				System.out.println("Convert absolute value of ingredient finished.");
+
+				System.out.println("Convert recipe unit finished, start to prepare the ingredient one by one.");
+
+				// compare the amount of ingredient one by one
+				for (int i1 = 0; i1 < recipe.getIngredients().length; i1++) {
+					ResultSet rs1 = statement.executeQuery("SELECT *" + "FROM StorageIngredient, RecipeIngredient"
+							+ "WHERE StorageIngredient.name = \'" + recipe.getIngredients()[i1].getName() + "\'"
+							+ " AND RecipeIngredient.name = StorageIngredient.name");
+					// if units of the recipe ingredient and storage ingredient not same
+					// convert recipe ingredient unit
+					if (!recipe.getIngredients()[i1].getUnit().equals(rs1.getString("StorageIngredient.unit"))) {
+						recipe.getIngredients()[i1].convertUnit(rs1.getString("StorageIngredient.unit"));
+					}
+					// compare the amount
+					if (recipe.getIngredients()[i1].getAmount() > rs1.getDouble("StorageIngredient.amount")) {
+						return false;
+					}
+				}
+
 			}
-			return false; // if none available, then false
+			// }
+			// return false; // if none available, then false
 		} catch (SQLException e) {
 			// if the error message is "out of memory",
 			// it probably means no database file is found
@@ -121,72 +191,72 @@ public class Workbench {
 
 	// this method check whether one specific recipe is available according to batch
 	// size
-	public boolean checkRecipeAvailable(int rid, double batchSize) {
+	public boolean checkRecipeAvailable(int rid, double batchSize, Connection connection) {
+
 		System.out.println("Start to select recipe ingredient of recipe " + rid);
-		
-		
-		// construct the recipe instance
-		Recipe recipe = constructRecipe(rid); 
-		
-		System.out.println("construct recipe finished.");
-		
-		// get the converted ingredients information
-		RecipeIngredient[] conIngre = new RecipeIngredient[recipe.getIngredients().length];
-		conIngre = recipe.convertValue(batchSize);
-
-		// compare the recipe ingredients amount with corresponding storage ingredient
-		// one by one
-		Connection connection = null;
-		
 		try {
-			connection = null;
-			// create a database connection
-			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+
+			// construct the recipe instance
 			Statement statement = connection.createStatement();
-			statement.setQueryTimeout(30); // set timeout to 30 sec.
+			ResultSet rs = statement.executeQuery("SELECT * FROM RecipeAndIngredients, RecipeIngredient, Recipe"
+					+ "WHERE RecipeAndIngredients.rID = Recipe.ID"
+					+ "AND RecipeIngredient.ID = RecipeAndIngredients.ingredientID"
+					+ "AND RecipeAndIngredients.rID = \'" + rid + "\'");
 
-			System.out.println("Start to execute SQL.");
-			//	get the same ingredient from storage ingredient
-			ResultSet rs = statement.executeQuery(
-					"select *" + 
-					"from StorageIngredient, RecipeIngredient, RecipeAndIngredients" + 
-					"WHERE StorageIngredient.name = RecipeIngredient.name" + 
-					"AND RecipeIngredient.ID = RecipeAndIngredients.rID" + 
-					"AND RecipeIngredient.ID = \'" + rid + "\'");
-			System.out.println("Select recipe ingredient success.");
+			// start to construct the recipe instance
+			int ingreNumber = rs.getFetchSize();
+			System.out.println("Recipe " + rid + "has " + ingreNumber + "ingredients.");
+
+			// the ingredient array part
+			RecipeIngredient[] recipeIngredient = new RecipeIngredient[ingreNumber];
+
+			int i = 0;
 			while (rs.next()) {
-				// if the current ingredient unit is not the same as storage ingredient unit
-				// make them unit the same to compare
-				if (!rs.getString("StorageIngredient.unit").equals(rs.getString("RecipeIngredient.unit"))) {
-					// construct the recipe ingredient
-					String name = rs.getString("RecipeIngredient.name");
-					String unit = rs.getString("RecipeIngredient.name");
-					double amount = rs.getDouble("RecipeIngredient.amount");
-					int id = rs.getInt("RecipeIngredient.ID");
+				recipeIngredient[i].setName(rs.getString("name"));
+				recipeIngredient[i].setAmount(rs.getFloat("amount"));
+				recipeIngredient[i].setUnit(rs.getString("unit"));
+				i++;
+			}
 
-					RecipeIngredient ingredient = new RecipeIngredient(name, amount, unit, id);
+			System.out.println("construct ingredient list finished.");
 
-					// convert the unit to storage ingredient unit
-					boolean convertR = ingredient.convertUnit(rs.getString("StorageIngredient.unit"));
+			// the recipe information part
+			ResultSet recipeInfo = statement.executeQuery("SELECT *" + "FROM Recipe" + "WHERE ID = \'" + rid + "\'");
 
-					// compare them
-					if (convertR == false) {
-						// raise an exception that the unit cannot be identified
-						// convert failed
-					} else {
-						if (rs.getDouble("StorageIngredient.amount") < ingredient.getAmount()) {
-							return false;
-						}
-					}
+			String recipeName = recipeInfo.getString("name");
+			double recipeQuantity = recipeInfo.getDouble("quantity");
+			String recipeUnit = recipeInfo.getString("unit");
+
+			// construct the recipe instance
+			Recipe recipe = new Recipe(recipeName, recipeQuantity, recipeUnit, recipeIngredient);
+			System.out.println("construct recipe " + rid + "finished.");
+			System.out.println("Construct recipe finished.");
+
+			// get the absolute converted ingredients information
+			boolean converR = recipe.convertValue(batchSize, "L");
+			if (!converR) {
+				System.out.println("Convert ingredients value to absolute value failed.");
+				return false;
+			}
+
+			// compare the recipe ingredients amount with corresponding storage ingredient
+			// one by one
+			System.out.println("Convert absolute value of ingredient finished.");
+
+			System.out.println("Convert recipe unit finished, start to prepare the ingredient one by one.");
+
+			// compare the amount of ingredient one by one
+			for (int i1 = 0; i1 < recipe.getIngredients().length; i1++) {
+				ResultSet rs1 = statement.executeQuery("SELECT *" + "FROM StorageIngredient, RecipeIngredient"
+						+ "WHERE StorageIngredient.name = \'" + recipe.getIngredients()[i1].getName() + "\'"
+						+ " AND RecipeIngredient.name = StorageIngredient.name");
+				// if units of the recipe ingredient and storage ingredient not same
+				// convert recipe ingredient unit
+				if (!recipe.getIngredients()[i1].getUnit().equals(rs1.getString("StorageIngredient.unit"))) {
+					recipe.getIngredients()[i1].convertUnit(rs1.getString("StorageIngredient.unit"));
 				}
-
-				System.out.println("StorageIngredient unit is: " + rs.getString("StorageIngredient.unit"));
-				System.out.println("Recipe ingredient unit is: " + rs.getString("RecipeIngredient.unit"));
-
-				// compare the recipe ingredient amount with storage ingredient amount
-				// if the storage ingredient is larger or equal, go to next iteration
-				// if the storage ingredient is smaller, return false directly
-				if (rs.getFloat("StorageIngredient.amount") < rs.getFloat("RecipeIngredient.amount")) {
+				// compare the amount
+				if (recipe.getIngredients()[i1].getAmount() > rs1.getDouble("StorageIngredient.amount")) {
 					return false;
 				}
 			}
@@ -203,28 +273,30 @@ public class Workbench {
 				System.err.println(e.getMessage());
 			}
 		}
-
+		// if none of the ingredients are unavailable, the recipe is available
 		return true;
 	}
 
 	// this method construct a recipe instance according to its id in database
-	public Recipe constructRecipe(int rid) {
-		Connection connection = null;
+	public Recipe constructRecipe(int rid, Connection connection) {
+		// Connection connection = null;
+		System.out.println("Start to construct recipe.");
 		try {
 
 			// create a database connection
-			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			// connection = DriverManager.getConnection("jdbc:sqlite:data.db");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
 
 			// get the recipe ingredients in database
-			ResultSet rs = statement.executeQuery(
-					"select * " + "FROM RecipeAndIngredients, ReicpeIngredient" + "WHERE RecipeAndIngredients = \' "
-							+ rid + '\'' + ", RecipeAndIngredients.ingredientID = RecipeIngredient.ID");
+			ResultSet rs = statement.executeQuery("SELECT *" + "FROM RecipeAndIngredients, RecipeIngredient, Recipe"
+					+ "WHERE RecipeAndIngredients.rID = Recipe.ID"
+					+ "AND RecipeIngredient.ID = RecipeAndIngredients.ingredientID"
+					+ "AND RecipeAndIngredients.rID = \'" + rid + "\'");
 
 			// start to construct the recipe instance
 			int ingreNumber = rs.getFetchSize();
-
+			System.out.println("Recipe " + rid + "has " + ingreNumber + "ingredients.");
 			// the ingredient array part
 			RecipeIngredient[] recipeIngredient = new RecipeIngredient[ingreNumber];
 
@@ -236,15 +308,18 @@ public class Workbench {
 				i++;
 			}
 
+			System.out.println("construct ingredient list finished.");
+
 			// the recipe information part
-			ResultSet recipeInfo = statement.executeQuery("SELECT * " + "FROM Recipe" + "WHERE ID = \'" + rid + "\'");
+			ResultSet recipeInfo = statement.executeQuery("SELECT *" + "FROM Recipe" + "WHERE ID = \'" + rid + "\'");
 
 			String recipeName = recipeInfo.getString("name");
-			float recipeQuantity = recipeInfo.getFloat("quantity");
+			double recipeQuantity = recipeInfo.getDouble("quantity");
 			String recipeUnit = recipeInfo.getString("unit");
 
 			// construct the recipe instance
 			Recipe recipe = new Recipe(recipeName, recipeQuantity, recipeUnit, recipeIngredient);
+			System.out.println("construct recipe " + rid + "finished.");
 			return recipe; // if none available, then false
 		} catch (SQLException e) {
 			// if the error message is "out of memory",

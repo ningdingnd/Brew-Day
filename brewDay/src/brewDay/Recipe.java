@@ -2,13 +2,13 @@ package brewDay;
 //This class is implemented by Chris and Jason
 public class Recipe {
 	private static String name;
-	private static float quantity;
+	private static double quantity;
 	private static String unit;
 	private static RecipeIngredient[] recipeIngredient;
 
-	public Recipe(String name, float quantity, String unit, RecipeIngredient[] recipeIngredient) {
+	public Recipe(String name, double recipeQuantity, String unit, RecipeIngredient[] recipeIngredient) {
 		this.unit = unit;
-		this.quantity = quantity;
+		this.quantity = recipeQuantity;
 		this.name = name;
 		this.recipeIngredient = recipeIngredient;
 	}
@@ -17,12 +17,20 @@ public class Recipe {
 		return this.name;
 	}
 
-	public float getQuantity() {	//	get quantity attribute of recipe
+	public double getQuantity() {	//	get quantity attribute of recipe
 		return this.quantity;	
+	}
+	
+	public void setQuantity(double nQuantity) {	//	set quantity to a new value
+		this.quantity = nQuantity;
 	}
 
 	public String getUnit() {	//	get unit attribute of recipe
 		return this.unit;
+	}
+	
+	public void setUnit(String nUnit) {	//	set unit to a new value
+		this.unit = nUnit;
 	}
 	
 
@@ -59,16 +67,54 @@ public class Recipe {
 	}
 
 	
-	public RecipeIngredient[] convertValue(double batchSize) {
-		RecipeIngredient[] conIngre= new RecipeIngredient[recipeIngredient.length];
+	//	this method convert the recipe ingredient value to the batch size user specified
+	public boolean convertValue(double batchSize, String b_unit) {
+		
+		System.out.println("start to convert quantity unit of recipe.");
+		//	test whether the recipe unit and target unit same or not
+		//	if not, convert unit first
+		if(!this.getUnit().equals(b_unit)) {
+			boolean result = this.convertQuantityUnit(b_unit);
+			if(!result) {
+				System.out.println("convert recipe unit failed.");
+				return false;
+			}
+		}
+		
+		System.out.println("convert unit of recipe finished, start to convert ingredient amount.");
+		
+		//	convert the recipe ingredient value to absolute value with batch size
 		for (int i = 0; i < recipeIngredient.length; i++) {
 		
-			conIngre[i].setName(recipeIngredient[i].getName());
 			//	convert the amount
-			conIngre[i].setAmount((batchSize / quantity) * recipeIngredient[i].getAmount());
+			this.getIngredients()[i].setAmount((batchSize / quantity) * recipeIngredient[i].getAmount());
 			
 		}
-		return conIngre;
+		System.out.println("convert all ingredient value to absolute value finishied.");
+		return true;
+	}
+	
+	
+	//	this method convert recipe quantity unit in this instance to value of target unit
+	//	the value of recipe ingredient will be changed too
+	public boolean convertQuantityUnit(String targetUnit) {
+		if (this.getUnit().equals("galon") && targetUnit.equals("L")) {
+			this.setQuantity(this.getQuantity() / 0.26417);
+		} else if (this.getUnit().equals("L") && targetUnit.equals("galon")) {
+			this.setQuantity(this.getQuantity() * 3.78541178);
+		} else if (this.getUnit().equals("mL") && targetUnit.equals("L")) {
+			this.setQuantity(this.getQuantity() * 0.001);
+		} else if (this.getUnit().equals("L") && targetUnit.equals("mL")) {
+			this.setQuantity(this.getQuantity() * 1000);
+		} else if (this.getUnit().equals("galon") && targetUnit.equals("mL")) {
+			this.setQuantity(this.getQuantity() / 0.26417 * 1000);
+		} else if (this.getUnit().equals("mL") && targetUnit.equals("galon")) {
+			this.setQuantity(this.getQuantity() * 0.001 * 3.78541178);
+		} else {
+			return false;
+		}
+		this.setUnit(targetUnit);
+		return true;
 	}
 /*
 	public ShoppingList produceShoppingList(){ 

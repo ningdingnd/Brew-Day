@@ -59,13 +59,13 @@ public class InputNameQuantityTextBox extends View{
 	private void initialize() {
 		frame = new JFrame();
 		frame.setVisible(true);
-		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JTextPane textPane = new JTextPane();
 		textPane.setText("Quantity:");
+		textPane.setEditable(false);
 		textPane.setFont(new Font("Tahoma", Font.BOLD, 17));
 		textPane.setBackground(SystemColor.menu);
 		textPane.setBounds(262, 290, 118, 38);
@@ -105,6 +105,7 @@ public class InputNameQuantityTextBox extends View{
 		
 		JTextPane txtpnName = new JTextPane();
 		txtpnName.setText("Name:");
+		txtpnName.setEditable(false);
 		txtpnName.setFont(new Font("Tahoma", Font.BOLD, 17));
 		txtpnName.setBackground(SystemColor.menu);
 		txtpnName.setBounds(284, 229, 96, 38);

@@ -104,6 +104,12 @@ public class Workbench {
 			int curr = -1;
 			int rid;
 			int ingreNum;
+
+			//array list to store available recipe and shopping list
+			ArrayList availableRecipe = new ArrayList();
+			availableRecipe.add("recipe");
+			ArrayList shoppList = new ArrayList();
+			shoppList.add("shoppingList");
 			
 			// for every recipe, check whether it is available one by one
 			while(curr++ < recipeNum) {
@@ -177,12 +183,8 @@ public class Workbench {
 				System.out.println("Convert absolute value of ingredient finished.");
 
 				System.out.println("Convert recipe unit finished, start to prepare the ingredient one by one.");
+				boolean available = true;
 
-				//array list to store available recipe and shopping list
-				ArrayList availableRecipe = new ArrayList();
-				availableRecipe.add("recipe");
-				ArrayList shoppList = new ArrayList();
-				shoppList.add("shoppingList");
 				// compare the amount of ingredient one by one
 				for (int i1 = 0; i1 < ingreNum; i1++) {
 					ResultSet rs1 = statement.executeQuery("SELECT * " + " FROM StorageIngredient, RecipeIngredient"
@@ -199,19 +201,27 @@ public class Workbench {
 					if (recipe.getIngredients()[i1].getAmount() > rs1.getDouble(2)) {
 						System.out.println(recipe.getIngredients()[i1].getName() + " not enough");
 						recipe.setQuantity(recipe.getIngredients()[i1].getAmount() - rs1.getDouble(2));
-						shoppList.add(recipe);
-					}else if((i1  + 1) == ingreNum){
-						availableRecipe.add(recipe);
+						available = false;	
+					// }else if((i1  + 1) == ingreNum){
+					// 	result = true;
 					}
 					System.out.println(recipe.getIngredients()[i1].getName() + " enough");
+				}	
+				if (available) {
+					availableRecipe.add(recipe);
+				} else {
+					shoppList.add(recipe);
 				}
-				
-				//to judge if there is available recipe
-				if (availableRecipe.size() <= 1)
-					result = shoppList;
-				else 
-					result = availableRecipe;
-				
+			}
+
+			//to judge if there is available recipe
+			if (availableRecipe.size() <= 1) {
+				result = shoppList;
+				System.out.print("shopping list");
+			}
+			else {
+				result = availableRecipe;
+				System.out.print("Available recipe");
 			}
 			// }
 			// return false; // if none available, then false
@@ -318,7 +328,6 @@ public class Workbench {
 		// if none of the ingredients are unavailable, the recipe is available
 		return true;
 	}
-
 
 	////////////from Eunice
 	public ArrayList getRecipe() {
@@ -506,6 +515,7 @@ public class Workbench {
 		}
 		return recipeAndIngrPack;
 	}
+
 
 
 	// test function

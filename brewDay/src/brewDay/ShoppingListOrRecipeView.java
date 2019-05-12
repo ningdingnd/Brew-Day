@@ -11,6 +11,8 @@ import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.concurrent.locks.Condition;
 
@@ -73,12 +75,12 @@ public class ShoppingListOrRecipeView extends View{
 		panel.add(btnGoBack);
 		
 		JPanel listPanel = new JPanel();
-		listPanel.setBackground(new Color(245, 222, 179));
-		listPanel.setBounds(10, 51, 814, 560);
+		listPanel.setBackground(new Color(245, 202, 179));
+		listPanel.setBounds(92, 56, 656, 520);
 		listPanel.setLayout(new GridLayout(0,1));
-		panel.add(listPanel);
-		ArrayList recipes = (ArrayList) shoppListRecipe.get(0);
-		ArrayList condition = (ArrayList) shoppListRecipe.get(1);
+		
+		ArrayList<Recipe> recipes = (ArrayList<Recipe>) shoppListRecipe.get(0);
+		ArrayList<Boolean> condition = (ArrayList<Boolean>) shoppListRecipe.get(1);
 		String genre = "shoppingList";
 		for (int j = 0; j < shoppListRecipe.size(); j++) {
 			if ((boolean)condition.get(j)) {
@@ -87,10 +89,15 @@ public class ShoppingListOrRecipeView extends View{
 			}
 		}
 		if (genre.equals("shoppingList")){
+			System.out.println("----shoppingList");
 			JTextPane shoppingListTextPane = new JTextPane();
 			shoppingListTextPane.setEditable(false);
-			shoppingListTextPane.setText("shopping list");
+			
+			shoppingListTextPane.setText("Shopping List");
+			shoppingListTextPane.setBackground(new Color(245, 222, 179));
+			shoppingListTextPane.setFont(new Font("Tahoma", Font.BOLD, 17));	
 			listPanel.add(shoppingListTextPane);
+			
 			int loopNum = shoppListRecipe.size();
 			System.out.print("loopNum"+loopNum);
 			
@@ -98,13 +105,29 @@ public class ShoppingListOrRecipeView extends View{
 				JButton recipeButton = new JButton();
 				recipeButton.setText(((Recipe)recipes.get(i)).getName());
 				listPanel.add(recipeButton);
+
+				recipeButton.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						// TODO Auto-generated method stub
+						frame.setVisible(false);
+						//w.addListener(editNote);
+						
+					}
+
+				});
 			}			
 
 		}
 		else if (genre.equals("recipe")) {
+			System.out.println("----Recipe List");
+
 			JTextPane recipeTextPane = new JTextPane();
 			recipeTextPane.setEditable(false);
-			recipeTextPane.setText("recipe");
+			recipeTextPane.setText("Recipe List");
+			recipeTextPane.setBackground(new Color(245, 222, 179));
+			recipeTextPane.setFont(new Font("Tahoma", Font.BOLD, 17));
 			listPanel.add(recipeTextPane);
 //			int loopNum = shoppListRecipe.size();
 //			System.out.print("loopNum:"+loopNum);
@@ -118,9 +141,23 @@ public class ShoppingListOrRecipeView extends View{
 					recipeButton.setForeground(new Color(255, 255, 255));
 					recipeButton.setBackground(new Color(255, 140, 0));
 					listPanel.add(recipeButton);
+					recipeButton.addActionListener(new ActionListener() {
+
+						@Override
+						public void actionPerformed(ActionEvent arg0) {
+							// TODO Auto-generated method stub
+							frame.setVisible(false);
+							//w.addListener(editNote);
+							
+						}
+
+					});
 				}
 			}			
+		} else {
+			System.out.println("----nothing");
 		}
+		panel.add(listPanel);
 	}
 
 	@Override

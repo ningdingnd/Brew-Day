@@ -113,9 +113,9 @@ public class Workbench {
 //			availableRecipe.add("recipe");
 //			ArrayList shoppList = new ArrayList();
 //			shoppList.add("shoppingList");
-			ArrayList recipes = new ArrayList(); // Object is Recipe
+			ArrayList<Recipe> recipes = new ArrayList<Recipe>(); // Object is Recipe
 			boolean available = true;
-			ArrayList condition = new ArrayList(); // Object is Boolean
+			ArrayList<Boolean> condition = new ArrayList<Boolean>(); // Object is Boolean
 			
 			// for every recipe, check whether it is available one by one
 			while(curr < recipeNum) {
@@ -218,7 +218,7 @@ public class Workbench {
 //							shoppListSingle.add(((Recipe)recipes.get(curr)).getName());
 //							System.out.println("false");
 						}
-						((Recipe)recipes.get(curr)).setQuantity(((Recipe)recipes.get(curr)).getIngredients()[i1].getAmount() - rs1.getDouble(2));
+						((Recipe)recipes.get(curr)).setQuantity(rs1.getDouble(2) - ((Recipe)recipes.get(curr)).getIngredients()[i1].getAmount());
 					}
 //					else if((i1  + 1) == ingreNum){
 //						availableRecipe.add(recipe);
@@ -255,16 +255,7 @@ public class Workbench {
 //			}
 			// }
 			
-			for (ArrayList<Object> list : result) {
-				for (Object o : list) {
-					if (o instanceof Recipe) {
-						Recipe rcp = (Recipe) o;
-						System.out.println("----" + rcp.getName());
-					} else {
-						Boolean b = (Boolean) o;
-					}
-				}
-			}
+
 			// return false; // if none available, then false
 		} catch (SQLException e) {
 			// if the error message is "out of memory",

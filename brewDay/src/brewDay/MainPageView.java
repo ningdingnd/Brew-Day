@@ -48,12 +48,14 @@ public class MainPageView extends View {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(new Color(245, 222, 179));
 		frame.setVisible(true);
 		frame.setBounds(100, 100, 1000, 657);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(245, 222, 179));
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel.setBounds(0, 0, 287, 611);
 		frame.getContentPane().add(panel);
@@ -69,6 +71,8 @@ public class MainPageView extends View {
 
 		//	equipment button add
 		JButton btnAdd = new JButton("add");
+		btnAdd.setBackground(new Color(255, 140, 0));
+		btnAdd.setForeground(new Color(255, 255, 255));
 		btnAdd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -83,6 +87,8 @@ public class MainPageView extends View {
 
 		//	equipment button modify
 		JButton btnModify = new JButton("update");
+		btnModify.setBackground(new Color(255, 140, 0));
+		btnModify.setForeground(new Color(255, 255, 255));
 		btnModify.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -94,6 +100,7 @@ public class MainPageView extends View {
 		panel.add(btnModify);
 
 		JButton btnWhatToBrew = new JButton("what to brew today");
+		btnWhatToBrew.setBackground(new Color(255, 215, 0));
 		btnWhatToBrew.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -110,6 +117,7 @@ public class MainPageView extends View {
 		
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(245, 222, 179));
 		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_1.setBounds(297, 463, 681, 148);
 		frame.getContentPane().add(panel_1);
@@ -118,6 +126,8 @@ public class MainPageView extends View {
 		
 		//	ingredient add
 		JButton button_4 = new JButton("add");
+		button_4.setBackground(new Color(255, 140, 0));
+		button_4.setForeground(new Color(255, 255, 255));
 		button_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -144,6 +154,8 @@ public class MainPageView extends View {
 		
 		//	ingredient delete
 		JButton btnDelete = new JButton("update");
+		btnDelete.setBackground(new Color(255, 140, 0));
+		btnDelete.setForeground(new Color(255, 255, 255));
 		btnDelete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -163,6 +175,7 @@ public class MainPageView extends View {
 		panel_1.add(textArea_3);
 
 		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(new Color(245, 222, 179));
 		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_2.setBounds(297, 0, 339, 452);
 		frame.getContentPane().add(panel_2);
@@ -171,6 +184,8 @@ public class MainPageView extends View {
 		
 		//	recipe update
 		JButton btnUpdate = new JButton("update");
+		btnUpdate.setBackground(new Color(255, 140, 0));
+		btnUpdate.setForeground(new Color(255, 255, 255));
 		btnUpdate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -187,6 +202,8 @@ public class MainPageView extends View {
 		panel_2.add(btnUpdate);
 
 		JButton recipeDelete = new JButton("delete");
+		recipeDelete.setBackground(new Color(255, 140, 0));
+		recipeDelete.setForeground(new Color(255, 255, 255));
 		recipeDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -196,6 +213,8 @@ public class MainPageView extends View {
 		panel_2.add(recipeDelete);
 
 		JButton recipeAdd = new JButton("add");
+		recipeAdd.setBackground(new Color(255, 140, 0));
+		recipeAdd.setForeground(new Color(255, 255, 255));
 		recipeAdd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -214,6 +233,7 @@ public class MainPageView extends View {
 		panel_2.add(textArea_1);
 
 		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(new Color(245, 222, 179));
 		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_3.setBounds(646, 0, 332, 452);
 		frame.getContentPane().add(panel_3);
@@ -222,6 +242,8 @@ public class MainPageView extends View {
 		
 		//	note update
 		JButton button_1 = new JButton("update");
+		button_1.setBackground(new Color(255, 140, 0));
+		button_1.setForeground(new Color(255, 255, 255));
 		button_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -235,6 +257,8 @@ public class MainPageView extends View {
 		
 		//	note delete
 		JButton button_2 = new JButton("delete");
+		button_2.setBackground(new Color(255, 140, 0));
+		button_2.setForeground(new Color(255, 255, 255));
 		button_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -248,6 +272,8 @@ public class MainPageView extends View {
 		
 		//	note add
 		JButton button_3 = new JButton("add");
+		button_3.setBackground(new Color(255, 140, 0));
+		button_3.setForeground(new Color(255, 255, 255));
 		button_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {

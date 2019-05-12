@@ -19,7 +19,6 @@ import javax.swing.ListSelectionModel;
 public class ShoppingListOrRecipeView extends View{
 	private ArrayList shoppListRecipe;
 	private JFrame frame;
-	private JTable table;
 	
 
 	/**
@@ -51,27 +50,47 @@ public class ShoppingListOrRecipeView extends View{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		frame = new JFrame();
 		frame.setVisible(true);
-		frame.setBounds(100, 100, 1000, 657);
+		frame.setBounds(100, 100, 847, 657);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.X_AXIS));
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(245, 222, 179));
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JButton btnGoBack = new JButton("go back");
+		btnGoBack.setForeground(new Color(255, 255, 255));
+		btnGoBack.setBackground(new Color(255, 140, 0));
 		btnGoBack.setBounds(10, 11, 136, 29);
 		btnGoBack.setFont(new Font("Tahoma", Font.BOLD, 17));
 		panel.add(btnGoBack);
 		
-		table = new JTable();
-		table.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		JPanel listPanel = new JPanel();
+		listPanel.setBackground(new Color(245, 222, 179));
+		listPanel.setBounds(10, 51, 814, 560);
+		panel.add(listPanel);
 		
-		table.setBounds(10, 61, 968, 550);
-		panel.add(table);
+		if (shoppListRecipe.get(0).equals("shoppingList")){
+			int loopNum = shoppListRecipe.size();
+			for (int i = 0; i < loopNum; i++) {
+				JButton recipeButton = new JButton();
+				recipeButton.setText((String)shoppListRecipe.get(i+1));
+				listPanel.add(recipeButton);
+			}			
+		}
+		else if (shoppListRecipe.get(0).equals("recipe")) {
+			int loopNum = shoppListRecipe.size();
+			for (int i = 0; i < loopNum; i++) {
+				JButton recipeButton = new JButton();
+				recipeButton.setText((String)shoppListRecipe.get(i+1));
+				listPanel.add(recipeButton);
+			}
+		}
 	}
 
 	@Override

@@ -81,14 +81,12 @@ public class InputBatchSizeView extends View{
 				//	check whether the batch size input is smaller than capacity of equipment
 				double batchSize = Integer.parseInt(textField.getText());
 				boolean equipAvailable = w.checkBatchSize(batchSize);
-				if(equipAvailable) {
-					
-					
-					System.out.println("Equipment is available");
+				if(equipAvailable) {		
 					//	check whether there is any recipe available according to batch size
 					ArrayList shoppListRecipe = w.checkBrewAvailable(batchSize);
+					//System.out.print("recipe name:"+((Recipe)shoppListRecipe.get(1)).getName());
 					new ShoppingListOrRecipeView(w, shoppListRecipe);
-						
+					frame.dispose();
 				}else {
 					System.out.println("Equipment not available");
 					//	show the dialog that the batch size cannot be larger than equipment capacity, unfinished

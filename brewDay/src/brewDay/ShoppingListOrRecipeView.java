@@ -10,7 +10,9 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.concurrent.locks.Condition;
 
 import javax.swing.JTextPane;
 import javax.swing.JTable;
@@ -42,8 +44,8 @@ public class ShoppingListOrRecipeView extends View{
 	 */
 	public ShoppingListOrRecipeView(Workbench w, ArrayList shoppListRecipe) {
 		super(w);
-		initialize();
 		this.shoppListRecipe = shoppListRecipe;
+		initialize();
 	}
 
 	/**
@@ -73,23 +75,51 @@ public class ShoppingListOrRecipeView extends View{
 		JPanel listPanel = new JPanel();
 		listPanel.setBackground(new Color(245, 222, 179));
 		listPanel.setBounds(10, 51, 814, 560);
+		listPanel.setLayout(new GridLayout(0,1));
 		panel.add(listPanel);
-		
-		if (shoppListRecipe.get(0).equals("shoppingList")){
+		ArrayList recipes = (ArrayList) shoppListRecipe.get(0);
+		ArrayList condition = (ArrayList) shoppListRecipe.get(1);
+		String genre = "shoppingList";
+		for (int j = 0; j < shoppListRecipe.size(); j++) {
+			if ((boolean)condition.get(j)) {
+				genre = "recipe";
+				break;
+			}
+		}
+		if (genre.equals("shoppingList")){
+			JTextPane shoppingListTextPane = new JTextPane();
+			shoppingListTextPane.setEditable(false);
+			shoppingListTextPane.setText("shopping list");
+			listPanel.add(shoppingListTextPane);
 			int loopNum = shoppListRecipe.size();
-			for (int i = 0; i < loopNum; i++) {
+			System.out.print("loopNum"+loopNum);
+			
+			for (int i = 0; i < recipes.size(); i++) {
 				JButton recipeButton = new JButton();
-				recipeButton.setText((String)shoppListRecipe.get(i+1));
+				recipeButton.setText(((Recipe)recipes.get(i)).getName());
 				listPanel.add(recipeButton);
 			}			
+
 		}
-		else if (shoppListRecipe.get(0).equals("recipe")) {
-			int loopNum = shoppListRecipe.size();
-			for (int i = 0; i < loopNum; i++) {
-				JButton recipeButton = new JButton();
-				recipeButton.setText((String)shoppListRecipe.get(i+1));
-				listPanel.add(recipeButton);
-			}
+		else if (genre.equals("recipe")) {
+			JTextPane recipeTextPane = new JTextPane();
+			recipeTextPane.setEditable(false);
+			recipeTextPane.setText("recipe");
+			listPanel.add(recipeTextPane);
+//			int loopNum = shoppListRecipe.size();
+//			System.out.print("loopNum:"+loopNum);
+			
+			for (int i = 0; i < recipes.size(); i++) {
+				if ((boolean)condition.get(i)) {
+					System.out.print(i);
+					JButton recipeButton = new JButton();
+					recipeButton.setText(((Recipe)recipes.get(i)).getName());
+					listPanel.add(recipeButton);
+					recipeButton.setForeground(new Color(255, 255, 255));
+					recipeButton.setBackground(new Color(255, 140, 0));
+					listPanel.add(recipeButton);
+				}
+			}			
 		}
 	}
 

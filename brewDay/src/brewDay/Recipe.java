@@ -1,10 +1,10 @@
 package brewDay;
 //This class is implemented by Chris and Jason
 public class Recipe {
-	private static String name;
-	private static double quantity;
-	private static String unit;
-	private static RecipeIngredient[] recipeIngredient;
+	private String name;
+	private double quantity;
+	private String unit;
+	private RecipeIngredient[] recipeIngredient;
 
 	public Recipe(String name, double recipeQuantity, String unit, RecipeIngredient[] recipeIngredient) {
 		this.unit = unit;

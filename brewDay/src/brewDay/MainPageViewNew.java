@@ -22,8 +22,10 @@ import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import java.awt.TextArea;
+import javax.swing.JScrollPane;
+import javax.swing.SpringLayout;
 
-public class MainPageView extends View {
+public class MainPageViewNew extends View {
 	private ArrayList<Controller> controllers;
 	private JFrame frame;
 
@@ -38,7 +40,7 @@ public class MainPageView extends View {
 	/**
 	 * Create the application.
 	 */
-	public MainPageView(Workbench w, ArrayList<Controller> controller) {
+	public MainPageViewNew(Workbench w, ArrayList<Controller> controller) {
 		super(w);
 		this.controllers = controller;
 		initialize();
@@ -60,18 +62,26 @@ public class MainPageView extends View {
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel.setBounds(0, 0, 287, 611);
 		frame.getContentPane().add(panel);
-		panel.setLayout(null);
+		SpringLayout sl_panel = new SpringLayout();
+		panel.setLayout(sl_panel);
 
 		
 		//	equipment text area
 		TextArea textArea = new TextArea();
+		sl_panel.putConstraint(SpringLayout.NORTH, textArea, 126, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, textArea, 10, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, textArea, 601, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, textArea, 277, SpringLayout.WEST, panel);
 		textArea.setFont(new Font("Arial", Font.PLAIN, 12));
 		textArea.setText("equipment");
-		textArea.setBounds(10, 126, 267, 475);
 		panel.add(textArea);
 
 		//	equipment button add
 		JButton btnAdd = new JButton("add");
+		sl_panel.putConstraint(SpringLayout.NORTH, btnAdd, 79, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, btnAdd, 10, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnAdd, 120, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, btnAdd, 123, SpringLayout.WEST, panel);
 		btnAdd.setBackground(new Color(255, 140, 0));
 		btnAdd.setForeground(new Color(255, 255, 255));
 		btnAdd.addMouseListener(new MouseAdapter() {
@@ -83,11 +93,14 @@ public class MainPageView extends View {
 			}
 		});
 		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnAdd.setBounds(10, 79, 113, 41);
 		panel.add(btnAdd);
 
 		//	equipment button modify
 		JButton btnModify = new JButton("update");
+		sl_panel.putConstraint(SpringLayout.NORTH, btnModify, 79, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, btnModify, 164, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnModify, 120, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, btnModify, 277, SpringLayout.WEST, panel);
 		btnModify.setBackground(new Color(255, 140, 0));
 		btnModify.setForeground(new Color(255, 255, 255));
 		btnModify.addMouseListener(new MouseAdapter() {
@@ -97,10 +110,13 @@ public class MainPageView extends View {
 			}
 		});
 		btnModify.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnModify.setBounds(164, 79, 113, 41);
 		panel.add(btnModify);
 
 		JButton btnWhatToBrew = new JButton("what to brew today");
+		sl_panel.putConstraint(SpringLayout.NORTH, btnWhatToBrew, 11, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, btnWhatToBrew, 10, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnWhatToBrew, 68, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, btnWhatToBrew, 277, SpringLayout.WEST, panel);
 		btnWhatToBrew.setBackground(new Color(255, 215, 0));
 		btnWhatToBrew.addMouseListener(new MouseAdapter() {
 			@Override
@@ -112,70 +128,13 @@ public class MainPageView extends View {
 			}
 		});
 		btnWhatToBrew.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnWhatToBrew.setBounds(10, 11, 267, 57);
 		panel.add(btnWhatToBrew);
-
-		
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(245, 222, 179));
-		panel_1.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel_1.setBounds(297, 463, 681, 148);
-		frame.getContentPane().add(panel_1);
-		panel_1.setLayout(null);
-
-		
-		//	ingredient add
-		JButton button_4 = new JButton("add");
-		button_4.setBackground(new Color(255, 140, 0));
-		button_4.setForeground(new Color(255, 255, 255));
-		
-		button_4.setFont(new Font("Tahoma", Font.BOLD, 17));
-		button_4.setBounds(574, 11, 97, 54);
-		panel_1.add(button_4);
-		
-		button_4.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				AddStorIngreView addIngre = new AddStorIngreView(w, (StorageIngredientController)controllers.get(0));
-				w.addListener(addIngre);
-				
-			}
-
-		});
-		
-
-		
-		//	ingredient delete
-		JButton btnDelete = new JButton("update");
-		btnDelete.setBackground(new Color(255, 140, 0));
-		btnDelete.setForeground(new Color(255, 255, 255));
-		btnDelete.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				new EnquipmentUpdateView(w);
-			}
-		});
-		btnDelete.setFont(new Font("Tahoma", Font.BOLD, 17));
-		btnDelete.setBounds(574, 76, 97, 54);
-		panel_1.add(btnDelete);
-
-		
-		//	ingredient text area
-		TextArea textArea_3 = new TextArea();
-		textArea_3.setText("ingredient text");
-		textArea_3.setFont(new Font("Arial", Font.PLAIN, 12));
-		textArea_3.setBounds(10, 10, 558, 128);
-		panel_1.add(textArea_3);
 
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(245, 222, 179));
 		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_2.setBounds(297, 0, 339, 452);
 		frame.getContentPane().add(panel_2);
-		panel_2.setLayout(null);
 
 		
 		//	recipe update
@@ -193,11 +152,20 @@ public class MainPageView extends View {
 				
 			}
 		});
-		btnUpdate.setBounds(10, 11, 104, 54);
+		SpringLayout sl_panel_2 = new SpringLayout();
+		sl_panel_2.putConstraint(SpringLayout.NORTH, btnUpdate, 11, SpringLayout.NORTH, panel_2);
+		sl_panel_2.putConstraint(SpringLayout.WEST, btnUpdate, 10, SpringLayout.WEST, panel_2);
+		sl_panel_2.putConstraint(SpringLayout.SOUTH, btnUpdate, 65, SpringLayout.NORTH, panel_2);
+		sl_panel_2.putConstraint(SpringLayout.EAST, btnUpdate, 114, SpringLayout.WEST, panel_2);
+		panel_2.setLayout(sl_panel_2);
 		btnUpdate.setFont(new Font("Tahoma", Font.BOLD, 17));
 		panel_2.add(btnUpdate);
 
 		JButton recipeDelete = new JButton("delete");
+		sl_panel_2.putConstraint(SpringLayout.NORTH, recipeDelete, 11, SpringLayout.NORTH, panel_2);
+		sl_panel_2.putConstraint(SpringLayout.WEST, recipeDelete, 225, SpringLayout.WEST, panel_2);
+		sl_panel_2.putConstraint(SpringLayout.SOUTH, recipeDelete, 65, SpringLayout.NORTH, panel_2);
+		sl_panel_2.putConstraint(SpringLayout.EAST, recipeDelete, 329, SpringLayout.WEST, panel_2);
 		recipeDelete.setBackground(new Color(255, 140, 0));
 		recipeDelete.setForeground(new Color(255, 255, 255));
 		recipeDelete.addActionListener(new ActionListener() {
@@ -205,10 +173,13 @@ public class MainPageView extends View {
 			}
 		});
 		recipeDelete.setFont(new Font("Tahoma", Font.BOLD, 17));
-		recipeDelete.setBounds(225, 11, 104, 54);
 		panel_2.add(recipeDelete);
 
 		JButton recipeAdd = new JButton("add");
+		sl_panel_2.putConstraint(SpringLayout.NORTH, recipeAdd, 11, SpringLayout.NORTH, panel_2);
+		sl_panel_2.putConstraint(SpringLayout.WEST, recipeAdd, 123, SpringLayout.WEST, panel_2);
+		sl_panel_2.putConstraint(SpringLayout.SOUTH, recipeAdd, 65, SpringLayout.NORTH, panel_2);
+		sl_panel_2.putConstraint(SpringLayout.EAST, recipeAdd, 209, SpringLayout.WEST, panel_2);
 		recipeAdd.setBackground(new Color(255, 140, 0));
 		recipeAdd.setForeground(new Color(255, 255, 255));
 		recipeAdd.addMouseListener(new MouseAdapter() {
@@ -218,14 +189,16 @@ public class MainPageView extends View {
 			}
 		});
 		recipeAdd.setFont(new Font("Tahoma", Font.BOLD, 17));
-		recipeAdd.setBounds(123, 11, 86, 54);
 		panel_2.add(recipeAdd);
 
 		//	recipe text area
 		TextArea textArea_1 = new TextArea();
+		sl_panel_2.putConstraint(SpringLayout.NORTH, textArea_1, 71, SpringLayout.NORTH, panel_2);
+		sl_panel_2.putConstraint(SpringLayout.WEST, textArea_1, 10, SpringLayout.WEST, panel_2);
+		sl_panel_2.putConstraint(SpringLayout.SOUTH, textArea_1, 442, SpringLayout.NORTH, panel_2);
+		sl_panel_2.putConstraint(SpringLayout.EAST, textArea_1, 329, SpringLayout.WEST, panel_2);
 		textArea_1.setText("recipe");
 		textArea_1.setFont(new Font("Arial", Font.PLAIN, 12));
-		textArea_1.setBounds(10, 71, 319, 371);
 		panel_2.add(textArea_1);
 
 		JPanel panel_3 = new JPanel();
@@ -233,7 +206,6 @@ public class MainPageView extends View {
 		panel_3.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_3.setBounds(646, 0, 332, 452);
 		frame.getContentPane().add(panel_3);
-		panel_3.setLayout(null);
 
 		
 		//	note update
@@ -246,13 +218,22 @@ public class MainPageView extends View {
 				new NoteListView(w);
 			}
 		});
+		SpringLayout sl_panel_3 = new SpringLayout();
+		sl_panel_3.putConstraint(SpringLayout.NORTH, button_1, 11, SpringLayout.NORTH, panel_3);
+		sl_panel_3.putConstraint(SpringLayout.WEST, button_1, 10, SpringLayout.WEST, panel_3);
+		sl_panel_3.putConstraint(SpringLayout.SOUTH, button_1, 65, SpringLayout.NORTH, panel_3);
+		sl_panel_3.putConstraint(SpringLayout.EAST, button_1, 114, SpringLayout.WEST, panel_3);
+		panel_3.setLayout(sl_panel_3);
 		button_1.setFont(new Font("Tahoma", Font.BOLD, 17));
-		button_1.setBounds(10, 11, 104, 54);
 		panel_3.add(button_1);
 
 		
 		//	note delete
 		JButton button_2 = new JButton("delete");
+		sl_panel_3.putConstraint(SpringLayout.NORTH, button_2, 11, SpringLayout.NORTH, panel_3);
+		sl_panel_3.putConstraint(SpringLayout.WEST, button_2, 225, SpringLayout.WEST, panel_3);
+		sl_panel_3.putConstraint(SpringLayout.SOUTH, button_2, 65, SpringLayout.NORTH, panel_3);
+		sl_panel_3.putConstraint(SpringLayout.EAST, button_2, 329, SpringLayout.WEST, panel_3);
 		button_2.setBackground(new Color(255, 140, 0));
 		button_2.setForeground(new Color(255, 255, 255));
 		button_2.addMouseListener(new MouseAdapter() {
@@ -262,12 +243,15 @@ public class MainPageView extends View {
 			}
 		});
 		button_2.setFont(new Font("Tahoma", Font.BOLD, 17));
-		button_2.setBounds(225, 11, 104, 54);
 		panel_3.add(button_2);
 
 		
 		//	note add
 		JButton button_3 = new JButton("add");
+		sl_panel_3.putConstraint(SpringLayout.NORTH, button_3, 11, SpringLayout.NORTH, panel_3);
+		sl_panel_3.putConstraint(SpringLayout.WEST, button_3, 123, SpringLayout.WEST, panel_3);
+		sl_panel_3.putConstraint(SpringLayout.SOUTH, button_3, 65, SpringLayout.NORTH, panel_3);
+		sl_panel_3.putConstraint(SpringLayout.EAST, button_3, 209, SpringLayout.WEST, panel_3);
 		button_3.setBackground(new Color(255, 140, 0));
 		button_3.setForeground(new Color(255, 255, 255));
 		button_3.addMouseListener(new MouseAdapter() {
@@ -277,14 +261,16 @@ public class MainPageView extends View {
 			}
 		});
 		button_3.setFont(new Font("Tahoma", Font.BOLD, 17));
-		button_3.setBounds(123, 11, 86, 54);
 		panel_3.add(button_3);
 		
 		//	note text area
 		TextArea textArea_2 = new TextArea();
+		sl_panel_3.putConstraint(SpringLayout.NORTH, textArea_2, 71, SpringLayout.NORTH, panel_3);
+		sl_panel_3.putConstraint(SpringLayout.WEST, textArea_2, 10, SpringLayout.WEST, panel_3);
+		sl_panel_3.putConstraint(SpringLayout.SOUTH, textArea_2, 442, SpringLayout.NORTH, panel_3);
+		sl_panel_3.putConstraint(SpringLayout.EAST, textArea_2, 329, SpringLayout.WEST, panel_3);
 		textArea_2.setText("recipe");
 		textArea_2.setFont(new Font("Arial", Font.PLAIN, 12));
-		textArea_2.setBounds(10, 71, 319, 371);
 		panel_3.add(textArea_2);
 
 	}

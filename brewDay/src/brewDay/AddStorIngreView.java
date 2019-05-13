@@ -46,7 +46,7 @@ public class AddStorIngreView extends View{
 				try {
 					Workbench w = new Workbench();
 					StorageIngredientController sc = new StorageIngredientController(w);
-					
+					AddStorIngreView v = new AddStorIngreView(w, sc);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

@@ -15,6 +15,7 @@ public class InputQuantityTextBox extends View{
 
 	private JFrame frame;
 	private JTextField textField;
+	private int id;
 
 	/**
 	 * Launch the application.
@@ -24,7 +25,8 @@ public class InputQuantityTextBox extends View{
 			public void run() {
 				try {
 					Workbench w = new Workbench();
-					InputQuantityTextBox window = new InputQuantityTextBox(w);
+					int id = 0;
+					InputQuantityTextBox window = new InputQuantityTextBox(w, id);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -35,9 +37,10 @@ public class InputQuantityTextBox extends View{
 	/**
 	 * Create the application.
 	 */
-	public InputQuantityTextBox(Workbench w) {
+	public InputQuantityTextBox(Workbench w, int id) {
 		super(w);
 		initialize();
+		this.id = id;
 	}
 
 	/**

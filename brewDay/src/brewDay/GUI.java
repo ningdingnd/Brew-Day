@@ -27,7 +27,7 @@ public class GUI {
 				EquipmentController ec = new EquipmentController(w);
 				controller.add(ec);
 				
-				MainPageView mv = new MainPageView(w, controller);
+				MainPageViewNew mv = new MainPageViewNew(w, controller);
 				
 				
 				

@@ -218,7 +218,7 @@ public class Workbench {
 //							shoppListSingle.add(((Recipe)recipes.get(curr)).getName());
 //							System.out.println("false");
 						}
-						((Recipe)recipes.get(curr)).setQuantity(rs1.getDouble(2) - ((Recipe)recipes.get(curr)).getIngredients()[i1].getAmount());
+						((Recipe)recipes.get(curr)).update(((Recipe)recipes.get(curr)).getIngredients()[i1].getName(),rs1.getDouble(2) - ((Recipe)recipes.get(curr)).getIngredients()[i1].getAmount());
 					}
 //					else if((i1  + 1) == ingreNum){
 //						availableRecipe.add(recipe);

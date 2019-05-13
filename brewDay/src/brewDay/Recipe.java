@@ -39,7 +39,7 @@ public class Recipe {
 	}
 
 	// update the recipe ingredient quantity only
-	public boolean update(String name, float newQuantity) {
+	public boolean update(String name, double newQuantity) {
 
 		// get the recipe ingredient list, find out the correct one
 		for (int i = 0; i < recipeIngredient.length; i++) {

@@ -17,7 +17,7 @@ import javax.swing.JTextPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class ShoppingListContentView extends View{
+public class RecipeContentView extends View{
 
 	private JFrame frame;
 	private Recipe recipe;
@@ -42,7 +42,7 @@ public class ShoppingListContentView extends View{
 	/**
 	 * Create the application.
 	 */
-	public ShoppingListContentView(Workbench w, Recipe recipe) {
+	public RecipeContentView(Workbench w, Recipe recipe) {
 		super(w);
 		this.recipe = recipe;
 		initialize();
@@ -86,26 +86,18 @@ public class ShoppingListContentView extends View{
 		textPane.setBounds(10, 51, 391, 31);
 		panel.add(textPane);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(245, 222, 179));
-		panel_1.setBounds(10, 83, 520, 343);
-		panel.add(panel_1);
-
-		JTextPane listTextPane = new JTextPane();
-		listTextPane.setEditable(false);
-		listTextPane.setBounds(0, 0, 520, 343);
+		JTextPane contentTextPane = new JTextPane();
+		contentTextPane.setBounds(10, 93, 520, 158);
+		panel.add(contentTextPane);
+		contentTextPane.setEditable(false);
+		contentTextPane.setFont(new Font("Arial", Font.PLAIN, 15));
 		String text = "";
 		for (int i = 0; i < recipe.getIngredients().length; i++) {
-			if (recipe.getIngredients()[i].getAmount() < 0) {
-				text += recipe.getIngredients()[i].getName() + ": " + recipe.getIngredients()[i].getAmount() + " " + recipe.getIngredients()[i].getUnit()+"\n";
-			}
+			text += recipe.getIngredients()[i].getName() + ": " + recipe.getIngredients()[i].getAmount() + " " + recipe.getIngredients()[i].getUnit()+"\n";
 		}
-		panel_1.setLayout(null);
-		listTextPane.setFont(new Font("Arial", Font.PLAIN, 15));
-		listTextPane.setText(text);
-		panel_1.add(listTextPane);
+		contentTextPane.setText(text);
 		
-		JButton btnSaveThisList = new JButton("save this list");
+		JButton btnSaveThisList = new JButton("brew");
 		btnSaveThisList.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -117,6 +109,13 @@ public class ShoppingListContentView extends View{
 		btnSaveThisList.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnSaveThisList.setBounds(155, 448, 220, 47);
 		panel.add(btnSaveThisList);
+		
+		JTextPane noteTextPane = new JTextPane();
+		noteTextPane.setFont(new Font("Arial", Font.PLAIN, 15));
+		noteTextPane.setEditable(false);
+		noteTextPane.setBounds(10, 274, 520, 158);
+		panel.add(noteTextPane);
+		
 	}
 
 	@Override

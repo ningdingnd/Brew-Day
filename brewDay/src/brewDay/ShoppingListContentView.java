@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JTextArea;
 
 public class ShoppingListContentView extends View{
 
@@ -54,7 +55,7 @@ public class ShoppingListContentView extends View{
 	private void initialize() {
 		frame = new JFrame();
 		frame.setVisible(true);
-		frame.setBounds(100, 100, 552, 552);
+		frame.setBounds(100, 100, 639, 581);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -62,61 +63,96 @@ public class ShoppingListContentView extends View{
 		panel.setBackground(new Color(245, 222, 179));
 		panel.setLayout(null);
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		panel.setBounds(0, 0, 540, 517);
+		panel.setBounds(0, 0, 621, 575);
 		frame.getContentPane().add(panel);
-		
-		JButton button = new JButton("Cancel");
-		button.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				frame.dispose();
-			}
-		});
-		button.setForeground(new Color(255, 255, 255));
-		button.setBackground(new Color(255, 140, 0));
-		button.setFont(new Font("Tahoma", Font.BOLD, 17));
-		button.setBounds(10, 11, 136, 29);
-		panel.add(button);
 		
 		textPane = new JTextPane();
 		textPane.setEditable(false);
-		textPane.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		textPane.setText("Shopping List for "+recipe.getName());
+		textPane.setFont(new Font("Tahoma", Font.BOLD, 17));
+		textPane.setText("Shopping List for "+"\""+recipe.getName()+"\"");
 		textPane.setBackground(new Color(245, 222, 179));
-		textPane.setBounds(10, 51, 391, 31);
+		textPane.setBounds(10, 11, 601, 31);
 		panel.add(textPane);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(245, 222, 179));
-		panel_1.setBounds(10, 83, 520, 343);
-		panel.add(panel_1);
-
 		JTextPane listTextPane = new JTextPane();
+		listTextPane.setBackground(new Color(255, 250, 205));
+		listTextPane.setBounds(10, 49, 602, 174);
+		panel.add(listTextPane);
 		listTextPane.setEditable(false);
-		listTextPane.setBounds(0, 0, 520, 343);
+		listTextPane.setFont(new Font("Arial", Font.PLAIN, 15));
 		String text = "";
 		for (int i = 0; i < recipe.getIngredients().length; i++) {
 			if (recipe.getIngredients()[i].getAmount() < 0) {
-				text += recipe.getIngredients()[i].getName() + ": " + recipe.getIngredients()[i].getAmount() + " " + recipe.getIngredients()[i].getUnit()+"\n";
+				text += recipe.getIngredients()[i].getName() + ": " + (-recipe.getIngredients()[i].getAmount()) + " " + recipe.getIngredients()[i].getUnit()+"\n";
 			}
 		}
-		panel_1.setLayout(null);
-		listTextPane.setFont(new Font("Arial", Font.PLAIN, 15));
 		listTextPane.setText(text);
-		panel_1.add(listTextPane);
 		
-		JButton btnSaveThisList = new JButton("save this list");
-		btnSaveThisList.addMouseListener(new MouseAdapter() {
+		JTextPane txtpnIngredientsYouAlready = new JTextPane();
+		txtpnIngredientsYouAlready.setText("Ingredients you already have:");
+		txtpnIngredientsYouAlready.setFont(new Font("Tahoma", Font.BOLD, 17));
+		txtpnIngredientsYouAlready.setEditable(false);
+		txtpnIngredientsYouAlready.setBackground(new Color(245, 222, 179));
+		txtpnIngredientsYouAlready.setBounds(11, 229, 601, 34);
+		panel.add(txtpnIngredientsYouAlready);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setWrapStyleWord(true);
+		textArea.setText("");
+		textArea.setLineWrap(true);
+		textArea.setFont(new Font("Arial", Font.PLAIN, 15));
+		textArea.setEditable(false);
+		textArea.setBackground(new Color(255, 250, 205));
+		textArea.setBounds(10, 266, 602, 108);
+		String text2 = "";
+		int i;
+		for (i = 0; i < recipe.getIngredients().length; i++) {
+			if (recipe.getIngredients()[i].getAmount() >= 0) {
+				text2 += recipe.getIngredients()[i].getName() + ": " + recipe.getIngredients()[i].getAmount() + " " + recipe.getIngredients()[i].getUnit()+"\n";
+			}
+		}
+		if (text2.equals(""))
+			text2 = "nothing";
+		textArea.setText(text2);
+		panel.add(textArea);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setLayout(null);
+		panel_2.setBorder(new LineBorder(new Color(255, 140, 0)));
+		panel_2.setBackground(new Color(245, 222, 179));
+		panel_2.setBounds(130, 399, 349, 128);
+		panel.add(panel_2);
+		
+		JTextPane txtpnSaveThisShopping = new JTextPane();
+		txtpnSaveThisShopping.setText("Save this shopping list?");
+		txtpnSaveThisShopping.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		txtpnSaveThisShopping.setBackground(new Color(245, 222, 179));
+		txtpnSaveThisShopping.setBounds(73, 17, 242, 25);
+		panel_2.add(txtpnSaveThisShopping);
+		
+		JButton btnSave = new JButton("save");
+		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
 			}
 		});
-		btnSaveThisList.setBackground(new Color(255, 140, 0));
-		btnSaveThisList.setForeground(new Color(255, 255, 255));
-		btnSaveThisList.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnSaveThisList.setBounds(155, 448, 220, 47);
-		panel.add(btnSaveThisList);
+		btnSave.setFont(new Font("Tahoma", Font.BOLD, 17));
+		btnSave.setBackground(new Color(255, 140, 0));
+		btnSave.setBounds(10, 65, 135, 40);
+		panel_2.add(btnSave);
+		
+		JButton button_1 = new JButton("cancel");
+		button_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				frame.dispose();
+			}
+		});
+		button_1.setFont(new Font("Tahoma", Font.BOLD, 17));
+		button_1.setBackground(new Color(255, 140, 0));
+		button_1.setBounds(209, 65, 128, 40);
+		panel_2.add(button_1);
 	}
 
 	@Override

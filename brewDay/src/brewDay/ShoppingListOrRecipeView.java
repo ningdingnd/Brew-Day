@@ -75,7 +75,7 @@ public class ShoppingListOrRecipeView extends View{
 		panel.add(btnGoBack);
 		
 		JPanel listPanel = new JPanel();
-		listPanel.setBackground(new Color(245, 202, 179));
+		listPanel.setBackground(new Color(245, 222, 179));
 		listPanel.setBounds(92, 56, 656, 520);
 		listPanel.setLayout(new GridLayout(0,1));
 		
@@ -103,15 +103,19 @@ public class ShoppingListOrRecipeView extends View{
 			
 			for (int i = 0; i < recipes.size(); i++) {
 				JButton recipeButton = new JButton();
-				recipeButton.setText(((Recipe)recipes.get(i)).getName());
+				recipeButton.setText(recipes.get(i).getName());
 				listPanel.add(recipeButton);
-
+				recipeButton.setForeground(new Color(255, 255, 255));
+				recipeButton.setBackground(new Color(255, 140, 0));
+				final Recipe recipe = recipes.get(i);
+				
 				recipeButton.addActionListener(new ActionListener() {
 
 					@Override
 					public void actionPerformed(ActionEvent arg0) {
+						new ShoppingListContentView(w, recipe);
 						// TODO Auto-generated method stub
-						frame.setVisible(false);
+						//frame.setVisible(false);
 						//w.addListener(editNote);
 						
 					}
@@ -129,8 +133,6 @@ public class ShoppingListOrRecipeView extends View{
 			recipeTextPane.setBackground(new Color(245, 222, 179));
 			recipeTextPane.setFont(new Font("Tahoma", Font.BOLD, 17));
 			listPanel.add(recipeTextPane);
-//			int loopNum = shoppListRecipe.size();
-//			System.out.print("loopNum:"+loopNum);
 			
 			for (int i = 0; i < recipes.size(); i++) {
 				if ((boolean)condition.get(i)) {

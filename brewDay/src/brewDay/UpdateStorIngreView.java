@@ -14,13 +14,12 @@ import java.awt.Color;
 import javax.swing.SpringLayout;
 import javax.swing.JLabel;
 
-public class updateEquipment extends View{
+public class UpdateStorIngreView extends View{
 
 	private JFrame frame;
-	private JTextField equipID;
 	private int id;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField updateQuantity;
+	private JTextField updateUnit;
 
 	/**
 	 * Launch the application.
@@ -31,7 +30,7 @@ public class updateEquipment extends View{
 				try {
 					Workbench w = new Workbench();
 					int id = 0;
-					updateEquipment window = new updateEquipment(w, id);
+					UpdateStorIngreView window = new UpdateStorIngreView(w, id);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -42,7 +41,7 @@ public class updateEquipment extends View{
 	/**
 	 * Create the application.
 	 */
-	public updateEquipment(Workbench w, int id) {
+	public UpdateStorIngreView(Workbench w, int id) {
 		super(w);
 		initialize();
 		this.id = id;
@@ -60,13 +59,6 @@ public class updateEquipment extends View{
 		SpringLayout springLayout = new SpringLayout();
 		frame.getContentPane().setLayout(springLayout);
 		
-		equipID = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, equipID, 128, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, equipID, -296, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, equipID, -151, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(equipID);
-		equipID.setColumns(10);
-		
 		JButton btnConfirm = new JButton("confirm");
 		springLayout.putConstraint(SpringLayout.WEST, btnConfirm, 246, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, btnConfirm, -359, SpringLayout.EAST, frame.getContentPane());
@@ -80,40 +72,32 @@ public class updateEquipment extends View{
 		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		frame.getContentPane().add(btnCancel);
 		
-		JLabel lblId = new JLabel("ID");
-		springLayout.putConstraint(SpringLayout.NORTH, lblId, 136, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, lblId, -508, SpringLayout.EAST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, equipID, 25, SpringLayout.EAST, lblId);
-		lblId.setFont(new Font("Calibri", Font.PLAIN, 18));
-		lblId.setForeground(new Color(0, 0, 0));
-		frame.getContentPane().add(lblId);
-		
-		textField = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, textField, 192, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, textField, 0, SpringLayout.WEST, equipID);
-		springLayout.putConstraint(SpringLayout.SOUTH, textField, 64, SpringLayout.SOUTH, equipID);
-		springLayout.putConstraint(SpringLayout.EAST, textField, 0, SpringLayout.EAST, equipID);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		updateQuantity = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, updateQuantity, 192, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, updateQuantity, -151, SpringLayout.EAST, frame.getContentPane());
+		frame.getContentPane().add(updateQuantity);
+		updateQuantity.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("quantity");
+		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel, 197, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblNewLabel, -508, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, updateQuantity, 25, SpringLayout.EAST, lblNewLabel);
 		lblNewLabel.setFont(new Font("Calibri", Font.PLAIN, 18));
-		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel, 38, SpringLayout.SOUTH, lblId);
-		springLayout.putConstraint(SpringLayout.EAST, lblNewLabel, -25, SpringLayout.WEST, textField);
 		frame.getContentPane().add(lblNewLabel);
 		
-		textField_1 = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, btnConfirm, 77, SpringLayout.SOUTH, textField_1);
-		springLayout.putConstraint(SpringLayout.SOUTH, textField_1, -168, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.NORTH, textField_1, 33, SpringLayout.SOUTH, textField);
-		springLayout.putConstraint(SpringLayout.WEST, textField_1, 0, SpringLayout.WEST, equipID);
-		springLayout.putConstraint(SpringLayout.EAST, textField_1, -151, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		updateUnit = new JTextField();
+		springLayout.putConstraint(SpringLayout.NORTH, updateUnit, 263, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, updateUnit, -151, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, updateQuantity, -33, SpringLayout.NORTH, updateUnit);
+		springLayout.putConstraint(SpringLayout.NORTH, btnConfirm, 77, SpringLayout.SOUTH, updateUnit);
+		springLayout.putConstraint(SpringLayout.SOUTH, updateUnit, -168, SpringLayout.SOUTH, frame.getContentPane());
+		frame.getContentPane().add(updateUnit);
+		updateUnit.setColumns(10);
 		
 		JLabel lblUnit = new JLabel("unit");
-		springLayout.putConstraint(SpringLayout.NORTH, lblUnit, 4, SpringLayout.NORTH, textField_1);
-		springLayout.putConstraint(SpringLayout.EAST, lblUnit, 0, SpringLayout.EAST, lblId);
+		springLayout.putConstraint(SpringLayout.EAST, lblUnit, -508, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, updateUnit, 25, SpringLayout.EAST, lblUnit);
+		springLayout.putConstraint(SpringLayout.NORTH, lblUnit, 4, SpringLayout.NORTH, updateUnit);
 		lblUnit.setFont(new Font("Calibri", Font.PLAIN, 18));
 		frame.getContentPane().add(lblUnit);
 		btnCancel.addActionListener(new ActionListener() {

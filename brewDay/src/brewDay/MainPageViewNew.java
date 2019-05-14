@@ -292,25 +292,8 @@ public class MainPageViewNew extends View {
 		springLayout.putConstraint(SpringLayout.EAST, panel_1, -18, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(panel_1);
 		
-		JScrollPane IngrePane = new JScrollPane();
-		frame.getContentPane().add(IngrePane);
-		SpringLayout sl_panel_1 = new SpringLayout();
-		panel_1.setLayout(sl_panel_1);
-		
-		String[] colNames = ((StorageIngredientController)controllers.get(0)).getColNames();
-		Object[][] equipData = ((StorageIngredientController)controllers.get(0)).getData(IngrePane);
-		IngrePane ingrePane = new IngrePane(controllers.get(0), equipData, colNames);
-		sl_panel_1.putConstraint(SpringLayout.WEST, ingrePane, 0, SpringLayout.WEST, panel_1);
-		sl_panel_1.putConstraint(SpringLayout.EAST, ingrePane, 661, SpringLayout.WEST, panel_1);
-		panel_1.add(ingrePane);
-		
-		
-		sl_panel_1.putConstraint(SpringLayout.NORTH, ingrePane, 0, SpringLayout.NORTH, panel_1);
-		sl_panel_1.putConstraint(SpringLayout.SOUTH, ingrePane, 0, SpringLayout.SOUTH, panel_1);
-		springLayout.putConstraint(SpringLayout.NORTH, ingrePane, 0, SpringLayout.NORTH, panel_1);
-		springLayout.putConstraint(SpringLayout.WEST, ingrePane, 0, SpringLayout.WEST, panel_1);
-		springLayout.putConstraint(SpringLayout.SOUTH, ingrePane, 10, SpringLayout.SOUTH, panel_1);
-		springLayout.putConstraint(SpringLayout.EAST, ingrePane, 1426, SpringLayout.EAST, panel_1);
+
+
 		
 		
 
@@ -363,10 +346,31 @@ public class MainPageViewNew extends View {
 		
 		
 		
+		JScrollPane StorageIngrePane = new JScrollPane();
+		frame.getContentPane().add(StorageIngrePane);
+		SpringLayout sl_panel_1 = new SpringLayout();
+		panel_1.setLayout(sl_panel_1);
 		
+		String[] colNames = ((StorageIngredientController)controllers.get(0)).getColNames();
+		Object[][] equipData = ((StorageIngredientController)controllers.get(0)).getData(frame);
+		IngrePane ingrePane = new IngrePane(controllers.get(0), equipData, colNames);
 		
 	
-
+		
+		
+		
+		
+		sl_panel_1.putConstraint(SpringLayout.WEST, ingrePane, 0, SpringLayout.WEST, panel_1);
+		sl_panel_1.putConstraint(SpringLayout.EAST, ingrePane, 661, SpringLayout.WEST, panel_1);
+		panel_1.add(ingrePane);
+		
+		
+		sl_panel_1.putConstraint(SpringLayout.NORTH, ingrePane, 0, SpringLayout.NORTH, panel_1);
+		sl_panel_1.putConstraint(SpringLayout.SOUTH, ingrePane, 0, SpringLayout.SOUTH, panel_1);
+		springLayout.putConstraint(SpringLayout.NORTH, ingrePane, 0, SpringLayout.NORTH, panel_1);
+		springLayout.putConstraint(SpringLayout.WEST, ingrePane, 0, SpringLayout.WEST, panel_1);
+		springLayout.putConstraint(SpringLayout.SOUTH, ingrePane, 10, SpringLayout.SOUTH, panel_1);
+		springLayout.putConstraint(SpringLayout.EAST, ingrePane, 1426, SpringLayout.EAST, panel_1);
 		
 		//TableDemo table = new TableDemo();
 		

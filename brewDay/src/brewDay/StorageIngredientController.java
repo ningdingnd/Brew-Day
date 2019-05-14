@@ -1,5 +1,7 @@
 package brewDay;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -9,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -31,7 +34,7 @@ public class StorageIngredientController extends Controller {
 		return this.w;
 	}
 
-	public Object[][] getData(JScrollPane panel) {
+	public Object[][] getData(JFrame frame) {
 
 		Object[][] data = null;
 		int ingreNum;
@@ -69,7 +72,6 @@ public class StorageIngredientController extends Controller {
 					else if(j == 3) {
 						data[i][j] = ingreInfo.getString("unit");
 					}
-					
 				}
 			}
 

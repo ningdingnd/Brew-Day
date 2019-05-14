@@ -18,12 +18,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import javax.swing.JComboBox;
 import java.awt.TextArea;
 
 public class MainPageView extends View {
-	private StorageIngredientController sc;
-
+	private ArrayList<Controller> controllers;
 	private JFrame frame;
 
 	/**
@@ -37,9 +38,9 @@ public class MainPageView extends View {
 	/**
 	 * Create the application.
 	 */
-	public MainPageView(Workbench w, StorageIngredientController sc) {
+	public MainPageView(Workbench w, ArrayList<Controller> controller) {
 		super(w);
-		this.sc = sc;
+		this.controllers = controller;
 		initialize();
 	}
 
@@ -128,28 +129,23 @@ public class MainPageView extends View {
 		JButton button_4 = new JButton("add");
 		button_4.setBackground(new Color(255, 140, 0));
 		button_4.setForeground(new Color(255, 255, 255));
-		button_4.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				new InputNameQuantityTextBox(w, sc);
-			}
-		});
+		
 		button_4.setFont(new Font("Tahoma", Font.BOLD, 17));
 		button_4.setBounds(574, 11, 97, 54);
 		panel_1.add(button_4);
-		/*
+		
 		button_4.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				InputNameQuantityTextBox addIngre = new InputNameQuantityTextBox(w, sc);
+				AddStorIngreView addIngre = new AddStorIngreView(w, (StorageIngredientController)controllers.get(0));
 				w.addListener(addIngre);
 				
 			}
 
 		});
-		*/
+		
 
 		
 		//	ingredient delete

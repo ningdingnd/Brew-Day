@@ -19,6 +19,8 @@ import java.util.concurrent.locks.Condition;
 import javax.swing.JTextPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ShoppingListOrRecipeView extends View{
 	private ArrayList shoppListRecipe;
@@ -68,6 +70,13 @@ public class ShoppingListOrRecipeView extends View{
 		panel.setLayout(null);
 		
 		JButton btnGoBack = new JButton("go back");
+		btnGoBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new InputBatchSizeView(w);
+				frame.dispose();
+			}
+		});
 		btnGoBack.setForeground(new Color(255, 255, 255));
 		btnGoBack.setBackground(new Color(255, 140, 0));
 		btnGoBack.setBounds(10, 11, 136, 29);
@@ -143,13 +152,13 @@ public class ShoppingListOrRecipeView extends View{
 					recipeButton.setForeground(new Color(255, 255, 255));
 					recipeButton.setBackground(new Color(255, 140, 0));
 					listPanel.add(recipeButton);
+					final Recipe recipe = recipes.get(i);
 					recipeButton.addActionListener(new ActionListener() {
 
 						@Override
 						public void actionPerformed(ActionEvent arg0) {
 							// TODO Auto-generated method stub
-							frame.setVisible(false);
-							//w.addListener(editNote);
+							new RecipeDetailsView(w, recipe);
 							
 						}
 

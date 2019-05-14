@@ -461,7 +461,41 @@ public class Workbench {
 		}
 		return recipeAndIngrPack;
 	}
-
+	
+	//get notes for recipe
+	public ArrayList<Note> getNote(Recipe recipe) {
+		// connect to database and get available recipe
+		Connection connection = null;
+		ArrayList<Note> arrayNote = new ArrayList<Note>();
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+	
+			// get note from recipe ID
+			ResultSet rsNoteID = statement.executeQuery("select distinct nID from Recipe where name = \"" + recipe.getName()+"\"");
+			while (rsNoteID.next()) {
+				Statement statement2 = connection.createStatement();
+				ResultSet rsNote = statement2.executeQuery("select content, createDate from Note where ID = "+ rsNoteID.getInt(1));
+				Note note = new Note(rsNote.getString("content"), rsNote.getString("createDate"));
+				arrayNote.add(note);
+			}
+		} catch (SQLException e) {	
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+			System.err.println(e.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				// connection close failed.
+				System.err.println(e.getMessage());
+			}
+		}
+		return arrayNote;
+	}
 
 	// test function
 	public static void testWorkbench() {

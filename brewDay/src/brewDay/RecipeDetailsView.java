@@ -15,32 +15,38 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class RecipeDetailsView extends View{
 
 	private JFrame frame;
+	private Recipe recipe;
+	private JTextPane textPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Workbench w = new Workbench();
-					RecipeDetailsView window = new RecipeDetailsView(w);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	/**
+//	 * Launch the application.
+//	 */
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Workbench w = new Workbench();
+//					RecipeDetailsView window = new RecipeDetailsView(w);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
 	 */
-	public RecipeDetailsView(Workbench w) {
+	public RecipeDetailsView(Workbench w, Recipe recipe) {
 		super(w);
+		this.recipe = recipe;
 		initialize();
 	}
 
@@ -60,18 +66,25 @@ public class RecipeDetailsView extends View{
 		recipeContentTextPane.setEditable(false);
 		recipeContentTextPane.setBackground(new Color(245, 222, 179));
 		recipeContentTextPane.setFont(new Font("Tahoma", Font.BOLD, 17));
-		recipeContentTextPane.setText("Content for (recipe name):");
+		recipeContentTextPane.setText("Content for "+recipe.getName()+":");
 		recipeContentTextPane.setBounds(30, 11, 626, 42);
 		frame.getContentPane().add(recipeContentTextPane);
 		
 		JTextArea recipeContentTextArea = new JTextArea();
+		recipeContentTextArea.setEditable(false);
 		recipeContentTextArea.setFont(new Font("Arial", Font.PLAIN, 15));
 		recipeContentTextArea.setBackground(new Color(255, 250, 205));
 		recipeContentTextArea.setBounds(30, 53, 602, 191);
 		//Automatically change line
 		recipeContentTextArea.setLineWrap(true);
 		recipeContentTextArea.setWrapStyleWord(true);
-		frame.getContentPane().add(recipeContentTextArea);
+		//set content
+		String text = "";
+		for (int i = 0; i < recipe.getIngredients().length; i++) {
+			text += recipe.getIngredients()[i].getName() + ": " + recipe.getIngredients()[i].getAmount() + " " + recipe.getIngredients()[i].getUnit()+"\n";
+		}
+		recipeContentTextArea.setText(text);
+		frame.getContentPane().add(recipeContentTextArea);		
 		
 		JTextPane notesTextPane = new JTextPane();
 		notesTextPane.setEditable(false);
@@ -82,12 +95,20 @@ public class RecipeDetailsView extends View{
 		frame.getContentPane().add(notesTextPane);
 		
 		JTextArea notesTextArea = new JTextArea();
+		notesTextArea.setEditable(false);
 		notesTextArea.setFont(new Font("Arial", Font.PLAIN, 15));
 		notesTextArea.setBackground(new Color(255, 250, 205));
 		notesTextArea.setBounds(30, 285, 602, 108);
 		//Automatically change line
 		notesTextArea.setLineWrap(true);
 		notesTextArea.setWrapStyleWord(true);
+		//set notes
+		ArrayList<Note> note = w.getNote(recipe);
+		String noteString = "";
+		for (int i = 0; i < note.size(); i++) {
+			noteString += "(" + note.get(i).getDate() + ") " + note.get(i).getContent() + "\n";			
+		}
+		notesTextArea.setText(noteString);		
 		frame.getContentPane().add(notesTextArea);
 		
 		JPanel panel = new JPanel();
@@ -105,12 +126,24 @@ public class RecipeDetailsView extends View{
 		panel.add(txtpnMakerecipeName);
 		
 		JButton btnNewButton = new JButton("confirm");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+			}
+		});
 		btnNewButton.setBackground(new Color(255, 140, 0));
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btnNewButton.setBounds(10, 65, 135, 40);
 		panel.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("cancel");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				frame.dispose();
+			}
+		});
 		btnNewButton_1.setBackground(new Color(255, 140, 0));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

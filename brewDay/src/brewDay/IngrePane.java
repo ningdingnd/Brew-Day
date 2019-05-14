@@ -39,7 +39,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 
 import java.awt.Dimension;
@@ -55,10 +58,21 @@ public class IngrePane extends JPanel {
     	
         super(new GridLayout(1,0));
         
-
-        JTable table = new JTable(new IngreTable(c ,data, colNames));
+        DefaultTableModel ingreTable = new  DefaultTableModel(data, colNames);
+        JTable table = new JTable(ingreTable);
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
         table.setFillsViewportHeight(true);
+        
+        ingreTable.addTableModelListener(new TableModelListener() {
+
+			@Override
+			public void tableChanged(TableModelEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+        	
+        });
+        
         
 
         //Create the scroll pane and add the table to it.
@@ -66,68 +80,8 @@ public class IngrePane extends JPanel {
 
         //Add the scroll pane to this panel.
         add(scrollPane);
+        
     }
 
-    class IngreTable extends AbstractTableModel {
-    	private StorageIngredientController c;
-    	private int ingreNum;
-    	private String[] columnNames;
-        private Object[][] data;
-
-        public IngreTable(Controller c2, Object[][] data, String[] colNames) {
-			// TODO Auto-generated constructor stub
-        	super();
-        	this.c = (StorageIngredientController) c2;
-        	this.data = data;
-        	this.columnNames = colNames;
-		}
-
-		public int getColumnCount() {
-            return columnNames.length;
-        }
-
-        public int getRowCount() {
-            return data.length;
-        }
-
-        public String getColumnName(int col) {
-            return columnNames[col];
-        }
-
-        public Object getValueAt(int row, int col) {
-            return data[row][col];
-        }
-
-
-    }
-
-    /**
-     * Create the GUI and show it.  For thread safety,
-     * this method should be invoked from the
-     * event-dispatching thread.
-     */
-    private static void createAndShowGUI() {
-        //Create and set up the window.
-        JFrame frame = new JFrame("TableDemo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        //Create and set up the content pane.
-        TableDemo newContentPane = new TableDemo();
-        newContentPane.setOpaque(true); //content panes must be opaque
-        frame.setContentPane(newContentPane);
-
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        //Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
-    }
+  
 }

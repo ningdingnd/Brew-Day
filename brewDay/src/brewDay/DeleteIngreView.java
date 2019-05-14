@@ -13,43 +13,31 @@ import javax.swing.JTextPane;
 import java.awt.Color;
 import javax.swing.SpringLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
 
-public class deleteIngreView extends View{
+public class DeleteIngreView extends View{
 
 	private JFrame frame;
-	private JTextField ingreName;
-	private int id;
+	
+	private StorageIngredientController c;
+	private Object[][] data;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Workbench w = new Workbench();
-					int id = 0;
-					deleteIngreView window = new deleteIngreView(w, id);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
-	public deleteIngreView(Workbench w, int id) {
+	public DeleteIngreView(Workbench w, StorageIngredientController c, Object[][] data) {
 		super(w);
-		initialize();
-		this.id = id;
+		initialize(data);
+		this.c = c;
+		this.data = data;
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(Object[][] data) {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(245, 222, 179));
 		frame.setVisible(true);
@@ -58,16 +46,7 @@ public class deleteIngreView extends View{
 		SpringLayout springLayout = new SpringLayout();
 		frame.getContentPane().setLayout(springLayout);
 		
-		ingreName = new JTextField();
-		springLayout.putConstraint(SpringLayout.NORTH, ingreName, 187, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, ingreName, 262, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, ingreName, -237, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, ingreName, -146, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(ingreName);
-		ingreName.setColumns(10);
-		
 		JButton btnConfirm = new JButton("confirm");
-		springLayout.putConstraint(SpringLayout.NORTH, btnConfirm, 87, SpringLayout.SOUTH, ingreName);
 		springLayout.putConstraint(SpringLayout.WEST, btnConfirm, 197, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, btnConfirm, -408, SpringLayout.EAST, frame.getContentPane());
 		btnConfirm.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -81,11 +60,27 @@ public class deleteIngreView extends View{
 		frame.getContentPane().add(btnCancel);
 		
 		JLabel nameLable = new JLabel("Name");
-		springLayout.putConstraint(SpringLayout.NORTH, nameLable, 8, SpringLayout.NORTH, ingreName);
-		springLayout.putConstraint(SpringLayout.EAST, nameLable, -47, SpringLayout.WEST, ingreName);
+		springLayout.putConstraint(SpringLayout.NORTH, nameLable, 195, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, nameLable, -525, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, btnConfirm, 94, SpringLayout.SOUTH, nameLable);
 		nameLable.setFont(new Font("Calibri", Font.PLAIN, 18));
 		nameLable.setForeground(new Color(0, 0, 0));
 		frame.getContentPane().add(nameLable);
+		
+		
+		//	get ingredient data
+		String[] names = new String[data.length];
+		
+		for(int i = 0; i < data.length; i++) {
+			names[i] = (String)data[i][1];
+		}
+		JComboBox nameCombo = new JComboBox(names);
+		
+		springLayout.putConstraint(SpringLayout.NORTH, nameCombo, -18, SpringLayout.NORTH, nameLable);
+		springLayout.putConstraint(SpringLayout.WEST, nameCombo, 32, SpringLayout.EAST, nameLable);
+		springLayout.putConstraint(SpringLayout.SOUTH, nameCombo, -77, SpringLayout.NORTH, btnConfirm);
+		springLayout.putConstraint(SpringLayout.EAST, nameCombo, 6, SpringLayout.EAST, btnCancel);
+		frame.getContentPane().add(nameCombo);
 		btnCancel.addActionListener(new ActionListener() {
 
 			@Override
@@ -93,6 +88,30 @@ public class deleteIngreView extends View{
 				// TODO Auto-generated method stub
 				frame.setVisible(false);
 				//w.addListener(editNote);
+				
+			}
+
+		});
+		
+		btnConfirm.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+				boolean result = c.deleteIngre((String)nameCombo.getSelectedItem());
+				if(result == true) {
+					frame.setVisible(false);	//	close the input window
+					
+					//	give a success window
+					JOptionPane.showMessageDialog(null, "Delete success.", "Result", JOptionPane.PLAIN_MESSAGE);
+					System.out.println("jump to success box.");
+						
+					//	a success box,	then return to main
+				}
+				else {
+					System.out.println("jump to failed box.");
+				}
 				
 			}
 

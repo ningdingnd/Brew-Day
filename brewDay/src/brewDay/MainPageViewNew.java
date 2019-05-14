@@ -314,7 +314,7 @@ public class MainPageViewNew extends View {
 		ingreUpdate.setFont(new Font("Calibri", Font.PLAIN, 22));
 		frame.getContentPane().add(ingreUpdate);
 		
-		
+
 		
 		
 		JLabel lblStorageIngredients = new JLabel("Storage Ingredients");
@@ -352,11 +352,36 @@ public class MainPageViewNew extends View {
 		panel_1.setLayout(sl_panel_1);
 		
 		String[] colNames = ((StorageIngredientController)controllers.get(0)).getColNames();
-		Object[][] equipData = ((StorageIngredientController)controllers.get(0)).getData(frame);
-		IngrePane ingrePane = new IngrePane(controllers.get(0), equipData, colNames);
+		Object[][] ingreData = ((StorageIngredientController)controllers.get(0)).getData();
+		IngrePane ingrePane = new IngrePane(controllers.get(0), ingreData, colNames);
 		
+		for(int i = 0; i < ingreData.length; i++) {
+			System.out.println((String)ingreData[i][1]);
+		}
 	
+		ingreUpdate.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				UpdateStorIngreView updateIngreWindow = new UpdateStorIngreView(w, (StorageIngredientController)controllers.get(0), ingreData);
+				w.addListener(updateIngreWindow);
+				
+			}
+
+		});
 		
+		ingreDelete.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				DeleteIngreView deleteIngreWindow = new DeleteIngreView(w, (StorageIngredientController)controllers.get(0), ingreData);
+				w.addListener(deleteIngreWindow);
+				
+			}
+
+		});
 		
 		
 		
@@ -371,6 +396,19 @@ public class MainPageViewNew extends View {
 		springLayout.putConstraint(SpringLayout.WEST, ingrePane, 0, SpringLayout.WEST, panel_1);
 		springLayout.putConstraint(SpringLayout.SOUTH, ingrePane, 10, SpringLayout.SOUTH, panel_1);
 		springLayout.putConstraint(SpringLayout.EAST, ingrePane, 1426, SpringLayout.EAST, panel_1);
+		
+		JButton refreshIngre = new JButton("Refresh");
+		refreshIngre.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		refreshIngre.setForeground(new Color(255, 255, 255));
+		refreshIngre.setBackground(new Color(255, 127, 80));
+		refreshIngre.setFont(new Font("Calibri", Font.PLAIN, 15));
+		springLayout.putConstraint(SpringLayout.SOUTH, refreshIngre, 0, SpringLayout.SOUTH, lblStorageIngredients);
+		springLayout.putConstraint(SpringLayout.EAST, refreshIngre, -25, SpringLayout.WEST, ingreAdd);
+		frame.getContentPane().add(refreshIngre);
 		
 		//TableDemo table = new TableDemo();
 		

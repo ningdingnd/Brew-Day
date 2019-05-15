@@ -59,62 +59,25 @@ public class MainPageViewNew extends View {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(245, 222, 179));
 		frame.setVisible(true);
-		frame.setBounds(100, 100, 1010, 815);
+		frame.setBounds(100, 100, 1010, 764);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
 		frame.getContentPane().setLayout(springLayout);
 
 		JPanel equipPanel = new JPanel();
-		springLayout.putConstraint(SpringLayout.NORTH, equipPanel, 10, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, equipPanel, 4, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, equipPanel, -38, SpringLayout.SOUTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.NORTH, equipPanel, 20, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, equipPanel, 10, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, equipPanel, -27, SpringLayout.SOUTH, frame.getContentPane());
 		equipPanel.setBackground(new Color(245, 222, 179));
 		equipPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		frame.getContentPane().add(equipPanel);
 		SpringLayout sl_equipPanel = new SpringLayout();
 		equipPanel.setLayout(sl_equipPanel);
 
-		//	equipment button add
-		JButton btnAdd = new JButton("add");
-		sl_equipPanel.putConstraint(SpringLayout.SOUTH, btnAdd, -598, SpringLayout.SOUTH, equipPanel);
-		sl_equipPanel.putConstraint(SpringLayout.EAST, btnAdd, 75, SpringLayout.WEST, equipPanel);
-		sl_equipPanel.putConstraint(SpringLayout.WEST, btnAdd, 10, SpringLayout.WEST, equipPanel);
-		btnAdd.setBackground(new Color(255, 140, 0));
-		btnAdd.setForeground(new Color(255, 255, 255));
-		btnAdd.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				InputNameCapacityTextBox addEquip = new InputNameCapacityTextBox(w);
-				w.addListener(addEquip);
-			}
-		});
-		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 17));
-		equipPanel.add(btnAdd);
-
-		//	equipment button modify
-		JButton btnModify = new JButton("update");
-		sl_equipPanel.putConstraint(SpringLayout.WEST, btnModify, 6, SpringLayout.EAST, btnAdd);
-		sl_equipPanel.putConstraint(SpringLayout.SOUTH, btnModify, -599, SpringLayout.SOUTH, equipPanel);
-		sl_equipPanel.putConstraint(SpringLayout.EAST, btnModify, 174, SpringLayout.WEST, equipPanel);
-		btnModify.setBackground(new Color(255, 140, 0));
-		btnModify.setForeground(new Color(255, 255, 255));
-		btnModify.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				new EnquipmentUpdateView(w);
-			}
-		});
-		btnModify.setFont(new Font("Tahoma", Font.BOLD, 17));
-		equipPanel.add(btnModify);
-
 		JButton btnWhatToBrew = new JButton("what to brew today");
-		sl_equipPanel.putConstraint(SpringLayout.NORTH, btnModify, 11, SpringLayout.SOUTH, btnWhatToBrew);
-		sl_equipPanel.putConstraint(SpringLayout.NORTH, btnAdd, 11, SpringLayout.SOUTH, btnWhatToBrew);
-		sl_equipPanel.putConstraint(SpringLayout.NORTH, btnWhatToBrew, 11, SpringLayout.NORTH, equipPanel);
+		sl_equipPanel.putConstraint(SpringLayout.NORTH, btnWhatToBrew, 10, SpringLayout.NORTH, equipPanel);
 		sl_equipPanel.putConstraint(SpringLayout.WEST, btnWhatToBrew, 10, SpringLayout.WEST, equipPanel);
-		sl_equipPanel.putConstraint(SpringLayout.SOUTH, btnWhatToBrew, 68, SpringLayout.NORTH, equipPanel);
-		sl_equipPanel.putConstraint(SpringLayout.EAST, btnWhatToBrew, 277, SpringLayout.WEST, equipPanel);
+		sl_equipPanel.putConstraint(SpringLayout.EAST, btnWhatToBrew, -1, SpringLayout.EAST, equipPanel);
 		btnWhatToBrew.setBackground(new Color(255, 215, 0));
 		btnWhatToBrew.addMouseListener(new MouseAdapter() {
 			@Override
@@ -129,7 +92,7 @@ public class MainPageViewNew extends View {
 		equipPanel.add(btnWhatToBrew);
 
 		JPanel panel_2 = new JPanel();
-		springLayout.putConstraint(SpringLayout.EAST, equipPanel, -6, SpringLayout.WEST, panel_2);
+		springLayout.putConstraint(SpringLayout.EAST, equipPanel, -7, SpringLayout.WEST, panel_2);
 		springLayout.putConstraint(SpringLayout.SOUTH, panel_2, 452, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, panel_2, 637, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.NORTH, panel_2, 0, SpringLayout.NORTH, frame.getContentPane());
@@ -279,8 +242,8 @@ public class MainPageViewNew extends View {
 		panel_3.add(textArea_2);
 		
 		JPanel ingrePanel = new JPanel();
-		springLayout.putConstraint(SpringLayout.WEST, ingrePanel, 18, SpringLayout.EAST, equipPanel);
-		springLayout.putConstraint(SpringLayout.SOUTH, ingrePanel, 0, SpringLayout.SOUTH, equipPanel);
+		springLayout.putConstraint(SpringLayout.WEST, ingrePanel, 19, SpringLayout.EAST, equipPanel);
+		springLayout.putConstraint(SpringLayout.SOUTH, ingrePanel, -38, SpringLayout.SOUTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, ingrePanel, -18, SpringLayout.EAST, frame.getContentPane());
 		frame.getContentPane().add(ingrePanel);
 		
@@ -294,7 +257,6 @@ public class MainPageViewNew extends View {
 		JButton ingreDelete = new JButton("Delete");
 		springLayout.putConstraint(SpringLayout.NORTH, ingrePanel, 6, SpringLayout.SOUTH, ingreDelete);
 		springLayout.putConstraint(SpringLayout.NORTH, ingreDelete, 33, SpringLayout.SOUTH, panel_3);
-		springLayout.putConstraint(SpringLayout.WEST, ingreDelete, 473, SpringLayout.EAST, equipPanel);
 		ingreDelete.setFont(new Font("Calibri", Font.PLAIN, 22));
 		ingreDelete.setForeground(new Color(255, 140, 0));
 		frame.getContentPane().add(ingreDelete);
@@ -311,16 +273,7 @@ public class MainPageViewNew extends View {
 		
 		JLabel lblStorageIngredients = new JLabel("Storage Ingredients");
 		springLayout.putConstraint(SpringLayout.NORTH, lblStorageIngredients, 2, SpringLayout.NORTH, ingreDelete);
-		springLayout.putConstraint(SpringLayout.WEST, lblStorageIngredients, 21, SpringLayout.EAST, equipPanel);
-		
-		JButton btnDelete = new JButton("Delete");
-		sl_equipPanel.putConstraint(SpringLayout.NORTH, btnDelete, 17, SpringLayout.SOUTH, btnWhatToBrew);
-		sl_equipPanel.putConstraint(SpringLayout.WEST, btnDelete, 7, SpringLayout.EAST, btnModify);
-		sl_equipPanel.putConstraint(SpringLayout.SOUTH, btnDelete, -601, SpringLayout.SOUTH, equipPanel);
-		sl_equipPanel.putConstraint(SpringLayout.EAST, btnDelete, -11, SpringLayout.EAST, equipPanel);
-		btnDelete.setBackground(new Color(255, 127, 80));
-		btnDelete.setForeground(Color.WHITE);
-		equipPanel.add(btnDelete);
+		springLayout.putConstraint(SpringLayout.WEST, lblStorageIngredients, 22, SpringLayout.EAST, equipPanel);
 		
 		
 		/******* set equipment table************/
@@ -329,21 +282,83 @@ public class MainPageViewNew extends View {
 		Object[][] equipData = ((EquipmentController)controllers.get(1)).getData();
 		String[] equipColNames = ((EquipmentController)controllers.get(1)).getColNames();
 		TablePane equipInfoPane = new TablePane(controllers.get(1), equipData, equipColNames);
-		sl_equipPanel.putConstraint(SpringLayout.NORTH, equipInfoPane, 31, SpringLayout.SOUTH, btnAdd);
-		sl_equipPanel.putConstraint(SpringLayout.WEST, equipInfoPane, 22, SpringLayout.WEST, equipPanel);
-		sl_equipPanel.putConstraint(SpringLayout.SOUTH, equipInfoPane, 528, SpringLayout.SOUTH, btnAdd);
-		sl_equipPanel.putConstraint(SpringLayout.EAST, equipInfoPane, 257, SpringLayout.WEST, equipPanel);
+		sl_equipPanel.putConstraint(SpringLayout.NORTH, equipInfoPane, 143, SpringLayout.NORTH, equipPanel);
+		sl_equipPanel.putConstraint(SpringLayout.WEST, equipInfoPane, 10, SpringLayout.WEST, equipPanel);
+		sl_equipPanel.putConstraint(SpringLayout.SOUTH, equipInfoPane, -11, SpringLayout.SOUTH, equipPanel);
+		sl_equipPanel.putConstraint(SpringLayout.EAST, equipInfoPane, -10, SpringLayout.EAST, equipPanel);
 		equipPanel.add(equipInfoPane);
 		
+		JButton equipAdd = new JButton("Add");
+		sl_equipPanel.putConstraint(SpringLayout.SOUTH, btnWhatToBrew, -43, SpringLayout.NORTH, equipAdd);
+		sl_equipPanel.putConstraint(SpringLayout.WEST, equipAdd, 0, SpringLayout.WEST, btnWhatToBrew);
+		sl_equipPanel.putConstraint(SpringLayout.SOUTH, equipAdd, -6, SpringLayout.NORTH, equipInfoPane);
+		equipAdd.setBackground(new Color(255, 127, 80));
+		equipAdd.setForeground(new Color(255, 255, 255));
+		equipAdd.setFont(new Font("Calibri", Font.PLAIN, 15));
+		equipPanel.add(equipAdd);
 		
+		equipAdd.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				AddEquipmentView addEquip = new AddEquipmentView(w, (EquipmentController)controllers.get(1));
+				w.addListener(addEquip);
+				
+			}
+
+		});
+		
+		JButton equipUpdate = new JButton("Update");
+		sl_equipPanel.putConstraint(SpringLayout.WEST, equipUpdate, 23, SpringLayout.EAST, equipAdd);
+		sl_equipPanel.putConstraint(SpringLayout.SOUTH, equipUpdate, -6, SpringLayout.NORTH, equipInfoPane);
+		equipUpdate.setBackground(new Color(255, 127, 80));
+		equipUpdate.setForeground(new Color(255, 255, 255));
+		equipUpdate.setFont(new Font("Calibri", Font.PLAIN, 15));
+		equipPanel.add(equipUpdate);
+		
+		equipUpdate.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				UpdateEquipmentView updateEquip = new UpdateEquipmentView(w, (EquipmentController)controllers.get(1), equipData);
+				w.addListener(updateEquip);
+				
+			}
+
+		});
+		
+		
+		
+		JButton equipDelete = new JButton("Delete");
+		sl_equipPanel.putConstraint(SpringLayout.SOUTH, equipDelete, -6, SpringLayout.NORTH, equipInfoPane);
+		sl_equipPanel.putConstraint(SpringLayout.EAST, equipDelete, 0, SpringLayout.EAST, equipInfoPane);
+		equipDelete.setBackground(new Color(255, 127, 80));
+		equipDelete.setForeground(new Color(255, 255, 255));
+		equipDelete.setFont(new Font("Calibri", Font.PLAIN, 15));
+		equipPanel.add(equipDelete);
+		
+		equipDelete.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				DeleteEquipView deleteEquip = new DeleteEquipView(w, (EquipmentController)controllers.get(1), equipData);
+				w.addListener(deleteEquip);
+				
+			}
+
+		});
 		
 		lblStorageIngredients.setFont(new Font("Calibri", Font.PLAIN, 24));
 		lblStorageIngredients.setForeground(new Color(255, 127, 80));
 		frame.getContentPane().add(lblStorageIngredients);
 		
 		JButton ingreAdd = new JButton("Add");
+		springLayout.putConstraint(SpringLayout.EAST, ingreAdd, -248, SpringLayout.EAST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, ingreDelete, 20, SpringLayout.EAST, ingreAdd);
 		springLayout.putConstraint(SpringLayout.SOUTH, ingreAdd, -6, SpringLayout.NORTH, ingrePanel);
-		springLayout.putConstraint(SpringLayout.EAST, ingreAdd, -20, SpringLayout.WEST, ingreDelete);
 		ingreAdd.setForeground(new Color(255, 127, 80));
 		ingreAdd.setFont(new Font("Calibri", Font.PLAIN, 22));
 		frame.getContentPane().add(ingreAdd);

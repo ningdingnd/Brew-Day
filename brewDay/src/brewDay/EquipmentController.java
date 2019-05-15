@@ -55,14 +55,18 @@ public class EquipmentController extends Controller {
 
 		boolean result = false;
 		Connection connection = null;
+		
+		System.out.println("You selected : " + id);
+		System.out.println("You input capacity: " + nCapacity);
+		System.out.println("You input unit: " + nUnit);
 		try {
 			// create a database connection
 			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
-
-			statement.executeUpdate("UPDATE StorageIngredient SET amount = '" + nCapacity + "', unit = \'" + nUnit
-					+ "\' WHERE ID = \'" + id + "\'");
+			
+			statement.executeUpdate("UPDATE Equipment SET capacity = '" + nCapacity + "', unit = '" + nUnit
+					+ "' WHERE ID = '" + id + "'");
 			result = true;
 		} catch (SQLException e) {
 			// if the error message is "out of memory",
@@ -99,7 +103,7 @@ public class EquipmentController extends Controller {
 			ResultSet countIngre = statement.executeQuery("select COUNT(DISTINCT ID) from Equipment");
 			equipNum = countIngre.getInt(1);
 
-			System.out.println("storage ingredient number: " + equipNum);
+			System.out.println("equipment number: " + equipNum);
 
 			ResultSet ingreInfo = statement.executeQuery("SELECT * FROM Equipment");
 
@@ -111,9 +115,9 @@ public class EquipmentController extends Controller {
 					if (j == 0) {
 						data[i][j] = ingreInfo.getInt("ID");
 					} else if (j == 1) {
-						data[i][j] = ingreInfo.getString("capacity");
+						data[i][j] = ingreInfo.getDouble("capacity");
 					} else if (j == 2) {
-						data[i][j] = ingreInfo.getDouble("unit");
+						data[i][j] = ingreInfo.getString("unit");
 					} 
 				}
 			}
@@ -149,7 +153,7 @@ public class EquipmentController extends Controller {
 
 			System.out.println("quantity = " + quantity + " unit = " + unit);
 			// execute SQL
-			statement.executeUpdate("INSERT INTO StorageIngredient (quantity, unit) VALUES ('" + quantity + "', "
+			statement.executeUpdate("INSERT INTO Equipment (capacity, unit) VALUES ('" + quantity + "', '"
 					 + unit + "')");
 			System.out.println("Equipment added.");
 			result = true;

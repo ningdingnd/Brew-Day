@@ -84,7 +84,7 @@ public class AddEquipmentView extends View{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				boolean result = c.addEquipment( Double.parseDouble(capacityText.getText()), unitText.getText());
+				boolean result = c.addEquipment(Double.parseDouble(capacityText.getText()), unitText.getText());
 				if(result == true) {
 					frame.setVisible(false);	//	close the input window
 					

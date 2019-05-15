@@ -11,8 +11,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -29,11 +27,10 @@ import javax.swing.SpringLayout;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 
-public class MainPageViewNew extends View {
+public class ReferrMain extends View {
 	private ArrayList<Controller> controllers;
 	private JFrame frame;
 	private JTable table;
-	
 
 	/**
 	 * Launch the application.
@@ -46,7 +43,7 @@ public class MainPageViewNew extends View {
 	/**
 	 * Create the application.
 	 */
-	public MainPageViewNew(Workbench w, ArrayList<Controller> controller) {
+	public ReferrMain(Workbench w, ArrayList<Controller> controller) {
 		super(w);
 		this.controllers = controller;
 		initialize();
@@ -64,21 +61,33 @@ public class MainPageViewNew extends View {
 		SpringLayout springLayout = new SpringLayout();
 		frame.getContentPane().setLayout(springLayout);
 
-		JPanel equipPanel = new JPanel();
-		springLayout.putConstraint(SpringLayout.NORTH, equipPanel, 10, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, equipPanel, 4, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, equipPanel, -38, SpringLayout.SOUTH, frame.getContentPane());
-		equipPanel.setBackground(new Color(245, 222, 179));
-		equipPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		frame.getContentPane().add(equipPanel);
-		SpringLayout sl_equipPanel = new SpringLayout();
-		equipPanel.setLayout(sl_equipPanel);
+		JPanel panel = new JPanel();
+		springLayout.putConstraint(SpringLayout.NORTH, panel, 10, SpringLayout.NORTH, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, panel, 4, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.SOUTH, panel, -38, SpringLayout.SOUTH, frame.getContentPane());
+		panel.setBackground(new Color(245, 222, 179));
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		frame.getContentPane().add(panel);
+		SpringLayout sl_panel = new SpringLayout();
+		panel.setLayout(sl_panel);
+
+		
+		//	equipment text area
+		TextArea textArea = new TextArea();
+		sl_panel.putConstraint(SpringLayout.SOUTH, textArea, 707, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, textArea, 274, SpringLayout.WEST, panel);
+		textArea.setFont(new Font("Arial", Font.PLAIN, 12));
+		textArea.setText("equipment");
+		panel.add(textArea);
 
 		//	equipment button add
 		JButton btnAdd = new JButton("add");
-		sl_equipPanel.putConstraint(SpringLayout.SOUTH, btnAdd, -598, SpringLayout.SOUTH, equipPanel);
-		sl_equipPanel.putConstraint(SpringLayout.EAST, btnAdd, 75, SpringLayout.WEST, equipPanel);
-		sl_equipPanel.putConstraint(SpringLayout.WEST, btnAdd, 10, SpringLayout.WEST, equipPanel);
+		sl_panel.putConstraint(SpringLayout.NORTH, textArea, 6, SpringLayout.SOUTH, btnAdd);
+		sl_panel.putConstraint(SpringLayout.WEST, textArea, 0, SpringLayout.WEST, btnAdd);
+		sl_panel.putConstraint(SpringLayout.NORTH, btnAdd, 79, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, btnAdd, 10, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnAdd, 120, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, btnAdd, 123, SpringLayout.WEST, panel);
 		btnAdd.setBackground(new Color(255, 140, 0));
 		btnAdd.setForeground(new Color(255, 255, 255));
 		btnAdd.addMouseListener(new MouseAdapter() {
@@ -90,13 +99,14 @@ public class MainPageViewNew extends View {
 			}
 		});
 		btnAdd.setFont(new Font("Tahoma", Font.BOLD, 17));
-		equipPanel.add(btnAdd);
+		panel.add(btnAdd);
 
 		//	equipment button modify
 		JButton btnModify = new JButton("update");
-		sl_equipPanel.putConstraint(SpringLayout.WEST, btnModify, 6, SpringLayout.EAST, btnAdd);
-		sl_equipPanel.putConstraint(SpringLayout.SOUTH, btnModify, -599, SpringLayout.SOUTH, equipPanel);
-		sl_equipPanel.putConstraint(SpringLayout.EAST, btnModify, 174, SpringLayout.WEST, equipPanel);
+		sl_panel.putConstraint(SpringLayout.NORTH, btnModify, 79, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, btnModify, 164, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnModify, 120, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, btnModify, 277, SpringLayout.WEST, panel);
 		btnModify.setBackground(new Color(255, 140, 0));
 		btnModify.setForeground(new Color(255, 255, 255));
 		btnModify.addMouseListener(new MouseAdapter() {
@@ -106,15 +116,13 @@ public class MainPageViewNew extends View {
 			}
 		});
 		btnModify.setFont(new Font("Tahoma", Font.BOLD, 17));
-		equipPanel.add(btnModify);
+		panel.add(btnModify);
 
 		JButton btnWhatToBrew = new JButton("what to brew today");
-		sl_equipPanel.putConstraint(SpringLayout.NORTH, btnModify, 11, SpringLayout.SOUTH, btnWhatToBrew);
-		sl_equipPanel.putConstraint(SpringLayout.NORTH, btnAdd, 11, SpringLayout.SOUTH, btnWhatToBrew);
-		sl_equipPanel.putConstraint(SpringLayout.NORTH, btnWhatToBrew, 11, SpringLayout.NORTH, equipPanel);
-		sl_equipPanel.putConstraint(SpringLayout.WEST, btnWhatToBrew, 10, SpringLayout.WEST, equipPanel);
-		sl_equipPanel.putConstraint(SpringLayout.SOUTH, btnWhatToBrew, 68, SpringLayout.NORTH, equipPanel);
-		sl_equipPanel.putConstraint(SpringLayout.EAST, btnWhatToBrew, 277, SpringLayout.WEST, equipPanel);
+		sl_panel.putConstraint(SpringLayout.NORTH, btnWhatToBrew, 11, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.WEST, btnWhatToBrew, 10, SpringLayout.WEST, panel);
+		sl_panel.putConstraint(SpringLayout.SOUTH, btnWhatToBrew, 68, SpringLayout.NORTH, panel);
+		sl_panel.putConstraint(SpringLayout.EAST, btnWhatToBrew, 277, SpringLayout.WEST, panel);
 		btnWhatToBrew.setBackground(new Color(255, 215, 0));
 		btnWhatToBrew.addMouseListener(new MouseAdapter() {
 			@Override
@@ -126,10 +134,10 @@ public class MainPageViewNew extends View {
 			}
 		});
 		btnWhatToBrew.setFont(new Font("Tahoma", Font.BOLD, 17));
-		equipPanel.add(btnWhatToBrew);
+		panel.add(btnWhatToBrew);
 
 		JPanel panel_2 = new JPanel();
-		springLayout.putConstraint(SpringLayout.EAST, equipPanel, -6, SpringLayout.WEST, panel_2);
+		springLayout.putConstraint(SpringLayout.EAST, panel, -6, SpringLayout.WEST, panel_2);
 		springLayout.putConstraint(SpringLayout.SOUTH, panel_2, 452, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, panel_2, 637, SpringLayout.WEST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.NORTH, panel_2, 0, SpringLayout.NORTH, frame.getContentPane());
@@ -278,11 +286,11 @@ public class MainPageViewNew extends View {
 		textArea_2.setFont(new Font("Arial", Font.PLAIN, 12));
 		panel_3.add(textArea_2);
 		
-		JPanel ingrePanel = new JPanel();
-		springLayout.putConstraint(SpringLayout.WEST, ingrePanel, 18, SpringLayout.EAST, equipPanel);
-		springLayout.putConstraint(SpringLayout.SOUTH, ingrePanel, 0, SpringLayout.SOUTH, equipPanel);
-		springLayout.putConstraint(SpringLayout.EAST, ingrePanel, -18, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(ingrePanel);
+		JPanel panel_1 = new JPanel();
+		springLayout.putConstraint(SpringLayout.WEST, panel_1, 18, SpringLayout.EAST, panel);
+		springLayout.putConstraint(SpringLayout.SOUTH, panel_1, 0, SpringLayout.SOUTH, panel);
+		springLayout.putConstraint(SpringLayout.EAST, panel_1, -18, SpringLayout.EAST, frame.getContentPane());
+		frame.getContentPane().add(panel_1);
 		
 
 
@@ -292,9 +300,9 @@ public class MainPageViewNew extends View {
 		
 		
 		JButton ingreDelete = new JButton("Delete");
-		springLayout.putConstraint(SpringLayout.NORTH, ingrePanel, 6, SpringLayout.SOUTH, ingreDelete);
+		springLayout.putConstraint(SpringLayout.NORTH, panel_1, 6, SpringLayout.SOUTH, ingreDelete);
 		springLayout.putConstraint(SpringLayout.NORTH, ingreDelete, 33, SpringLayout.SOUTH, panel_3);
-		springLayout.putConstraint(SpringLayout.WEST, ingreDelete, 473, SpringLayout.EAST, equipPanel);
+		springLayout.putConstraint(SpringLayout.WEST, ingreDelete, 473, SpringLayout.EAST, panel);
 		ingreDelete.setFont(new Font("Calibri", Font.PLAIN, 22));
 		ingreDelete.setForeground(new Color(255, 140, 0));
 		frame.getContentPane().add(ingreDelete);
@@ -311,38 +319,13 @@ public class MainPageViewNew extends View {
 		
 		JLabel lblStorageIngredients = new JLabel("Storage Ingredients");
 		springLayout.putConstraint(SpringLayout.NORTH, lblStorageIngredients, 2, SpringLayout.NORTH, ingreDelete);
-		springLayout.putConstraint(SpringLayout.WEST, lblStorageIngredients, 21, SpringLayout.EAST, equipPanel);
-		
-		JButton btnDelete = new JButton("Delete");
-		sl_equipPanel.putConstraint(SpringLayout.NORTH, btnDelete, 17, SpringLayout.SOUTH, btnWhatToBrew);
-		sl_equipPanel.putConstraint(SpringLayout.WEST, btnDelete, 7, SpringLayout.EAST, btnModify);
-		sl_equipPanel.putConstraint(SpringLayout.SOUTH, btnDelete, -601, SpringLayout.SOUTH, equipPanel);
-		sl_equipPanel.putConstraint(SpringLayout.EAST, btnDelete, -11, SpringLayout.EAST, equipPanel);
-		btnDelete.setBackground(new Color(255, 127, 80));
-		btnDelete.setForeground(Color.WHITE);
-		equipPanel.add(btnDelete);
-		
-		
-		/******* set equipment table************/
-		//JScrollPane equipSPane = new JScrollPane();
-		//frame.getContentPane().add(equipSPane);
-		Object[][] equipData = ((EquipmentController)controllers.get(1)).getData();
-		String[] equipColNames = ((EquipmentController)controllers.get(1)).getColNames();
-		TablePane equipInfoPane = new TablePane(controllers.get(1), equipData, equipColNames);
-		sl_equipPanel.putConstraint(SpringLayout.NORTH, equipInfoPane, 31, SpringLayout.SOUTH, btnAdd);
-		sl_equipPanel.putConstraint(SpringLayout.WEST, equipInfoPane, 22, SpringLayout.WEST, equipPanel);
-		sl_equipPanel.putConstraint(SpringLayout.SOUTH, equipInfoPane, 528, SpringLayout.SOUTH, btnAdd);
-		sl_equipPanel.putConstraint(SpringLayout.EAST, equipInfoPane, 257, SpringLayout.WEST, equipPanel);
-		equipPanel.add(equipInfoPane);
-		
-		
-		
+		springLayout.putConstraint(SpringLayout.WEST, lblStorageIngredients, 21, SpringLayout.EAST, panel);
 		lblStorageIngredients.setFont(new Font("Calibri", Font.PLAIN, 24));
 		lblStorageIngredients.setForeground(new Color(255, 127, 80));
 		frame.getContentPane().add(lblStorageIngredients);
 		
 		JButton ingreAdd = new JButton("Add");
-		springLayout.putConstraint(SpringLayout.SOUTH, ingreAdd, -6, SpringLayout.NORTH, ingrePanel);
+		springLayout.putConstraint(SpringLayout.SOUTH, ingreAdd, -6, SpringLayout.NORTH, panel_1);
 		springLayout.putConstraint(SpringLayout.EAST, ingreAdd, -20, SpringLayout.WEST, ingreDelete);
 		ingreAdd.setForeground(new Color(255, 127, 80));
 		ingreAdd.setFont(new Font("Calibri", Font.PLAIN, 22));
@@ -362,17 +345,15 @@ public class MainPageViewNew extends View {
 		
 		
 		
-		/*********set ingredient table **************/
+		
 		JScrollPane StorageIngrePane = new JScrollPane();
 		frame.getContentPane().add(StorageIngrePane);
-		SpringLayout sl_ingrePanel = new SpringLayout();
-		ingrePanel.setLayout(sl_ingrePanel);
+		SpringLayout sl_panel_1 = new SpringLayout();
+		panel_1.setLayout(sl_panel_1);
 		
 		String[] colNames = ((StorageIngredientController)controllers.get(0)).getColNames();
 		Object[][] ingreData = ((StorageIngredientController)controllers.get(0)).getData();
-		TablePane ingreInfoPane = new TablePane(controllers.get(0), ingreData, colNames);
-		sl_ingrePanel.putConstraint(SpringLayout.WEST, ingreInfoPane, 0, SpringLayout.WEST, ingrePanel);
-		sl_ingrePanel.putConstraint(SpringLayout.EAST, ingreInfoPane, 661, SpringLayout.WEST, ingrePanel);
+		TablePane ingrePane = new TablePane(controllers.get(0), ingreData, colNames);
 		
 		for(int i = 0; i < ingreData.length; i++) {
 			System.out.println((String)ingreData[i][1]);
@@ -401,15 +382,20 @@ public class MainPageViewNew extends View {
 			}
 
 		});
-		ingrePanel.add(ingreInfoPane);
 		
 		
-		sl_ingrePanel.putConstraint(SpringLayout.NORTH, ingreInfoPane, 0, SpringLayout.NORTH, ingrePanel);
-		sl_ingrePanel.putConstraint(SpringLayout.SOUTH, ingreInfoPane, 0, SpringLayout.SOUTH, ingrePanel);
-		springLayout.putConstraint(SpringLayout.NORTH, ingreInfoPane, 0, SpringLayout.NORTH, ingrePanel);
-		springLayout.putConstraint(SpringLayout.WEST, ingreInfoPane, 0, SpringLayout.WEST, ingrePanel);
-		springLayout.putConstraint(SpringLayout.SOUTH, ingreInfoPane, 10, SpringLayout.SOUTH, ingrePanel);
-		springLayout.putConstraint(SpringLayout.EAST, ingreInfoPane, 1426, SpringLayout.EAST, ingrePanel);
+		
+		sl_panel_1.putConstraint(SpringLayout.WEST, ingrePane, 0, SpringLayout.WEST, panel_1);
+		sl_panel_1.putConstraint(SpringLayout.EAST, ingrePane, 661, SpringLayout.WEST, panel_1);
+		panel_1.add(ingrePane);
+		
+		
+		sl_panel_1.putConstraint(SpringLayout.NORTH, ingrePane, 0, SpringLayout.NORTH, panel_1);
+		sl_panel_1.putConstraint(SpringLayout.SOUTH, ingrePane, 0, SpringLayout.SOUTH, panel_1);
+		springLayout.putConstraint(SpringLayout.NORTH, ingrePane, 0, SpringLayout.NORTH, panel_1);
+		springLayout.putConstraint(SpringLayout.WEST, ingrePane, 0, SpringLayout.WEST, panel_1);
+		springLayout.putConstraint(SpringLayout.SOUTH, ingrePane, 10, SpringLayout.SOUTH, panel_1);
+		springLayout.putConstraint(SpringLayout.EAST, ingrePane, 1426, SpringLayout.EAST, panel_1);
 		
 		JButton refreshIngre = new JButton("Refresh");
 		refreshIngre.addActionListener(new ActionListener() {

@@ -52,16 +52,27 @@ import java.awt.GridLayout;
  * TableDemo is just like SimpleTableDemo, except that it
  * uses a custom TableModel.
  */
-public class IngrePane extends JPanel {
+public class TablePane extends JPanel {
 	
-    public IngrePane(Controller c, Object[][] data, String[] colNames) {
+    public TablePane(Controller c, Object[][] data, String[] colNames) {
     	
         super(new GridLayout(1,0));
         
         DefaultTableModel ingreTable = new  DefaultTableModel(data, colNames);
         JTable table = new JTable(ingreTable);
+        
+        
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+        
+        if(colNames[2].equals("Amount")) {
+        	table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+        }else {
+        	table.setPreferredScrollableViewportSize(new Dimension(230, 500));
+        }
+        
         table.setFillsViewportHeight(true);
+        
+        
         
         ingreTable.addTableModelListener(new TableModelListener() {
 

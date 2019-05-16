@@ -188,9 +188,7 @@ public class StorageIngredientController extends Controller {
 		return result;
 	}
 
-	public boolean deleteIngredient(String name) {
-		return true;
-	}
+	
 
 	public boolean addAmount(int ID, float amount) {
 		Connection connection = null;

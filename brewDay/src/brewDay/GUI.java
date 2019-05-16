@@ -27,6 +27,12 @@ public class GUI {
 				EquipmentController ec = new EquipmentController(w);
 				controller.add(ec);
 				
+				RecipeController rc = new RecipeController(w);
+				controller.add(rc);
+				
+				NoteController nc = new NoteController(w);
+				controller.add(nc);
+				
 				MainPageViewNew mv = new MainPageViewNew(w, controller);
 				
 				

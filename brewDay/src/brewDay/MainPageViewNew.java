@@ -447,6 +447,8 @@ public class MainPageViewNew extends View {
 				// add it to scroll panel
 				Object[][] recipeIngreData = ((RecipeController) controllers.get(2))
 						.getRecipeIngreData((String) recipeNameCombo.getSelectedItem());
+				
+				
 				String[] recipeIngreCol = ((RecipeController) controllers.get(2)).getRecipeIngreColNames();
 				TablePane recipeInfoPane = new TablePane(controllers.get(1), recipeIngreData, recipeIngreCol);
 				recipeScroll.add(recipeInfoPane);
@@ -457,7 +459,7 @@ public class MainPageViewNew extends View {
 				//	prepare the string buffer to store all note contents
 				StringBuffer sBuffer = new StringBuffer("Notes:\r\n");
 
-			    System.out.println(sBuffer);
+			    
 				
 				
 				//	combine all content together

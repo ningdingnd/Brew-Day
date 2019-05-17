@@ -419,8 +419,12 @@ public class Workbench {
 		Connection connection = null;
 		int sizeAvailableIngredient = 0;
 		ArrayList recipeAndIngrPack = new ArrayList();
-		ArrayList recipeAndIngr = new ArrayList();
+		//ArrayList recipeAndIngr = new ArrayList();
 		ArrayList ingrID = new ArrayList();
+		
+		ArrayList<String> names = new ArrayList<>();
+		ArrayList<String> ids = new ArrayList<>();
+		
 		try {
 			// create a database connection
 			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
@@ -428,28 +432,45 @@ public class Workbench {
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
 	
 			// get all available recipe name in database
-			ResultSet rsRecipe = statement.executeQuery("select distinct name,ID from Recipe");
+			ResultSet rsRecipe = statement.executeQuery("SELECT * FROM Recipe");
+			
 			// add the result to arraylist
 			String rID = null;
 			String IDSQL = "";
 			int first = 0;
+			
 			while (rsRecipe.next()) {
 				//add name
 				String name = rsRecipe.getString("name");
-				recipeAndIngr.add(name);
+				int id = rsRecipe.getInt("ID");
+				names.add(name);
 				//add ingredient info
 				String ID = rsRecipe.getString("ID");
-				ResultSet rsIngrID = statement.executeQuery("select ingredientID from RecipeAndIngredients WHERE rID = " + ID);
-				ResultSet rsIngResultSet = statement.executeQuery("select * from RecipeIngredient where ID = " + rsIngrID.getInt("ingredientID"));
-				String ingredientInfoString = rsIngResultSet.getString("name")+": "+ rsIngResultSet.getString("amount") +  rsIngResultSet.getString("unit") + ";";
-				recipeAndIngr.add(ingredientInfoString);
-				
+				ids.add(ID);
+			}
+			
+			for(int i = 0; i < ids.size(); i++) {
+				ArrayList recipeAndIngr = new ArrayList();
+				recipeAndIngr.add(names.get(i));
+
+				Statement statement2 = connection.createStatement();
+				ResultSet rsIngrID = statement2.executeQuery("select ingredientID from RecipeAndIngredients WHERE rID = '" + ids.get(i) + "'");
+				while(rsIngrID.next() ) {
+					Statement statement3 = connection.createStatement();
+					ResultSet rsIngResultSet = statement3.executeQuery("select * from RecipeIngredient where ID = " + rsIngrID.getInt("ingredientID"));
+						while(rsIngResultSet.next()) {
+						String ingredientInfoString = rsIngResultSet.getString("name")+": "+ rsIngResultSet.getString("amount") +  rsIngResultSet.getString("unit") + ";";
+						recipeAndIngr.add(ingredientInfoString);
+					}
+				}
 				recipeAndIngrPack.add(recipeAndIngr);
 			}
+			
 		} catch (SQLException e) {
 			// if the error message is "out of memory",
 			// it probably means no database file is found
 			System.err.println(e.getMessage());
+			e.printStackTrace();
 		} finally {
 			try {
 				if (connection != null)
@@ -459,8 +480,11 @@ public class Workbench {
 				System.err.println(e.getMessage());
 			}
 		}
+		
 		return recipeAndIngrPack;
 	}
+
+
 	
 	//get notes for recipe
 	public ArrayList<Note> getNote(Recipe recipe) {

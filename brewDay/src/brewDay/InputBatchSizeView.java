@@ -85,7 +85,7 @@ public class InputBatchSizeView extends View{
 					//	check whether there is any recipe available according to batch size
 					ArrayList shoppListRecipe = w.checkBrewAvailable(batchSize);
 					//System.out.print("recipe name:"+((Recipe)shoppListRecipe.get(1)).getName());
-					new ShoppingListOrRecipeView(w, shoppListRecipe);
+					new ShoppingListOrRecipeView(w, shoppListRecipe,batchSize);
 					frame.dispose();
 				}else {
 					System.out.println("Equipment not available");

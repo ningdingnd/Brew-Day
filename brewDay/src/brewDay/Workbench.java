@@ -523,7 +523,7 @@ public class Workbench {
 		return arrayNote;
 	}
 	
-	public boolean brew(Recipe recipe) {
+	public boolean brew(Recipe recipe, Brew brew) {
 		// connect to database and get available recipe
 		Connection connection = null;
 		
@@ -539,6 +539,10 @@ public class Workbench {
 				ResultSet rsAmount = statement2.executeQuery("SELECT amount FROM StorageIngredient WHERE name = \"" + recipe.getIngredients()[i].getName()+"\"");
 				Statement statement3 = connection.createStatement();
 				statement3.executeUpdate("UPDATE StorageIngredient SET amount = " + (rsAmount.getDouble(1) - recipe.getIngredients()[i].getAmount()) + " WHERE name = \"" + recipe.getIngredients()[i].getName()+"\"");
+				Statement statement5 = connection.createStatement();
+				ResultSet rsRID = statement5.executeQuery("SELECT ID FROM Recipe WHERE name = \"" +recipe.getName() +"\"");
+				Statement statement4 = connection.createStatement();
+				statement4.executeUpdate("INSERT INTO Brew (batchSize, date, time, rID) VALUES (" + brew.getBatchSize()+ ",\""+brew.getDate()+"\",\""+brew.getTime()+"\","+rsRID.getInt(1)+")");
 			}
 			
 		} catch (SQLException e) {	

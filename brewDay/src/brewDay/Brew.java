@@ -6,12 +6,12 @@ import java.util.Date;
 
 
 public class Brew {
-	private int batchSize;
+	private double batchSize;
 	private String date;
 	private String time;
 	
 	//initialize class
-	public Brew(int batchSize) {
+	public Brew(double batchSize) {
 		this.batchSize = batchSize;
         Date date = new Date();// get system time
 		SimpleDateFormat sdf = new SimpleDateFormat();// format time 
@@ -39,5 +39,17 @@ public class Brew {
 	public Boolean writeNote(String content) {
 		Note note = new Note(content);
 		return true;
+	}
+	
+	public double getBatchSize() {
+		return this.batchSize;
+	}
+	
+	public String getDate() {
+		return this.date;
+	}
+	
+	public String getTime() {
+		return this.time;
 	}
 }

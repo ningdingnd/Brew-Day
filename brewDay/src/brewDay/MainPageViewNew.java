@@ -27,6 +27,7 @@ import java.awt.TextArea;
 import javax.swing.JScrollPane;
 import javax.swing.SpringLayout;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -462,11 +463,27 @@ public class MainPageViewNew extends View {
 				String[] notes = ((NoteController) controllers.get(3))
 						.getNote((String)recipeNameCombo.getSelectedItem());
 				
+				//	prepare the string buffer to store all note contents
+				StringBuffer sBuffer = new StringBuffer("Notes:\r\n");
+
+			    System.out.println(sBuffer);
+				
+				
+				//	combine all content together
 				for(int i = 0; i < notes.length; i++) {
-					JTextPane textPane = new JTextPane();
-					textPane.setText(notes[i]);
-					noteScroll.add(textPane);
+					sBuffer.append("No." + i + "\r\n");
+					sBuffer.append(notes[i]);
+					sBuffer.append("\r\n");
 				}
+				
+				//	prepare the text area
+				JTextArea noteText = new JTextArea(sBuffer.toString());
+				//Automatically change line
+				noteText.setLineWrap(true);
+				noteText.setWrapStyleWord(true);
+				noteText.setEditable(false);
+				noteScroll.add(noteText);
+				
 			}
 		});
 

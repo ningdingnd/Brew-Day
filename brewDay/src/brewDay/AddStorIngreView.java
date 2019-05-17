@@ -19,6 +19,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.ScrollPane;
 import java.awt.CardLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -36,38 +37,23 @@ public class AddStorIngreView extends View{
 	private StorageIngredientController c;
 	private JTextField unit;
 
-	/**
-	 * Launch the application.
-	 */
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Workbench w = new Workbench();
-					StorageIngredientController sc = new StorageIngredientController(w);
-					AddStorIngreView v = new AddStorIngreView(w, sc);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	
 
 	/**
 	 * Create the application.
+	 * @param storageScroll 
 	 */
-	public AddStorIngreView(Workbench w, StorageIngredientController c) {
+	public AddStorIngreView(Workbench w, StorageIngredientController c, ScrollPane storageScroll) {
 		super(w);
 		this.c = c;
-		initialize();
+		initialize(storageScroll);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(ScrollPane storageScroll) {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(245, 222, 179));
 		frame.setVisible(true);
@@ -120,7 +106,7 @@ public class AddStorIngreView extends View{
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					
-					boolean result = c.addIngredient(name.getText(), Double.parseDouble(amount.getText()), unit.getText());
+					boolean result = c.addIngredient(name.getText(), Double.parseDouble(amount.getText()), unit.getText(), storageScroll);
 					if(result == true) {
 						frame.setVisible(false);	//	close the input window
 						

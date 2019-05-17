@@ -253,14 +253,7 @@ public class MainPageViewNew extends View {
 		button_3.setFont(new Font("Tahoma", Font.BOLD, 17));
 		panel_3.add(button_3);
 
-		JPanel ingrePanel = new JPanel();
-		springLayout.putConstraint(SpringLayout.WEST, ingrePanel, 19, SpringLayout.EAST, equipPanel);
-		springLayout.putConstraint(SpringLayout.SOUTH, ingrePanel, -38, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, ingrePanel, -18, SpringLayout.EAST, frame.getContentPane());
-		frame.getContentPane().add(ingrePanel);
-
 		JButton ingreDelete = new JButton("Delete");
-		springLayout.putConstraint(SpringLayout.NORTH, ingrePanel, 6, SpringLayout.SOUTH, ingreDelete);
 		springLayout.putConstraint(SpringLayout.NORTH, ingreDelete, 33, SpringLayout.SOUTH, panel_3);
 		ingreDelete.setFont(new Font("Calibri", Font.PLAIN, 22));
 		ingreDelete.setForeground(new Color(255, 140, 0));
@@ -284,76 +277,88 @@ public class MainPageViewNew extends View {
 		springLayout.putConstraint(SpringLayout.NORTH, lblStorageIngredients, 2, SpringLayout.NORTH, ingreDelete);
 		springLayout.putConstraint(SpringLayout.WEST, lblStorageIngredients, 22, SpringLayout.EAST, equipPanel);
 
-		/******* set equipment table ************/
-		// JScrollPane equipSPane = new JScrollPane();
-		// frame.getContentPane().add(equipSPane);
-		Object[][] equipData = ((EquipmentController) controllers.get(1)).getData();
-		String[] equipColNames = ((EquipmentController) controllers.get(1)).getColNames();
-		TablePane equipInfoPane = new TablePane(controllers.get(1), equipData, equipColNames);
-		sl_equipPanel.putConstraint(SpringLayout.NORTH, equipInfoPane, 143, SpringLayout.NORTH, equipPanel);
-		sl_equipPanel.putConstraint(SpringLayout.WEST, equipInfoPane, 10, SpringLayout.WEST, equipPanel);
-		sl_equipPanel.putConstraint(SpringLayout.SOUTH, equipInfoPane, -11, SpringLayout.SOUTH, equipPanel);
-		sl_equipPanel.putConstraint(SpringLayout.EAST, equipInfoPane, -10, SpringLayout.EAST, equipPanel);
-		equipPanel.add(equipInfoPane);
+
 
 		JButton equipAdd = new JButton("Add");
+		sl_equipPanel.putConstraint(SpringLayout.SOUTH, equipAdd, -531, SpringLayout.SOUTH, equipPanel);
 		sl_equipPanel.putConstraint(SpringLayout.SOUTH, btnWhatToBrew, -43, SpringLayout.NORTH, equipAdd);
 		sl_equipPanel.putConstraint(SpringLayout.WEST, equipAdd, 0, SpringLayout.WEST, btnWhatToBrew);
-		sl_equipPanel.putConstraint(SpringLayout.SOUTH, equipAdd, -6, SpringLayout.NORTH, equipInfoPane);
 		equipAdd.setBackground(new Color(255, 127, 80));
 		equipAdd.setForeground(new Color(255, 255, 255));
 		equipAdd.setFont(new Font("Calibri", Font.PLAIN, 15));
 		equipPanel.add(equipAdd);
 
+		
+
+		JButton equipUpdate = new JButton("Update");
+		sl_equipPanel.putConstraint(SpringLayout.WEST, equipUpdate, 23, SpringLayout.EAST, equipAdd);
+		sl_equipPanel.putConstraint(SpringLayout.SOUTH, equipUpdate, -531, SpringLayout.SOUTH, equipPanel);
+		equipUpdate.setBackground(new Color(255, 127, 80));
+		equipUpdate.setForeground(new Color(255, 255, 255));
+		equipUpdate.setFont(new Font("Calibri", Font.PLAIN, 15));
+		equipPanel.add(equipUpdate);
+
+		
+
+		JButton equipDelete = new JButton("Delete");
+		sl_equipPanel.putConstraint(SpringLayout.SOUTH, equipDelete, -531, SpringLayout.SOUTH, equipPanel);
+		sl_equipPanel.putConstraint(SpringLayout.EAST, equipDelete, -10, SpringLayout.EAST, equipPanel);
+		equipDelete.setBackground(new Color(255, 127, 80));
+		equipDelete.setForeground(new Color(255, 255, 255));
+		equipDelete.setFont(new Font("Calibri", Font.PLAIN, 15));
+		equipPanel.add(equipDelete);
+		
+		
+		/********* set equip table************/
+		ScrollPane equipScroll = new ScrollPane();
+		Object[][] equipData = ((EquipmentController) controllers.get(1)).getData();
+		String[] equipColNames = ((EquipmentController) controllers.get(1)).getColNames();
+		TablePane equipInfoPane = new TablePane(controllers.get(1), equipData, equipColNames);
+		
+		equipScroll.add(equipInfoPane);
+		
+		sl_equipPanel.putConstraint(SpringLayout.NORTH, equipScroll, 56, SpringLayout.SOUTH, equipAdd);
+		sl_equipPanel.putConstraint(SpringLayout.WEST, equipScroll, 0, SpringLayout.WEST, btnWhatToBrew);
+		sl_equipPanel.putConstraint(SpringLayout.SOUTH, equipScroll, -10, SpringLayout.SOUTH, equipPanel);
+		sl_equipPanel.putConstraint(SpringLayout.EAST, equipScroll, 0, SpringLayout.EAST, btnWhatToBrew);
+		equipPanel.add(equipScroll);
+		
 		equipAdd.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				AddEquipmentView addEquip = new AddEquipmentView(w, (EquipmentController) controllers.get(1));
+				AddEquipmentView addEquip = new AddEquipmentView(w, (EquipmentController) controllers.get(1), equipScroll);
 				w.addListener(addEquip);
 
 			}
 
 		});
 
-		JButton equipUpdate = new JButton("Update");
-		sl_equipPanel.putConstraint(SpringLayout.WEST, equipUpdate, 23, SpringLayout.EAST, equipAdd);
-		sl_equipPanel.putConstraint(SpringLayout.SOUTH, equipUpdate, -6, SpringLayout.NORTH, equipInfoPane);
-		equipUpdate.setBackground(new Color(255, 127, 80));
-		equipUpdate.setForeground(new Color(255, 255, 255));
-		equipUpdate.setFont(new Font("Calibri", Font.PLAIN, 15));
-		equipPanel.add(equipUpdate);
-
-		equipUpdate.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				UpdateEquipmentView updateEquip = new UpdateEquipmentView(w, (EquipmentController) controllers.get(1),
-						equipData);
-				w.addListener(updateEquip);
-
-			}
-
-		});
-
-		JButton equipDelete = new JButton("Delete");
-		sl_equipPanel.putConstraint(SpringLayout.SOUTH, equipDelete, -6, SpringLayout.NORTH, equipInfoPane);
-		sl_equipPanel.putConstraint(SpringLayout.EAST, equipDelete, 0, SpringLayout.EAST, equipInfoPane);
-		equipDelete.setBackground(new Color(255, 127, 80));
-		equipDelete.setForeground(new Color(255, 255, 255));
-		equipDelete.setFont(new Font("Calibri", Font.PLAIN, 15));
-		equipPanel.add(equipDelete);
-
 		equipDelete.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				Object[][] data = ((EquipmentController) controllers.get(1)).getData();
 				DeleteEquipView deleteEquip = new DeleteEquipView(w, (EquipmentController) controllers.get(1),
-						equipData);
+						data, equipScroll);
 				w.addListener(deleteEquip);
+
+			}
+
+		});
+		
+		
+		equipUpdate.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				Object[][] data = ((EquipmentController) controllers.get(1)).getData();
+				UpdateEquipmentView updateEquip = new UpdateEquipmentView(w, (EquipmentController) controllers.get(1),
+						data, equipScroll);
+				w.addListener(updateEquip);
 
 			}
 
@@ -364,48 +369,54 @@ public class MainPageViewNew extends View {
 		frame.getContentPane().add(lblStorageIngredients);
 
 		JButton ingreAdd = new JButton("Add");
+		springLayout.putConstraint(SpringLayout.SOUTH, ingreAdd, -197, SpringLayout.SOUTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, ingreAdd, -248, SpringLayout.EAST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.WEST, ingreDelete, 20, SpringLayout.EAST, ingreAdd);
-		springLayout.putConstraint(SpringLayout.SOUTH, ingreAdd, -6, SpringLayout.NORTH, ingrePanel);
 		ingreAdd.setForeground(new Color(255, 127, 80));
 		ingreAdd.setFont(new Font("Calibri", Font.PLAIN, 22));
 		frame.getContentPane().add(ingreAdd);
+		
+		
+		/*************set storage ingredient table *************/
+		ScrollPane storageScroll = new ScrollPane();
+		springLayout.putConstraint(SpringLayout.NORTH, storageScroll, 3, SpringLayout.SOUTH, ingreDelete);
+		springLayout.putConstraint(SpringLayout.WEST, storageScroll, 10, SpringLayout.WEST, lblStorageIngredients);
+		springLayout.putConstraint(SpringLayout.SOUTH, storageScroll, 145, SpringLayout.SOUTH, ingreDelete);
+		springLayout.putConstraint(SpringLayout.EAST, storageScroll, 0, SpringLayout.EAST, ingreUpdate);
+		frame.getContentPane().add(storageScroll);
 
+		//	set the data of storage ingredients
+		String[] colNames = ((StorageIngredientController) controllers.get(0)).getColNames();
+		Object[][] ingreData = ((StorageIngredientController) controllers.get(0)).getData();
+		TablePane ingreInfoTable = new TablePane(controllers.get(1), ingreData, colNames);
+	
+		storageScroll.add(ingreInfoTable);
+		
+		for (int i = 0; i < ingreData.length; i++) {
+			System.out.println((String) ingreData[i][1]);
+		}
+		
 		ingreAdd.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				AddStorIngreView addIngre = new AddStorIngreView(w, (StorageIngredientController) controllers.get(0));
+				
+				AddStorIngreView addIngre = new AddStorIngreView(w, (StorageIngredientController) controllers.get(0), storageScroll);
 				w.addListener(addIngre);
 
 			}
 
 		});
 
-		/********* set ingredient table **************/
-		JScrollPane StorageIngrePane = new JScrollPane();
-		frame.getContentPane().add(StorageIngrePane);
-		SpringLayout sl_ingrePanel = new SpringLayout();
-		ingrePanel.setLayout(sl_ingrePanel);
-
-		String[] colNames = ((StorageIngredientController) controllers.get(0)).getColNames();
-		Object[][] ingreData = ((StorageIngredientController) controllers.get(0)).getData();
-		TablePane ingreInfoPane = new TablePane(controllers.get(0), ingreData, colNames);
-		sl_ingrePanel.putConstraint(SpringLayout.WEST, ingreInfoPane, 0, SpringLayout.WEST, ingrePanel);
-		sl_ingrePanel.putConstraint(SpringLayout.EAST, ingreInfoPane, 661, SpringLayout.WEST, ingrePanel);
-
-		for (int i = 0; i < ingreData.length; i++) {
-			System.out.println((String) ingreData[i][1]);
-		}
-
 		ingreUpdate.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				Object[][] data = ((StorageIngredientController) controllers.get(0)).getData();
 				UpdateStorIngreView updateIngreWindow = new UpdateStorIngreView(w,
-						(StorageIngredientController) controllers.get(0), ingreData);
+						(StorageIngredientController) controllers.get(0), data, storageScroll);
 				w.addListener(updateIngreWindow);
 
 			}
@@ -417,34 +428,14 @@ public class MainPageViewNew extends View {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
+				Object[][] data = ((StorageIngredientController) controllers.get(0)).getData();
 				DeleteIngreView deleteIngreWindow = new DeleteIngreView(w,
-						(StorageIngredientController) controllers.get(0), ingreData);
+						(StorageIngredientController) controllers.get(0), data, storageScroll);
 				w.addListener(deleteIngreWindow);
 
 			}
 
 		});
-		ingrePanel.add(ingreInfoPane);
-
-		sl_ingrePanel.putConstraint(SpringLayout.NORTH, ingreInfoPane, 0, SpringLayout.NORTH, ingrePanel);
-		sl_ingrePanel.putConstraint(SpringLayout.SOUTH, ingreInfoPane, 0, SpringLayout.SOUTH, ingrePanel);
-		springLayout.putConstraint(SpringLayout.NORTH, ingreInfoPane, 0, SpringLayout.NORTH, ingrePanel);
-		springLayout.putConstraint(SpringLayout.WEST, ingreInfoPane, 0, SpringLayout.WEST, ingrePanel);
-		springLayout.putConstraint(SpringLayout.SOUTH, ingreInfoPane, 10, SpringLayout.SOUTH, ingrePanel);
-		springLayout.putConstraint(SpringLayout.EAST, ingreInfoPane, 1426, SpringLayout.EAST, ingrePanel);
-
-		JButton refreshIngre = new JButton("Refresh");
-		refreshIngre.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		refreshIngre.setForeground(new Color(255, 255, 255));
-		refreshIngre.setBackground(new Color(255, 127, 80));
-		refreshIngre.setFont(new Font("Calibri", Font.PLAIN, 15));
-		springLayout.putConstraint(SpringLayout.SOUTH, refreshIngre, 0, SpringLayout.SOUTH, lblStorageIngredients);
-		springLayout.putConstraint(SpringLayout.EAST, refreshIngre, -25, SpringLayout.WEST, ingreAdd);
-		frame.getContentPane().add(refreshIngre);
 		
 		
 		//	the recipe and note shown in main page

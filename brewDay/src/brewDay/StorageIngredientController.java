@@ -2,6 +2,7 @@ package brewDay;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -35,7 +36,7 @@ public class StorageIngredientController extends Controller {
 		return this.w;
 	}
 
-	public boolean deleteIngre(String name) {
+	public boolean deleteIngre(String name, ScrollPane storageScroll) {
 		// construct the storage ingredient instance
 		boolean result = false;
 		Connection connection = null;
@@ -46,6 +47,12 @@ public class StorageIngredientController extends Controller {
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
 
 			statement.executeUpdate("DELETE FROM StorageIngredient WHERE name = '" + name + "' ");
+			
+			String[] colNames = this.getColNames();
+			Object[][] ingreData = this.getData();
+			TablePane ingreInfoTable = new TablePane(this, ingreData, colNames);
+		
+			storageScroll.add(ingreInfoTable);
 			result = true;
 		} catch (SQLException e) {
 			// if the error message is "out of memory",
@@ -64,7 +71,7 @@ public class StorageIngredientController extends Controller {
 		return result;
 	}
 
-	public boolean updateIngre(String name, double nAmount, String nUnit) {
+	public boolean updateIngre(String name, double nAmount, String nUnit, ScrollPane storageScroll) {
 		// construct the storage ingredient instance
 		boolean result = false;
 		Connection connection = null;
@@ -76,6 +83,12 @@ public class StorageIngredientController extends Controller {
 
 			statement.executeUpdate("UPDATE StorageIngredient SET amount = '" + nAmount + "', unit = \'" + nUnit
 					+ "\' WHERE name = \'" + name + "\'");
+			
+			String[] colNames = this.getColNames();
+			Object[][] ingreData = this.getData();
+			TablePane ingreInfoTable = new TablePane(this, ingreData, colNames);
+		
+			storageScroll.add(ingreInfoTable);
 			result = true;
 		} catch (SQLException e) {
 			// if the error message is "out of memory",
@@ -152,7 +165,7 @@ public class StorageIngredientController extends Controller {
 		return data;
 	}
 
-	public boolean addIngredient(String name, double amount, String unit) {
+	public boolean addIngredient(String name, double amount, String unit, ScrollPane storageScroll) {
 		Connection connection = null;
 		boolean result;
 		try {
@@ -166,6 +179,12 @@ public class StorageIngredientController extends Controller {
 			statement.executeUpdate("INSERT INTO StorageIngredient (name, amount, unit) VALUES ('" + name + "', "
 					+ amount + ", '" + unit + "')");
 			System.out.println("ingredient 1 added.");
+			
+			String[] colNames = this.getColNames();
+			Object[][] ingreData = this.getData();
+			TablePane ingreInfoTable = new TablePane(this, ingreData, colNames);
+		
+			storageScroll.add(ingreInfoTable);
 			result = true;
 		} catch (SQLException e1) {
 			// if the error message is "out of memory",

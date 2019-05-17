@@ -1,5 +1,6 @@
 package brewDay;
 
+import java.awt.ScrollPane;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class EquipmentController extends Controller {
 
@@ -21,7 +23,7 @@ public class EquipmentController extends Controller {
 	}
 	
 	//	this method delete equipment information
-	public boolean deleteEquipment(int id) {
+	public boolean deleteEquipment(int id, ScrollPane equipPanel) {
 
 		boolean result = false;
 		Connection connection = null;
@@ -32,6 +34,13 @@ public class EquipmentController extends Controller {
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
 
 			statement.executeUpdate("DELETE FROM Equipment WHERE id = '" + id + "' ");
+			
+//			update the table in main page
+					Object[][] equipData = this.getData();
+					String[] equipColNames = this.getColNames();
+					TablePane equipInfoPane = new TablePane(this, equipData, equipColNames);
+					equipPanel.add(equipInfoPane);
+					equipInfoPane.setVisible(true);
 			result = true;
 		} catch (SQLException e) {
 			// if the error message is "out of memory",
@@ -51,7 +60,7 @@ public class EquipmentController extends Controller {
 	}
 
 	//	this method update equipment information
-	public boolean updateEquipment(int id, double nCapacity, String nUnit) {
+	public boolean updateEquipment(int id, double nCapacity, String nUnit, ScrollPane equipPanel) {
 
 		boolean result = false;
 		Connection connection = null;
@@ -67,6 +76,13 @@ public class EquipmentController extends Controller {
 			
 			statement.executeUpdate("UPDATE Equipment SET capacity = '" + nCapacity + "', unit = '" + nUnit
 					+ "' WHERE ID = '" + id + "'");
+			
+			//			update the table in main page
+					Object[][] equipData = this.getData();
+					String[] equipColNames = this.getColNames();
+					TablePane equipInfoPane = new TablePane(this, equipData, equipColNames);
+					equipPanel.add(equipInfoPane);
+					equipInfoPane.setVisible(true);
 			result = true;
 		} catch (SQLException e) {
 			// if the error message is "out of memory",
@@ -142,7 +158,7 @@ public class EquipmentController extends Controller {
 		return data;
 	}
 	
-	public boolean addEquipment(double quantity, String unit) {
+	public boolean addEquipment(double quantity, String unit, ScrollPane equipPanel) {
 		Connection connection = null;
 		boolean result;
 		try {
@@ -156,6 +172,14 @@ public class EquipmentController extends Controller {
 			statement.executeUpdate("INSERT INTO Equipment (capacity, unit) VALUES ('" + quantity + "', '"
 					 + unit + "')");
 			System.out.println("Equipment added.");
+			
+			
+			//	update the table in main page
+			Object[][] equipData = this.getData();
+			String[] equipColNames = this.getColNames();
+			TablePane equipInfoPane = new TablePane(this, equipData, equipColNames);
+			equipPanel.add(equipInfoPane);
+			equipInfoPane.setVisible(true);
 			result = true;
 		} catch (SQLException e1) {
 			// if the error message is "out of memory",

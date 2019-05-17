@@ -8,12 +8,15 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.Font;
+import java.awt.ScrollPane;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.SpringLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class AddEquipmentView extends View{
 
@@ -21,38 +24,25 @@ public class AddEquipmentView extends View{
 	private JTextField capacityText;
 	private JTextField unitText;
 	
+
 	private EquipmentController c;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Workbench w = new Workbench();
-					EquipmentController ec = new EquipmentController(w);
-					AddEquipmentView window = new AddEquipmentView(w, ec);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the application.
 	 */
-	public AddEquipmentView(Workbench w, EquipmentController c) {
+	public AddEquipmentView(Workbench w, EquipmentController c, ScrollPane equipPanel) {
 		super(w);
-		initialize();
 		this.c = c;
+
+		initialize(equipPanel);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(ScrollPane panel) {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(245, 222, 179));
 		frame.setVisible(true);
@@ -84,7 +74,7 @@ public class AddEquipmentView extends View{
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				
-				boolean result = c.addEquipment(Double.parseDouble(capacityText.getText()), unitText.getText());
+				boolean result = c.addEquipment(Double.parseDouble(capacityText.getText()), unitText.getText(), panel);
 				if(result == true) {
 					frame.setVisible(false);	//	close the input window
 					

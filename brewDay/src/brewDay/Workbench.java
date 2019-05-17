@@ -467,6 +467,7 @@ public class Workbench {
 		// connect to database and get available recipe
 		Connection connection = null;
 		ArrayList<Note> arrayNote = new ArrayList<Note>();
+		
 		try {
 			// create a database connection
 			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
@@ -474,7 +475,8 @@ public class Workbench {
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
 	
 			// get note from recipe ID
-			ResultSet rsNoteID = statement.executeQuery("select distinct nID from Recipe where name = \"" + recipe.getName()+"\"");
+			Statement statement1 = connection.createStatement();
+			ResultSet rsNoteID = statement1.executeQuery("select distinct nID from Recipe where name = \"" + recipe.getName()+"\"");
 			while (rsNoteID.next()) {
 				Statement statement2 = connection.createStatement();
 				ResultSet rsNote = statement2.executeQuery("select content, createDate from Note where ID = "+ rsNoteID.getInt(1));
@@ -495,6 +497,42 @@ public class Workbench {
 			}
 		}
 		return arrayNote;
+	}
+	
+	public boolean brew(Recipe recipe) {
+		// connect to database and get available recipe
+		Connection connection = null;
+		
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement1 = connection.createStatement();
+			statement1.setQueryTimeout(30); // set timeout to 30 sec.
+	
+			// get note from recipe ID
+			for (int i = 0; i < recipe.getIngredients().length; i++) {
+				Statement statement2 = connection.createStatement();
+				ResultSet rsAmount = statement2.executeQuery("SELECT amount FROM StorageIngredient WHERE name = \"" + recipe.getIngredients()[i].getName()+"\"");
+				Statement statement3 = connection.createStatement();
+				statement3.executeUpdate("UPDATE StorageIngredient SET amount = " + (rsAmount.getDouble(1) - recipe.getIngredients()[i].getAmount()) + " WHERE name = \"" + recipe.getIngredients()[i].getName()+"\"");
+			}
+			
+		} catch (SQLException e) {	
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+			System.err.println(e.getMessage());
+			return false;
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				// connection close failed.
+				System.err.println(e.getMessage());
+				return false;
+			}
+		}
+		return true;		
 	}
 
 	// test function

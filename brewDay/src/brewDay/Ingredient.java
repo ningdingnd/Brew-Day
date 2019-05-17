@@ -43,8 +43,10 @@ public class Ingredient {
 	public boolean convertUnit(String targetUnit) {
 		if (this.getUnit().equals("g") && targetUnit.equals("kg")) {
 			this.setAmount(this.getAmount() * 0.001);
+			this.setUnit(targetUnit);
 		} else if (this.getUnit().equals("kg") && targetUnit.equals("g")) {
 			this.setAmount(this.getAmount() * 1000);
+			this.setUnit(targetUnit);
 		} else {
 			return false;
 		}

@@ -148,8 +148,8 @@ public class AddStorIngreView extends View{
 		
 		JLabel lblNewLabel = new JLabel("Unit");
 		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 160, SpringLayout.WEST, frame.getContentPane());
-		lblNewLabel.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 24));
-		lblNewLabel.setForeground(new Color(255, 127, 80));
+		lblNewLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
+		lblNewLabel.setForeground(Color.BLACK);
 		frame.getContentPane().add(lblNewLabel);
 		
 		
@@ -166,15 +166,15 @@ public class AddStorIngreView extends View{
 		JLabel lblNewLabel_1 = new JLabel("Amount");
 		springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel_1, 0, SpringLayout.SOUTH, amount);
 		springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_1, -40, SpringLayout.WEST, amount);
-		lblNewLabel_1.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 24));
-		lblNewLabel_1.setForeground(new Color(255, 127, 80));
+		lblNewLabel_1.setFont(new Font("Calibri", Font.PLAIN, 24));
+		lblNewLabel_1.setForeground(Color.BLACK);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Name");
 		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_2, 0, SpringLayout.NORTH, name);
 		springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_2, -48, SpringLayout.WEST, name);
-		lblNewLabel_2.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 24));
-		lblNewLabel_2.setForeground(new Color(255, 127, 80));
+		lblNewLabel_2.setFont(new Font("Calibri", Font.PLAIN, 24));
+		lblNewLabel_2.setForeground(Color.BLACK);
 		frame.getContentPane().add(lblNewLabel_2);
 		
 	}

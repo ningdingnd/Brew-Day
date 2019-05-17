@@ -1,5 +1,7 @@
 package brewDay;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -7,8 +9,10 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -16,22 +20,81 @@ import javax.swing.JScrollPane;
 public class StorageIngredientController extends Controller {
 
 	private Workbench w;
-	
+
 	public StorageIngredientController(Workbench w) {
 		super(w);
 		this.w = w;
 	}
 
 	public String[] getColNames() {
-		String[] columnNames = { "ID", "Name", "Amount", "Unit"};
+		String[] columnNames = { "ID", "Name", "Amount", "Unit" };
 		return columnNames;
 	}
-	
+
 	public Workbench getWorkbench() {
 		return this.w;
 	}
 
-	public Object[][] getData(JScrollPane panel) {
+	public boolean deleteIngre(String name) {
+		// construct the storage ingredient instance
+		boolean result = false;
+		Connection connection = null;
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+			statement.executeUpdate("DELETE FROM StorageIngredient WHERE name = '" + name + "' ");
+			result = true;
+		} catch (SQLException e) {
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+			System.err.println(e.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				// connection close failed.
+				System.err.println(e.getMessage());
+			}
+		}
+
+		return result;
+	}
+
+	public boolean updateIngre(String name, double nAmount, String nUnit) {
+		// construct the storage ingredient instance
+		boolean result = false;
+		Connection connection = null;
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+			statement.executeUpdate("UPDATE StorageIngredient SET amount = '" + nAmount + "', unit = \'" + nUnit
+					+ "\' WHERE name = \'" + name + "\'");
+			result = true;
+		} catch (SQLException e) {
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+			System.err.println(e.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				// connection close failed.
+				System.err.println(e.getMessage());
+			}
+		}
+
+		return result;
+	}
+
+	public Object[][] getData() {
 
 		Object[][] data = null;
 		int ingreNum;
@@ -49,27 +112,23 @@ public class StorageIngredientController extends Controller {
 			ingreNum = countIngre.getInt(1);
 
 			System.out.println("storage ingredient number: " + ingreNum);
-			
+
 			ResultSet ingreInfo = statement.executeQuery("SELECT * FROM StorageIngredient");
 
-			//	get the data array ready
+			// get the data array ready
 			data = new Object[ingreNum][colNum];
 			for (int i = 0; i < ingreNum; i++) {
 				ingreInfo.next();
 				for (int j = 0; j < colNum; j++) {
-					if(j == 0) {
+					if (j == 0) {
 						data[i][j] = ingreInfo.getInt("ID");
-					}
-					else if(j == 1) {
+					} else if (j == 1) {
 						data[i][j] = ingreInfo.getString("name");
-					}
-					else if(j == 2) {
+					} else if (j == 2) {
 						data[i][j] = ingreInfo.getDouble("amount");
-					}
-					else if(j == 3) {
+					} else if (j == 3) {
 						data[i][j] = ingreInfo.getString("unit");
 					}
-					
 				}
 			}
 
@@ -129,9 +188,7 @@ public class StorageIngredientController extends Controller {
 		return result;
 	}
 
-	public boolean deleteIngredient(String name) {
-		return true;
-	}
+	
 
 	public boolean addAmount(int ID, float amount) {
 		Connection connection = null;

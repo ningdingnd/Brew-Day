@@ -82,12 +82,13 @@ public class RecipeController extends Controller {
 			System.out.println("ingredient number: " + ingreNum);
 
 			ResultSet ingreInfo = statement.executeQuery(
-					"SELECT * FROM RecipeIngredient, RecipeAndIngredients, Recipe WHERE RecipeIngredient.ID = RecipeAndIngredients.ingredientID AND RecipeAndIngredients.ingredientID = RecipeIngredient.ID AND Recipe.name = '" + name + "'");
+					"SELECT * FROM RecipeIngredient, RecipeAndIngredients, Recipe WHERE Recipe.ID = RecipeAndIngredients.rID AND RecipeAndIngredients.ingredientID = RecipeIngredient.ID AND Recipe.name = '" + name + "'");
 
 			// get the data array ready
 			data = new Object[ingreNum][colNum];
 			for (int i = 0; i < ingreNum; i++) {
 				ingreInfo.next();
+				System.out.println(ingreInfo.getString("name"));
 				for (int j = 0; j < colNum; j++) {
 					if (j == 0) {
 						data[i][j] = ingreInfo.getInt("ID");

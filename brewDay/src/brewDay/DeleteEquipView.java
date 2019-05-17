@@ -2,6 +2,7 @@ package brewDay;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.ScrollPane;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,9 +28,9 @@ public class DeleteEquipView extends View{
 	/**
 	 * Create the application.
 	 */
-	public DeleteEquipView(Workbench w,  EquipmentController c, Object[][] data) {
+	public DeleteEquipView(Workbench w,  EquipmentController c, Object[][] data , ScrollPane equipPanel) {
 		super(w);
-		initialize(data);
+		initialize(data, equipPanel);
 		this.c = c;
 		this.data = data;
 	}
@@ -37,7 +38,7 @@ public class DeleteEquipView extends View{
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(Object[][] data) {
+	private void initialize(Object[][] data, ScrollPane equipPanel) {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(245, 222, 179));
 		frame.setVisible(true);
@@ -102,7 +103,7 @@ public class DeleteEquipView extends View{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				boolean result = c.deleteEquipment((Integer)nameCombo.getSelectedItem());
+				boolean result = c.deleteEquipment((Integer)nameCombo.getSelectedItem(), equipPanel);
 				if(result == true) {
 					frame.setVisible(false);	//	close the input window
 					

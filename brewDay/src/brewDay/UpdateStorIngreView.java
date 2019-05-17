@@ -2,6 +2,7 @@ package brewDay;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.ScrollPane;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -54,10 +55,11 @@ public class UpdateStorIngreView extends View{
 
 	/**
 	 * Create the application.
+	 * @param storageScroll 
 	 */
-	public UpdateStorIngreView(Workbench w, StorageIngredientController c, Object[][] data) {
+	public UpdateStorIngreView(Workbench w, StorageIngredientController c, Object[][] data, ScrollPane storageScroll) {
 		super(w);
-		initialize(data);
+		initialize(data, storageScroll);
 		this.c = c;
 		this.data = data;
 
@@ -70,7 +72,7 @@ public class UpdateStorIngreView extends View{
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(Object[][] data) {
+	private void initialize(Object[][] data, ScrollPane storageScroll) {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(245, 222, 179));
 		frame.setVisible(true);
@@ -168,7 +170,7 @@ public class UpdateStorIngreView extends View{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				boolean result = c.updateIngre((String)nameCombo.getSelectedItem(), Double.parseDouble(updateQuantity.getText()), updateUnit.getText());
+				boolean result = c.updateIngre((String)nameCombo.getSelectedItem(), Double.parseDouble(updateQuantity.getText()), updateUnit.getText(), storageScroll);
 				if(result == true) {
 					frame.setVisible(false);	//	close the input window
 					

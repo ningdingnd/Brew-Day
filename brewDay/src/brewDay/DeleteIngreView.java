@@ -2,6 +2,7 @@ package brewDay;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.ScrollPane;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,10 +27,11 @@ public class DeleteIngreView extends View{
 
 	/**
 	 * Create the application.
+	 * @param storageScroll 
 	 */
-	public DeleteIngreView(Workbench w, StorageIngredientController c, Object[][] data) {
+	public DeleteIngreView(Workbench w, StorageIngredientController c, Object[][] data, ScrollPane storageScroll) {
 		super(w);
-		initialize(data);
+		initialize(data, storageScroll);
 		this.c = c;
 		this.data = data;
 	}
@@ -37,7 +39,7 @@ public class DeleteIngreView extends View{
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(Object[][] data) {
+	private void initialize(Object[][] data, ScrollPane storageScroll) {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(245, 222, 179));
 		frame.setVisible(true);
@@ -99,7 +101,7 @@ public class DeleteIngreView extends View{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				boolean result = c.deleteIngre((String)nameCombo.getSelectedItem());
+				boolean result = c.deleteIngre((String)nameCombo.getSelectedItem(), storageScroll);
 				if(result == true) {
 					frame.setVisible(false);	//	close the input window
 					

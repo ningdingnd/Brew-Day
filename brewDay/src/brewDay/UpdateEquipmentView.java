@@ -12,6 +12,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.Font;
+import java.awt.ScrollPane;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -47,9 +49,9 @@ public class UpdateEquipmentView extends View{
 	/**
 	 * Create the application.
 	 */
-	public UpdateEquipmentView(Workbench w, EquipmentController c, Object[][] data) {
+	public UpdateEquipmentView(Workbench w, EquipmentController c, Object[][] data, ScrollPane equipPanel) {
 		super(w);
-		initialize(data);
+		initialize(data, equipPanel);
 		this.data = data;
 		this.c = c;
 	}
@@ -57,7 +59,7 @@ public class UpdateEquipmentView extends View{
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(Object[][] data) {
+	private void initialize(Object[][] data, ScrollPane equipPanel) {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(245, 222, 179));
 		frame.setVisible(true);
@@ -140,7 +142,7 @@ public class UpdateEquipmentView extends View{
 				System.out.println("You selected : " + (Integer)comboBox.getSelectedItem());
 				System.out.println("You input capacity: " + Double.parseDouble(capacityText.getText()));
 				System.out.println("You input unit: " + unitText.getText());
-				boolean result = c.updateEquipment((int)comboBox.getSelectedItem(), Double.parseDouble(capacityText.getText()), unitText.getText());
+				boolean result = c.updateEquipment((int)comboBox.getSelectedItem(), Double.parseDouble(capacityText.getText()), unitText.getText(), equipPanel);
 				
 				if(result == true) {
 					frame.setVisible(false);	//	close the input window

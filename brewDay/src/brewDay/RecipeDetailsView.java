@@ -126,7 +126,7 @@ public class RecipeDetailsView extends View{
 		txtpnMakerecipeName.setBounds(73, 17, 242, 25);
 		txtpnMakerecipeName.setBackground(new Color(245, 222, 179));
 		txtpnMakerecipeName.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		txtpnMakerecipeName.setText("Make (recipe name) in (quantity) ?");
+		txtpnMakerecipeName.setText("Make "+recipe.getName()+" in "+batchSize+"L ?");
 		panel.add(txtpnMakerecipeName);
 		
 		JButton btnNewButton = new JButton("confirm");

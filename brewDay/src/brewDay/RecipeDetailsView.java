@@ -3,6 +3,7 @@ package brewDay;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import java.awt.Font;
@@ -129,7 +130,17 @@ public class RecipeDetailsView extends View{
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+				if (w.brew(recipe)) {
+					Object[] options = { "OK" }; 
+					JOptionPane.showOptionDialog(null, "Brew successfully!", "Warning", 
+					JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, 
+					null, options, options[0]); 
+				}else {
+					Object[] options = { "OK" }; 
+					JOptionPane.showOptionDialog(null, "Brew failed!", "Warning", 
+					JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, 
+					null, options, options[0]); 
+				}				
 			}
 		});
 		btnNewButton.setBackground(new Color(255, 140, 0));

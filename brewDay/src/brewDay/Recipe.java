@@ -1,6 +1,6 @@
 package brewDay;
 //This class is implemented by Chris and Jason
-public class Recipe {
+public class Recipe implements Comparable<Recipe> {
 	private String name;
 	private double quantity;
 	private String unit;
@@ -130,5 +130,26 @@ public class Recipe {
 		return ShoppingList;
 	}
 */
+	
+	@Override
+	public int compareTo(Recipe o) {
+		double thisSum = 0;
+		double oSum = 0;
+		for (Ingredient i : this.getIngredients()) {
+			i.convertUnit("g");
+			thisSum += i.getAmount();
+		}
+		for (Ingredient i : o.getIngredients()) {
+			i.convertUnit("g");
+			oSum += i.getAmount();
+		}
+
+		if (thisSum < oSum)
+			return 1;
+		else if (oSum < thisSum) 
+			return -1;
+		else 
+			return 0;
+	}
 	
 }

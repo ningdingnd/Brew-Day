@@ -19,12 +19,22 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
 import java.awt.Color;
+import java.awt.Component;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 public class DeleteRecipeListView extends View {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JFrame frame;
+	
+	private ArrayList recipeIngrInfoArrayList;
+	private ArrayList<JCheckBox> checkBox;
 
 	/**
 	 * Launch the application.
@@ -86,6 +96,37 @@ public class DeleteRecipeListView extends View {
 		buttonDelete.setBackground(new Color(255, 140, 0));
 		buttonDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				for(int i = 0; i < checkBox.size(); i++) {
+					if(checkBox.get(i).isSelected()) {
+						String name = (String)((ArrayList)recipeIngrInfoArrayList.get(i)).get(0);
+						Connection connection = null;
+						try {
+							// create a database connection
+							connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+							Statement statement = connection.createStatement();
+							statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+							statement.executeUpdate("DELETE FROM Recipe WHERE name = '" + name + "' ");
+						} catch (SQLException e1) {
+							// it probably means no database file is found
+							System.err.println(e1.getMessage());
+						} finally {
+							try {
+								if (connection != null)
+									connection.close();
+							} catch (SQLException e1) {
+								// connection close failed.
+								System.err.println(e1.getMessage());
+							}
+						}
+						
+					}
+				}
+				frame.setVisible(false);	//	close the input window
+				
+				//	give a success window
+				JOptionPane.showMessageDialog(null, "Delete success.", "Result", JOptionPane.PLAIN_MESSAGE);
+				System.out.println("jump to success box.");
 			}
 		});
 		buttonDelete.setFont(new Font("Tahoma", Font.BOLD, 17));
@@ -108,14 +149,19 @@ public class DeleteRecipeListView extends View {
 
 
 		//get all recipe and ingredient info
-		ArrayList recipeIngrInfoArrayList = w.getRecipeIngredient();
+		recipeIngrInfoArrayList = w.getRecipeIngredient();
 		panel.setLayout(new GridLayout(0,1));
 		//check box for all recipe list
-		ArrayList checkBox = new ArrayList();
+		checkBox = new ArrayList<>();
 		for (int i = 0;i <recipeIngrInfoArrayList.size(); i++) {
 			JCheckBox cb = new JCheckBox((String)((ArrayList)recipeIngrInfoArrayList.get(i)).get(0));
 			JTextPane tp = new JTextPane();
-			tp.setText((String)((ArrayList)recipeIngrInfoArrayList.get(i)).get(1));
+			String ingrString = "";
+			for (int j = 1; j < ((ArrayList) recipeIngrInfoArrayList.get(i)).size(); j++) {
+				ingrString+=(String)((ArrayList)recipeIngrInfoArrayList.get(i)).get(j) + "\n";
+			}
+			System.out.println(((ArrayList) recipeIngrInfoArrayList.get(i)).size());
+			tp.setText(ingrString);
 			checkBox.add(cb);
 			cb.setBackground(new Color(222, 184, 135));
 			cb.setFont(new Font("Tahoma", Font.PLAIN, 17));

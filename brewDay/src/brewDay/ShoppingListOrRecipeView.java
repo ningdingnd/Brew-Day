@@ -21,7 +21,7 @@ import java.awt.event.MouseEvent;
 public class ShoppingListOrRecipeView extends View {
 	private ArrayList shoppListRecipe;
 	private JFrame frame;
-
+	private double batchSize;
 	/**
 	 * Launch the application.
 	 */
@@ -41,9 +41,10 @@ public class ShoppingListOrRecipeView extends View {
 	/**
 	 * Create the application.
 	 */
-	public ShoppingListOrRecipeView(Workbench w, ArrayList shoppListRecipe) {
+	public ShoppingListOrRecipeView(Workbench w, ArrayList shoppListRecipe, double batchSize) {
 		super(w);
 		this.shoppListRecipe = shoppListRecipe;
+		this.batchSize = batchSize;
 		initialize();
 	}
 
@@ -156,7 +157,7 @@ public class ShoppingListOrRecipeView extends View {
 						@Override
 						public void actionPerformed(ActionEvent arg0) {
 							// TODO Auto-generated method stub
-							new RecipeDetailsView(w, recipe);
+							new RecipeDetailsView(w, recipe,batchSize);
 
 						}
 

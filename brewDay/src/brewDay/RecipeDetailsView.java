@@ -25,6 +25,7 @@ public class RecipeDetailsView extends View{
 	private JFrame frame;
 	private Recipe recipe;
 	private JTextPane textPane;
+	private double batchSize;
 
 //	/**
 //	 * Launch the application.
@@ -45,9 +46,10 @@ public class RecipeDetailsView extends View{
 	/**
 	 * Create the application.
 	 */
-	public RecipeDetailsView(Workbench w, Recipe recipe) {
+	public RecipeDetailsView(Workbench w, Recipe recipe, double batchSize) {
 		super(w);
 		this.recipe = recipe;
+		this.batchSize = batchSize;
 		initialize();
 	}
 
@@ -104,12 +106,13 @@ public class RecipeDetailsView extends View{
 		notesTextArea.setLineWrap(true);
 		notesTextArea.setWrapStyleWord(true);
 		//set notes
-		ArrayList<Note> note = w.getNote(recipe);
-		String noteString = "";
-		for (int i = 0; i < note.size(); i++) {
-			noteString += "(" + note.get(i).getDate() + ") " + note.get(i).getContent() + "\n";			
-		}
-		notesTextArea.setText(noteString);		
+		///////////////////////////////////////////////////////////////////////////////////////
+//		ArrayList<Note> note = w.getNote(recipe);
+//		String noteString = "";
+//		for (int i = 0; i < note.size(); i++) {
+//			noteString += "(" + note.get(i).getDate() + ") " + note.get(i).getContent() + "\n";			
+//		}
+//		notesTextArea.setText(noteString);		
 		frame.getContentPane().add(notesTextArea);
 		
 		JPanel panel = new JPanel();
@@ -130,7 +133,8 @@ public class RecipeDetailsView extends View{
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if (w.brew(recipe)) {
+				Brew brew = new Brew(batchSize);
+				if (w.brew(recipe, brew)) {
 					Object[] options = { "OK" }; 
 					JOptionPane.showOptionDialog(null, "Brew successfully!", "Warning", 
 					JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, 

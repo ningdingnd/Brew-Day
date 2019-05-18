@@ -34,35 +34,22 @@ public class AddRecipeView extends View{
 	private JFrame frame;
 	private JTextField textField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Workbench w = new Workbench();
-					AddRecipeView window = new AddRecipeView(w);
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the application.
+	 * @param recipeNameCombo 
+	 * @param recipeController 
 	 */
-	public AddRecipeView(Workbench w) {
+	public AddRecipeView(Workbench w, RecipeController recipeController, JComboBox recipeNameCombo) {
 		super(w);
-		initialize();
+		initialize(recipeController, recipeNameCombo);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(RecipeController recipeController, JComboBox recipeNameCombo) {
 		//connect to database
 		ArrayList pack = w.getRecipe();
 		ArrayList availableIngredient= (ArrayList) pack.get(0);
@@ -123,7 +110,7 @@ public class AddRecipeView extends View{
 			public void mouseClicked(MouseEvent a) {
 				//connected with database
 				//add the recipe to database
-				w.insertRecipe(loopNum,textfieled,availableIngredient,currentUnit);
+				w.insertRecipe(loopNum,textfieled,availableIngredient,currentUnit,  recipeController,  recipeNameCombo);
 				frame.dispose();
 			}
 		});

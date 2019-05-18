@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 
 public class Workbench {
@@ -29,6 +30,8 @@ public class Workbench {
 			l.update();
 		}
 	}
+	
+	
 
 	// this method check whether the batch size user input is larger than the
 	// capacity of equipments
@@ -289,7 +292,7 @@ public class Workbench {
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
 
 			// get all available recipe id in database
-			ResultSet rsName = statement.executeQuery("select distinct name,unit from RecipeIngredient");
+			ResultSet rsName = statement.executeQuery("select distinct name,unit from StorageIngredient");
 			// for every recipe, check whether it is available one by one
 			while (rsName.next()) {
 				String name = rsName.getString(1);
@@ -316,7 +319,7 @@ public class Workbench {
 		return pack;
 	}
 
-	public void insertRecipe(int loopNum, ArrayList textfieled, ArrayList availableIngredient, ArrayList currentUnit) {
+	public void insertRecipe(int loopNum, ArrayList textfieled, ArrayList availableIngredient, ArrayList currentUnit, RecipeController recipeController, JComboBox recipeNameCombo) {
 		Connection connection1 = null;
 		try {
 			// create a database connection
@@ -340,6 +343,10 @@ public class Workbench {
 							+ RecipeNum.getInt(1) + "')");
 				}
 			}
+			
+			
+			String[] recipeNames = recipeController.getRecipeNames();
+			recipeNameCombo = new JComboBox(recipeNames);
 
 		} catch (SQLException e) {
 			// if the error message is "out of memory",
@@ -562,6 +569,9 @@ public class Workbench {
 		}
 		return true;		
 	}
+	
+	
+	
 
 	// test function
 	public static void testWorkbench() {

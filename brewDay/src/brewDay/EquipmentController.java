@@ -22,6 +22,8 @@ public class EquipmentController extends Controller {
 		return columnNames;
 	}
 	
+	
+	
 	//	this method delete equipment information
 	public boolean deleteEquipment(int id, ScrollPane equipPanel) {
 

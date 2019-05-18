@@ -136,8 +136,8 @@ public class RecipeDetailsView extends View{
 				Brew brew = new Brew(batchSize);
 				if (w.brew(recipe, brew)) {
 					Object[] options = { "OK" }; 
-					JOptionPane.showOptionDialog(null, "Brew successfully!", "Warning", 
-					JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, 
+					JOptionPane.showOptionDialog(null, "Brew successfully!", "Message", 
+					JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, 
 					null, options, options[0]); 
 				}else {
 					Object[] options = { "OK" }; 

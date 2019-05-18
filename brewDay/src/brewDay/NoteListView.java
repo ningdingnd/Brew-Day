@@ -1,5 +1,6 @@
 package brewDay;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -8,6 +9,8 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextPane;
+import javax.swing.border.LineBorder;
 
 public class NoteListView extends View{
 
@@ -43,13 +46,16 @@ public class NoteListView extends View{
 	private void initialize() {
 		frame = new JFrame();
 		frame.setVisible(true);
-		frame.setBounds(100, 100, 1000, 657);
+		frame.setBounds(125, 125, 600, 600);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.getContentPane().setBackground(new Color(245, 222, 179));
 		
 		JButton buttonCancel = new JButton("cancel");
+		buttonCancel.setForeground(new Color(255, 255, 255));
+		buttonCancel.setBackground(new Color(255, 140, 0));
 		buttonCancel.setFont(new Font("Tahoma", Font.BOLD, 17));
-		buttonCancel.setBounds(516, 467, 135, 54);
+		buttonCancel.setBounds(316, 467, 135, 54);
 		frame.getContentPane().add(buttonCancel);
 		buttonCancel.addActionListener(new ActionListener() {
 
@@ -63,18 +69,25 @@ public class NoteListView extends View{
 
 		});
 		
-		JButton buttonSelect = new JButton("select");
+		JButton buttonSelect = new JButton("Confirm");
+		buttonSelect.setForeground(new Color(255, 255, 255));
+		buttonSelect.setBackground(new Color(255, 140, 0));
 		buttonSelect.setFont(new Font("Tahoma", Font.BOLD, 17));
-		buttonSelect.setBounds(315, 467, 135, 54);
+		buttonSelect.setBounds(115, 467, 135, 54);
 		frame.getContentPane().add(buttonSelect);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(315, 71, 336, 358);
+		panel.setBackground(new Color(255, 250, 205));
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.setBounds(115, 71, 336, 358);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JButton buttonNooo = new JButton("Note List");
-		buttonNooo.setBounds(0, 0, 336, 39);
+		JTextPane buttonNooo = new JTextPane();
+		buttonNooo.setBackground(new Color(255, 250, 205));
+		buttonNooo.setEditable(false);
+		buttonNooo.setText("Note list:");
+		buttonNooo.setBounds(10, 10, 300, 39);
 		buttonNooo.setFont(new Font("Tahoma", Font.BOLD, 17));
 		panel.add(buttonNooo);
 		

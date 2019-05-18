@@ -507,13 +507,16 @@ public class Workbench {
 	
 			// get note from recipe ID
 			Statement statement1 = connection.createStatement();
-			ResultSet rsNoteID = statement1.executeQuery("select distinct nID from Recipe where name = \"" + recipe.getName()+"\"");
-			while (rsNoteID.next()) {
-				Statement statement2 = connection.createStatement();
-				ResultSet rsNote = statement2.executeQuery("select content, createDate from Note where ID = "+ rsNoteID.getInt(1));
+			ResultSet rsRID = statement1.executeQuery("select ID from Recipe where name = \"" + recipe.getName()+"\"");
+			Statement statement2 = connection.createStatement();
+			ResultSet rsNID = statement2.executeQuery("select nID from Brew where rID = "+rsRID.getInt(1));
+			while (rsNID.next()) {
+				Statement statement3 = connection.createStatement();
+				ResultSet rsNote = statement3.executeQuery("select content, createDate from Note where ID = "+ rsNID.getInt(1));
 				Note note = new Note(rsNote.getString("content"), rsNote.getString("createDate"));
 				arrayNote.add(note);
 			}
+			
 		} catch (SQLException e) {	
 			// if the error message is "out of memory",
 			// it probably means no database file is found

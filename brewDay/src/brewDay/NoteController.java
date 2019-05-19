@@ -67,5 +67,13 @@ public class NoteController extends Controller {
 		}
 		return notes;
 	}
+	
+	//	this method add notes to database
+	public int addNote(String content, String date) {
+
+		//	call add note method in workbench
+		int nID = w.addNote(content, date);
+		return nID;
+	}
 
 }

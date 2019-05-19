@@ -22,28 +22,16 @@ public class InputBatchSizeView extends View{
 
 	private JFrame frame;
 	private JTextField textField;
+	private NoteController c;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Workbench w = new Workbench();
-					InputBatchSizeView window = new InputBatchSizeView(w);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the application.
 	 */
-	public InputBatchSizeView(Workbench w) {
+	public InputBatchSizeView(Workbench w, NoteController c) {
 		super(w);
+		this.c = c;
 		initialize();
 	}
 
@@ -85,7 +73,7 @@ public class InputBatchSizeView extends View{
 					//	check whether there is any recipe available according to batch size
 					ArrayList shoppListRecipe = w.checkBrewAvailable(batchSize);
 					//System.out.print("recipe name:"+((Recipe)shoppListRecipe.get(1)).getName());
-					new ShoppingListOrRecipeView(w, shoppListRecipe,batchSize);
+					new ShoppingListOrRecipeView(w, shoppListRecipe,batchSize, c);
 					frame.dispose();
 				}else {
 					System.out.println("Equipment not available");

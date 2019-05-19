@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JComboBox;
+import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 public class Workbench {
@@ -319,7 +320,7 @@ public class Workbench {
 		return pack;
 	}
 
-	public void insertRecipe(int loopNum, ArrayList textfieled, ArrayList availableIngredient, ArrayList currentUnit, RecipeController recipeController, JComboBox recipeNameCombo) {
+	public void insertRecipe(int loopNum, ArrayList textfieled, ArrayList availableIngredient, ArrayList currentUnit, RecipeController recipeController) {
 		Connection connection1 = null;
 		try {
 			// create a database connection
@@ -345,9 +346,7 @@ public class Workbench {
 			}
 			
 			
-			String[] recipeNames = recipeController.getRecipeNames();
-			recipeNameCombo = new JComboBox(recipeNames);
-
+			
 		} catch (SQLException e) {
 			// if the error message is "out of memory",
 			// it probably means no database file is found
@@ -533,7 +532,7 @@ public class Workbench {
 		return arrayNote;
 	}
 	
-	public boolean brew(Recipe recipe, Brew brew) {
+	public boolean brew(Recipe recipe, Brew brew, int nID) {
 		// connect to database and get available recipe
 		Connection connection = null;
 		
@@ -549,11 +548,13 @@ public class Workbench {
 				ResultSet rsAmount = statement2.executeQuery("SELECT amount FROM StorageIngredient WHERE name = \"" + recipe.getIngredients()[i].getName()+"\"");
 				Statement statement3 = connection.createStatement();
 				statement3.executeUpdate("UPDATE StorageIngredient SET amount = " + (rsAmount.getDouble(1) - recipe.getIngredients()[i].getAmount()) + " WHERE name = \"" + recipe.getIngredients()[i].getName()+"\"");
-				Statement statement5 = connection.createStatement();
-				ResultSet rsRID = statement5.executeQuery("SELECT ID FROM Recipe WHERE name = \"" +recipe.getName() +"\"");
-				Statement statement4 = connection.createStatement();
-				statement4.executeUpdate("INSERT INTO Brew (batchSize, date, time, rID) VALUES (" + brew.getBatchSize()+ ",\""+brew.getDate()+"\",\""+brew.getTime()+"\","+rsRID.getInt(1)+")");
+				
 			}
+			//	write record in brew database
+			Statement statement5 = connection.createStatement();
+			ResultSet rsRID = statement5.executeQuery("SELECT ID FROM Recipe WHERE name = \"" +recipe.getName() +"\"");
+			Statement statement4 = connection.createStatement();
+			statement4.executeUpdate("INSERT INTO Brew (batchSize, date, time, rID, nID) VALUES (" + brew.getBatchSize()+ ",\""+brew.getDate()+"\",\""+brew.getTime()+"\","+rsRID.getInt(1)+"," + nID + ")");
 			
 		} catch (SQLException e) {	
 			// if the error message is "out of memory",
@@ -573,6 +574,44 @@ public class Workbench {
 		return true;		
 	}
 	
+	//	this method add note to database, then return the nID
+	public int addNote(String content, String date) {
+		int nID = -1;
+		Connection connection = null;
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+			
+			//	insert into database
+			statement.executeUpdate("INSERT INTO Note (content, createDate) values ('" + content + "','" + date + "')");
+			
+			//	order the id of content desc to get the largest id in the first row
+			//	which is the latest note
+			ResultSet rs = statement.executeQuery("SELECT ID FROM Note ORDER BY ID DESC");
+			rs.next();
+				// read the result set
+				System.out.println("id = " + rs.getInt("id"));
+				nID = rs.getInt(1);
+			
+		} catch (SQLException e) {
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+			System.err.println(e.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				// connection close failed.
+				System.err.println(e.getMessage());
+			}
+		}
+		
+		return nID;
+	}
 	
 	
 

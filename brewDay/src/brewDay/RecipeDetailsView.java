@@ -26,6 +26,7 @@ public class RecipeDetailsView extends View{
 	private Recipe recipe;
 	private JTextPane textPane;
 	private double batchSize;
+	private NoteController c;
 
 //	/**
 //	 * Launch the application.
@@ -46,17 +47,18 @@ public class RecipeDetailsView extends View{
 	/**
 	 * Create the application.
 	 */
-	public RecipeDetailsView(Workbench w, Recipe recipe, double batchSize) {
+	public RecipeDetailsView(Workbench w, Recipe recipe, double batchSize, NoteController c) {
 		super(w);
 		this.recipe = recipe;
 		this.batchSize = batchSize;
-		initialize();
+		this.c = c;
+		initialize(c);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(NoteController c) {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(245, 222, 179));
 		frame.getContentPane().setEnabled(false);
@@ -97,8 +99,12 @@ public class RecipeDetailsView extends View{
 		notesTextPane.setBounds(31, 248, 601, 34);
 		frame.getContentPane().add(notesTextPane);
 		
+		
+		
+		//	the notes text area
 		JTextArea notesTextArea = new JTextArea();
-		notesTextArea.setEditable(false);
+		notesTextArea.setEditable(true);
+		
 		notesTextArea.setFont(new Font("Arial", Font.PLAIN, 15));
 		notesTextArea.setBackground(new Color(255, 250, 205));
 		notesTextArea.setBounds(30, 285, 602, 108);
@@ -134,7 +140,8 @@ public class RecipeDetailsView extends View{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				Brew brew = new Brew(batchSize);
-				if (w.brew(recipe, brew)) {
+				int nID = c.addNote(notesTextArea.getText(), brew.getDate());
+				if (w.brew(recipe, brew, nID)) {
 					Object[] options = { "OK" }; 
 					JOptionPane.showOptionDialog(null, "Brew successfully!", "Message", 
 					JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, 

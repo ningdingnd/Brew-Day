@@ -22,6 +22,8 @@ public class ShoppingListOrRecipeView extends View {
 	private ArrayList shoppListRecipe;
 	private JFrame frame;
 	private double batchSize;
+	private NoteController c;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -41,10 +43,11 @@ public class ShoppingListOrRecipeView extends View {
 	/**
 	 * Create the application.
 	 */
-	public ShoppingListOrRecipeView(Workbench w, ArrayList shoppListRecipe, double batchSize) {
+	public ShoppingListOrRecipeView(Workbench w, ArrayList shoppListRecipe, double batchSize, NoteController c) {
 		super(w);
 		this.shoppListRecipe = shoppListRecipe;
 		this.batchSize = batchSize;
+		this.c = c;
 		initialize();
 	}
 
@@ -69,7 +72,7 @@ public class ShoppingListOrRecipeView extends View {
 		btnGoBack.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new InputBatchSizeView(w);
+				new InputBatchSizeView(w,c);
 				frame.dispose();
 			}
 		});
@@ -157,7 +160,7 @@ public class ShoppingListOrRecipeView extends View {
 						@Override
 						public void actionPerformed(ActionEvent arg0) {
 							// TODO Auto-generated method stub
-							new RecipeDetailsView(w, recipe,batchSize);
+							new RecipeDetailsView(w, recipe,batchSize, c);
 
 						}
 

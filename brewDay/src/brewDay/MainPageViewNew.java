@@ -90,7 +90,7 @@ public class MainPageViewNew extends View {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				// create the new view to input batch size
-				InputBatchSizeView brew = new InputBatchSizeView(w);
+				InputBatchSizeView brew = new InputBatchSizeView(w, (NoteController) controllers.get(3));
 				w.addListener(brew);
 
 			}
@@ -111,6 +111,20 @@ public class MainPageViewNew extends View {
 		/********** recipe name combo **************/
 		String[] recipeNames = ((RecipeController) controllers.get(2)).getRecipeNames();
 		JComboBox recipeNameCombo = new JComboBox(recipeNames);
+		
+		recipeNameCombo.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("Action detected!");
+				String[] recipeNames = ((RecipeController) controllers.get(2)).getRecipeNames();
+				JComboBox recipeNameCombo = new JComboBox(recipeNames);
+				recipePanel.add(recipeNameCombo);
+			}
+			
+		});
+		
 		
 		for (int i = 0; i < recipeNames.length; i++) {
 			System.out.println(recipeNames[i]);
@@ -174,7 +188,7 @@ public class MainPageViewNew extends View {
 		recipeAdd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new AddRecipeView(w, (RecipeController) controllers.get(2), recipeNameCombo);
+				new AddRecipeView(w, (RecipeController) controllers.get(2), recipePanel);
 			}
 		});
 

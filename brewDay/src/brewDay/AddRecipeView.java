@@ -38,18 +38,18 @@ public class AddRecipeView extends View{
 
 	/**
 	 * Create the application.
-	 * @param recipeNameCombo 
+	 * @param recipePanel 
 	 * @param recipeController 
 	 */
-	public AddRecipeView(Workbench w, RecipeController recipeController, JComboBox recipeNameCombo) {
+	public AddRecipeView(Workbench w, RecipeController recipeController, JPanel recipePanel) {
 		super(w);
-		initialize(recipeController, recipeNameCombo);
+		initialize(recipeController, recipePanel);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(RecipeController recipeController, JComboBox recipeNameCombo) {
+	private void initialize(RecipeController recipeController, JPanel recipePanel) {
 		//connect to database
 		ArrayList pack = w.getRecipe();
 		ArrayList availableIngredient= (ArrayList) pack.get(0);
@@ -110,7 +110,7 @@ public class AddRecipeView extends View{
 			public void mouseClicked(MouseEvent a) {
 				//connected with database
 				//add the recipe to database
-				w.insertRecipe(loopNum,textfieled,availableIngredient,currentUnit,  recipeController,  recipeNameCombo);
+				w.insertRecipe(loopNum,textfieled,availableIngredient,currentUnit,  recipeController);
 				frame.dispose();
 			}
 		});

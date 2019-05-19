@@ -55,6 +55,43 @@ public class RecipeController extends Controller {
 		}
 		return names;
 	}
+	
+	
+	public Object[] getRecipeAmount(String rName) {
+		Object[] info = new Object[2];
+		Connection connection = null;
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+
+			//	find the recipe information and store it to info Object array
+			ResultSet rs = statement.executeQuery("select * from Recipe WHERE name = '" + rName + "'");
+			rs.next();
+			System.out.println("quantity:" + rs.getDouble("quantity"));
+			double quantity = rs.getDouble("quantity");
+			info[0] = quantity;
+			System.out.println("unit: "+ rs.getString("unit"));
+			String unit = rs.getString("unit");
+			info[1] = unit;
+			
+		} catch (SQLException e) {
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+			System.err.println(e.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				// connection close failed.
+				System.err.println(e.getMessage());
+			}
+		}
+		return info;
+	}
 
 	public String[] getRecipeIngreColNames() {
 		String[] columnNames = { "ID", "Name", "Amount", "Unit" };

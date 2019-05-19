@@ -30,6 +30,9 @@ public class NoteController extends Controller {
 
 			// execute SQL
 			ResultSet noteNums = statement.executeQuery("select COUNT(DISTINCT Brew.nID) from Brew, Recipe WHERE Brew.rID = Recipe.ID AND Recipe.name = '" + rName + "'");
+			
+			Statement statement1 = connection.createStatement();
+			ResultSet updateNote = statement1.executeQuery("SELECT content FROM Note, Brew WHERE Brew.id =(SELECT MAX(ID) FROM Brew) AND Brew.nID = Note.ID");
 			noteNum = noteNums.getInt(1);
 			
 			notes = new String[noteNum];
@@ -42,7 +45,7 @@ public class NoteController extends Controller {
 			ResultSet noteContent = s1.executeQuery("SELECT content FROM Note, Brew, Recipe WHERE Brew.rID = Recipe.ID AND Note.ID = Brew.nID AND Recipe.name = '" + rName + "'");
 
 			int i = 0;
-			while(noteContent.next()) {
+			while(noteContent.next() && i < noteNum) {
 				notes[i++] = noteContent.getString(1);
 			}
 			
@@ -65,6 +68,14 @@ public class NoteController extends Controller {
 			}
 		}
 		return notes;
+	}
+	
+	//	this method add notes to database
+	public int addNote(String content, String date) {
+
+		//	call add note method in workbench
+		int nID = w.addNote(content, date);
+		return nID;
 	}
 
 }

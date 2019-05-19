@@ -343,7 +343,7 @@ public class Workbench {
 			statement.executeUpdate(
 					"INSERT INTO Recipe(name,quantity,unit) VALUES ('" + ((JTextArea) textfieled.get(0)).getText()
 							+ "','" + ((JTextArea) textfieled.get(1)).getText() + "','L')");
-			ResultSet RecipeNum = statement.executeQuery("SELECT ID FROM Recipe ORDER BY ID DESC");
+			ResultSet RecipeNum = statement.executeQuery("SELECT MAX(ID) FROM Recipe");
 			for (int i = 0; i < loopNum; i++) {
 				if (Float.parseFloat(((JTextArea) textfieled.get(i + 2)).getText()) != 0) {
 					statement.executeUpdate(

@@ -67,6 +67,16 @@ public class InputCapacityTextBox extends View{
 		buttonConfirm.setBounds(356, 298, 135, 54);
 		frame.getContentPane().add(buttonConfirm);
 		
+		buttonConfirm.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
 		JButton buttonCancel = new JButton("cancel");
 		buttonCancel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		buttonCancel.setBounds(507, 298, 135, 54);

@@ -1,5 +1,7 @@
 package brewDay;
 
+import java.util.ArrayList;
+
 public class GUI {
 	public static void main(String[] args) {
 		
@@ -12,13 +14,26 @@ public class GUI {
 			
 			public void run() {
 				Workbench w = new Workbench();
-
+				ArrayList<Controller> controller = new ArrayList<Controller>();
+				
 				//w.testWorkbench();
 				
 				
 				//MainPageController mc = new MainPageController(w);
+				
 				StorageIngredientController sc = new StorageIngredientController(w);
-				MainPageView mv = new MainPageView(w, sc);
+				controller.add(sc);
+				
+				EquipmentController ec = new EquipmentController(w);
+				controller.add(ec);
+				
+				RecipeController rc = new RecipeController(w);
+				controller.add(rc);
+				
+				NoteController nc = new NoteController(w);
+				controller.add(nc);
+				
+				MainPageViewNew mv = new MainPageViewNew(w, controller);
 				
 				
 				

@@ -117,6 +117,9 @@ public class AddNoteView extends View{
 			    }
 			}
 		});
+		buttonAdd.setFont(new Font("Tahoma", Font.BOLD, 17));
+		buttonAdd.setBounds(80, 388, 135, 54);
+		frame.getContentPane().add(buttonAdd);
 		
 		JButton button_1 = new JButton("cancel");
 		button_1.setForeground(new Color(255, 255, 255));

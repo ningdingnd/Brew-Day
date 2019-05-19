@@ -1,10 +1,10 @@
 package brewDay;
 //This class is implemented by Chris and Jason
-public class Recipe {
-	private static String name;
-	private static double quantity;
-	private static String unit;
-	private static RecipeIngredient[] recipeIngredient;
+public class Recipe implements Comparable<Recipe> {
+	private String name;
+	private double quantity;
+	private String unit;
+	private RecipeIngredient[] recipeIngredient;
 
 	public Recipe(String name, double recipeQuantity, String unit, RecipeIngredient[] recipeIngredient) {
 		this.unit = unit;
@@ -39,7 +39,7 @@ public class Recipe {
 	}
 
 	// update the recipe ingredient quantity only
-	public boolean update(String name, float newQuantity) {
+	public boolean update(String name, double newQuantity) {
 
 		// get the recipe ingredient list, find out the correct one
 		for (int i = 0; i < recipeIngredient.length; i++) {
@@ -82,13 +82,14 @@ public class Recipe {
 		}
 		
 		System.out.println("convert unit of recipe finished, start to convert ingredient amount.");
-		
+		double originalAmount;
 		//	convert the recipe ingredient value to absolute value with batch size
-		for (int i = 0; i < recipeIngredient.length; i++) {
-		
+		for (int i = 0; i < this.getIngredients().length; i++) {
 			//	convert the amount
-			this.getIngredients()[i].setAmount((batchSize / quantity) * recipeIngredient[i].getAmount());
 			
+			originalAmount = this.getIngredients()[i].getAmount();
+			System.out.println("Get ingredient amount done.");
+			this.getIngredients()[i].setAmount((batchSize / this.getQuantity()) * originalAmount);
 		}
 		System.out.println("convert all ingredient value to absolute value finishied.");
 		return true;
@@ -129,5 +130,26 @@ public class Recipe {
 		return ShoppingList;
 	}
 */
+	
+	@Override
+	public int compareTo(Recipe o) {
+		double thisSum = 0;
+		double oSum = 0;
+		for (Ingredient i : this.getIngredients()) {
+			i.convertUnit("g");
+			thisSum += i.getAmount();
+		}
+		for (Ingredient i : o.getIngredients()) {
+			i.convertUnit("g");
+			oSum += i.getAmount();
+		}
+
+		if (thisSum < oSum)
+			return 1;
+		else if (oSum < thisSum) 
+			return -1;
+		else 
+			return 0;
+	}
 	
 }

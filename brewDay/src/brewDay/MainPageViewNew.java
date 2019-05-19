@@ -284,14 +284,15 @@ public class MainPageViewNew extends View {
 			}
 		});
 		SpringLayout sl_panel_3 = new SpringLayout();
-		sl_panel_3.putConstraint(SpringLayout.WEST, button_1, 19, SpringLayout.WEST, panel_3);
+		sl_panel_3.putConstraint(SpringLayout.WEST, button_1, 107, SpringLayout.WEST, panel_3);
 		panel_3.setLayout(sl_panel_3);
 		button_1.setFont(new Font("Calibri", Font.PLAIN, 20));
 		panel_3.add(button_1);
 
 		// note delete
 		JButton button_2 = new JButton("delete");
-		sl_panel_3.putConstraint(SpringLayout.NORTH, button_2, 0, SpringLayout.NORTH, button_1);
+		sl_panel_3.putConstraint(SpringLayout.NORTH, button_1, 0, SpringLayout.NORTH, button_2);
+		sl_panel_3.putConstraint(SpringLayout.EAST, button_1, -24, SpringLayout.WEST, button_2);
 		sl_panel_3.putConstraint(SpringLayout.WEST, button_2, 247, SpringLayout.WEST, panel_3);
 		sl_panel_3.putConstraint(SpringLayout.EAST, button_2, -10, SpringLayout.EAST, panel_3);
 		button_2.setBackground(new Color(255, 140, 0));
@@ -304,24 +305,6 @@ public class MainPageViewNew extends View {
 		});
 		button_2.setFont(new Font("Calibri", Font.PLAIN, 20));
 		panel_3.add(button_2);
-
-		// note add
-		JButton button_3 = new JButton("add");
-		sl_panel_3.putConstraint(SpringLayout.WEST, button_3, 151, SpringLayout.WEST, panel_3);
-		sl_panel_3.putConstraint(SpringLayout.EAST, button_1, -16, SpringLayout.WEST, button_3);
-		sl_panel_3.putConstraint(SpringLayout.NORTH, button_3, 0, SpringLayout.NORTH, button_1);
-		sl_panel_3.putConstraint(SpringLayout.SOUTH, button_3, 0, SpringLayout.SOUTH, button_1);
-		sl_panel_3.putConstraint(SpringLayout.EAST, button_3, -17, SpringLayout.WEST, button_2);
-		button_3.setBackground(new Color(255, 140, 0));
-		button_3.setForeground(new Color(255, 255, 255));
-		button_3.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				new AddNoteView(w);
-			}
-		});
-		button_3.setFont(new Font("Calibri", Font.PLAIN, 20));
-		panel_3.add(button_3);
 
 		JButton ingreDelete = new JButton("Delete");
 		springLayout.putConstraint(SpringLayout.NORTH, ingreDelete, 33, SpringLayout.SOUTH, panel_3);
@@ -336,7 +319,7 @@ public class MainPageViewNew extends View {
 		ingreUpdate.setBackground(new Color(255, 127, 80));
 		
 		ScrollPane noteScroll = new ScrollPane();
-		sl_panel_3.putConstraint(SpringLayout.SOUTH, button_1, -12, SpringLayout.NORTH, noteScroll);
+		sl_panel_3.putConstraint(SpringLayout.SOUTH, button_2, -12, SpringLayout.NORTH, noteScroll);
 		sl_panel_3.putConstraint(SpringLayout.SOUTH, noteScroll, -10, SpringLayout.SOUTH, panel_3);
 		sl_panel_3.putConstraint(SpringLayout.EAST, noteScroll, 0, SpringLayout.EAST, button_2);
 		sl_panel_3.putConstraint(SpringLayout.NORTH, noteScroll, -318, SpringLayout.SOUTH, panel_3);

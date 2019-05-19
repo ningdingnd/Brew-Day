@@ -60,7 +60,7 @@ public class DeleteEquipView extends View{
 		btnCancel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		frame.getContentPane().add(btnCancel);
 		
-		JLabel nameLable = new JLabel("Name");
+		JLabel nameLable = new JLabel("ID");
 		springLayout.putConstraint(SpringLayout.NORTH, nameLable, 195, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, nameLable, -525, SpringLayout.EAST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.NORTH, btnConfirm, 94, SpringLayout.SOUTH, nameLable);

@@ -3,6 +3,7 @@ package brewDay;
 import java.awt.Color;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.BorderFactory;
@@ -78,7 +79,7 @@ public class AddRecipeView extends View{
 			if(i == 0)
 				name.setText("Recipe Name");
 			else if(i == 1)
-				name.setText("Total Auantity (L)");
+				name.setText("Total Quantity (L)");
 			else {
 				String nameOut = (String) availableIngredient.get(i-2);
 				String unitOut = (String) currentUnit.get(i-2);
@@ -110,6 +111,7 @@ public class AddRecipeView extends View{
 				//connected with database
 				//add the recipe to database
 				w.insertRecipe(loopNum,textfieled,availableIngredient,currentUnit,  recipeController);
+				
 				frame.dispose();
 			}
 		});

@@ -325,7 +325,8 @@ public class Workbench {
 		return pack;
 	}
 
-	public void insertRecipe(int loopNum, ArrayList textfieled, ArrayList availableIngredient, ArrayList currentUnit, RecipeController recipeController) {
+	public boolean insertRecipe(int loopNum, ArrayList textfieled, ArrayList availableIngredient, ArrayList currentUnit, RecipeController recipeController) {
+		boolean result = false;
 		Connection connection1 = null;
 		try {
 			// create a database connection
@@ -351,11 +352,12 @@ public class Workbench {
 			}
 			
 			
-			
+			result = true;
 		} catch (SQLException e) {
 			// if the error message is "out of memory",
 			// it probably means no database file is found
 			System.err.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, e.getMessage());
 		} finally {
 			try {
 				if (connection1 != null)
@@ -363,8 +365,12 @@ public class Workbench {
 			} catch (SQLException e) {
 				// connection close failed.
 				System.err.println(e.getMessage());
+				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
 		}
+		if(result == true)
+			JOptionPane.showMessageDialog(null, "Add successfully!");
+		return result;
 	}
 
 	public void deleteRecipe() {

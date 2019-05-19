@@ -90,7 +90,8 @@ public class Workbench {
 			}
 		}
 		System.out.println("Batch size unavailable.");
-		JOptionPane.showMessageDialog(null, "Batch size cannot be larger than capacity of equipment.");
+		if(result == false)
+			JOptionPane.showMessageDialog(null, "Batch size cannot be larger than capacity of equipment.");
 		return result;
 	}
 

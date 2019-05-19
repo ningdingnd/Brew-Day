@@ -118,8 +118,7 @@ public class RecipeDetailsView extends View{
 //		for (int i = 0; i < note.size(); i++) {
 //			noteString += "(" + note.get(i).getDate() + ") " + note.get(i).getContent() + "\n";			
 //		}
-//		notesTextArea.setText(noteString);	
-		notesTextArea.setText("(24, June, 2005)Mash at 154бу F (68бу C) for 60 minutes.");	
+//		notesTextArea.setText(noteString);		
 		frame.getContentPane().add(notesTextArea);
 		
 		JPanel panel = new JPanel();

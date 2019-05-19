@@ -3,11 +3,8 @@ package brewDay;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-import javax.xml.soap.Text;
-
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -19,14 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextPane;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.swing.JTextArea;
-import java.text.SimpleDateFormat;
 
 public class ShoppingListContentView extends View{
 
@@ -141,37 +131,10 @@ public class ShoppingListContentView extends View{
 		panel_2.add(txtpnSaveThisShopping);
 		
 		JButton btnSave = new JButton("save");
-		final String Text = text;
 		btnSave.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				//create unique file name according to time
-		        Date date = new Date();// get system time
-				SimpleDateFormat sdf = new SimpleDateFormat();// format time 
-		        sdf.applyPattern("yyyy-MM-dd_HH-mm-ss");
-				String createTime = sdf.format(date);
 				
-				String filenameTemp = recipe.getName()+"ShoppingList" +createTime+ ".txt";
-				File fp = new File(filenameTemp);
-				PrintWriter pfp;
-				try {
-					pfp = new PrintWriter(fp);
-				    pfp.print(Text);
-				    pfp.close();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					Object[] options = { "OK" }; 
-					JOptionPane.showOptionDialog(null, "Save failed!", "Warning", 
-					JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, 
-					null, options, options[0]); 
-				} finally {
-					Object[] options = { "OK" }; 
-					JOptionPane.showOptionDialog(null, "Save successfully!", "Message", 
-					JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, 
-					null, options, options[0]); 
-					frame.dispose();
-				}
 			}
 		});
 		btnSave.setFont(new Font("Tahoma", Font.BOLD, 17));

@@ -96,30 +96,57 @@ public class DeleteRecipeListView extends View {
 		buttonDelete.setBackground(new Color(255, 140, 0));
 		buttonDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				for(int i = 0; i < checkBox.size(); i++) {
-					if(checkBox.get(i).isSelected()) {
-						String name = (String)((ArrayList)recipeIngrInfoArrayList.get(i)).get(0);
-						Connection connection = null;
-						try {
-							// create a database connection
-							connection = DriverManager.getConnection("jdbc:sqlite:data.db");
-							Statement statement = connection.createStatement();
-							statement.setQueryTimeout(30); // set timeout to 30 sec.
+				int i = 0;
+				if(checkBox.get(i).isSelected()) {
+					String name = (String)((ArrayList)recipeIngrInfoArrayList.get(i)).get(0);
+					Connection connection = null;
+					try {
+						// create a database connection
+						connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+						Statement statement = connection.createStatement();
+						statement.setQueryTimeout(30); // set timeout to 30 sec.
 
-							statement.executeUpdate("DELETE FROM Recipe WHERE name = '" + name + "' ");
+						statement.executeUpdate("DELETE FROM Recipe WHERE name = '" + name + "' ");
+					} catch (SQLException e1) {
+						// it probably means no database file is found
+						System.err.println(e1.getMessage());
+					} finally {
+						try {
+							if (connection != null)
+								connection.close();
 						} catch (SQLException e1) {
-							// it probably means no database file is found
+							// connection close failed.
 							System.err.println(e1.getMessage());
-						} finally {
-							try {
-								if (connection != null)
-									connection.close();
-							} catch (SQLException e1) {
-								// connection close failed.
-								System.err.println(e1.getMessage());
+						}
+					}
+					
+				}
+				Connection connection = null;
+				try {
+					// create a database connection
+					connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+					Statement statement = connection.createStatement();
+					statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+					ResultSet rsRecipe = statement.executeQuery("SELECT * FROM Recipe");
+					if(rsRecipe.next()) {
+						for(i = 0; i < recipeIngrInfoArrayList.size(); i = i + 2) {
+							if(checkBox.get(i+2).isSelected()) {
+								String name = (String)((ArrayList)recipeIngrInfoArrayList.get((i+2)/2)).get(0);
+								statement.executeUpdate("DELETE FROM Recipe WHERE name = '" + name + "' ");
 							}
 						}
-						
+					}
+				} catch (SQLException e1) {
+					// it probably means no database file is found
+					System.err.println(e1.getMessage());
+				} finally {
+					try {
+						if (connection != null)
+							connection.close();
+					} catch (SQLException e1) {
+						// connection close failed.
+						System.err.println(e1.getMessage());
 					}
 				}
 				frame.setVisible(false);	//	close the input window
@@ -160,7 +187,6 @@ public class DeleteRecipeListView extends View {
 			for (int j = 1; j < ((ArrayList) recipeIngrInfoArrayList.get(i)).size(); j++) {
 				ingrString+=(String)((ArrayList)recipeIngrInfoArrayList.get(i)).get(j) + "\n";
 			}
-			System.out.println(((ArrayList) recipeIngrInfoArrayList.get(i)).size());
 			tp.setText(ingrString);
 			checkBox.add(cb);
 			cb.setBackground(new Color(222, 184, 135));

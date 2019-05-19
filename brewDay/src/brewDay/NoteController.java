@@ -30,7 +30,9 @@ public class NoteController extends Controller {
 
 			// execute SQL
 			ResultSet noteNums = statement.executeQuery("select COUNT(DISTINCT Brew.nID) from Brew, Recipe WHERE Brew.rID = Recipe.ID AND Recipe.name = '" + rName + "'");
-			ResultSet updateNote = statement.executeQuery("SELECT content FROM Note, Brew WHERE Brew.id =(SELECT MAX(ID) FROM Brew) AND Brew.nID = Note.ID");
+			
+			Statement statement1 = connection.createStatement();
+			ResultSet updateNote = statement1.executeQuery("SELECT content FROM Note, Brew WHERE Brew.id =(SELECT MAX(ID) FROM Brew) AND Brew.nID = Note.ID");
 			noteNum = noteNums.getInt(1);
 			
 			notes = new String[noteNum];

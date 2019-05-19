@@ -137,14 +137,12 @@ public class MainPageViewNew extends View {
 			}
 		});
 		SpringLayout sl_recipePanel = new SpringLayout();
-		sl_recipePanel.putConstraint(SpringLayout.NORTH, btnUpdate, 156, SpringLayout.NORTH, recipePanel);
-		sl_recipePanel.putConstraint(SpringLayout.WEST, btnUpdate, 22, SpringLayout.WEST, recipePanel);
 		recipePanel.setLayout(sl_recipePanel);
 		btnUpdate.setFont(new Font("Calibri", Font.PLAIN, 20));
 		recipePanel.add(btnUpdate);
 
 		JButton recipeDelete = new JButton("delete");
-		sl_recipePanel.putConstraint(SpringLayout.NORTH, recipeDelete, 3, SpringLayout.NORTH, btnUpdate);
+		sl_recipePanel.putConstraint(SpringLayout.NORTH, btnUpdate, -3, SpringLayout.NORTH, recipeDelete);
 		sl_recipePanel.putConstraint(SpringLayout.WEST, recipeDelete, 233, SpringLayout.WEST, recipePanel);
 		recipeDelete.setBackground(new Color(255, 140, 0));
 		recipeDelete.setForeground(new Color(255, 255, 255));
@@ -156,10 +154,10 @@ public class MainPageViewNew extends View {
 		recipePanel.add(recipeDelete);
 
 		JButton recipeAdd = new JButton("add");
-		sl_recipePanel.putConstraint(SpringLayout.WEST, recipeAdd, 150, SpringLayout.WEST, recipePanel);
-		sl_recipePanel.putConstraint(SpringLayout.EAST, recipeAdd, -3, SpringLayout.WEST, recipeDelete);
-		sl_recipePanel.putConstraint(SpringLayout.EAST, btnUpdate, -6, SpringLayout.WEST, recipeAdd);
-		sl_recipePanel.putConstraint(SpringLayout.NORTH, recipeAdd, 2, SpringLayout.NORTH, btnUpdate);
+		sl_recipePanel.putConstraint(SpringLayout.EAST, btnUpdate, -3, SpringLayout.WEST, recipeAdd);
+		sl_recipePanel.putConstraint(SpringLayout.NORTH, recipeAdd, -1, SpringLayout.NORTH, recipeDelete);
+		sl_recipePanel.putConstraint(SpringLayout.WEST, recipeAdd, 147, SpringLayout.WEST, recipePanel);
+		sl_recipePanel.putConstraint(SpringLayout.EAST, recipeAdd, -6, SpringLayout.WEST, recipeDelete);
 		recipeAdd.setBackground(new Color(255, 140, 0));
 		recipeAdd.setForeground(new Color(255, 255, 255));
 		
@@ -177,7 +175,8 @@ public class MainPageViewNew extends View {
 		});
 
 		JLabel selectRecipeLabel = new JLabel("Please select a recipe");
-		sl_recipePanel.putConstraint(SpringLayout.WEST, selectRecipeLabel, 0, SpringLayout.WEST, btnUpdate);
+		sl_recipePanel.putConstraint(SpringLayout.WEST, btnUpdate, 0, SpringLayout.WEST, selectRecipeLabel);
+		sl_recipePanel.putConstraint(SpringLayout.WEST, selectRecipeLabel, 22, SpringLayout.WEST, recipePanel);
 		sl_recipePanel.putConstraint(SpringLayout.SOUTH, selectRecipeLabel, -359, SpringLayout.SOUTH, recipePanel);
 		selectRecipeLabel.setFont(new Font("Calibri", Font.PLAIN, 18));
 		recipePanel.add(selectRecipeLabel);
@@ -207,8 +206,8 @@ public class MainPageViewNew extends View {
 		
 		Panel rNamePanel = new Panel();
 		sl_recipePanel.putConstraint(SpringLayout.NORTH, rNamePanel, 8, SpringLayout.SOUTH, selectRecipeLabel);
+		sl_recipePanel.putConstraint(SpringLayout.SOUTH, rNamePanel, -318, SpringLayout.SOUTH, recipePanel);
 		sl_recipePanel.putConstraint(SpringLayout.WEST, rNamePanel, 10, SpringLayout.WEST, recipePanel);
-		sl_recipePanel.putConstraint(SpringLayout.SOUTH, rNamePanel, -22, SpringLayout.NORTH, btnUpdate);
 		sl_recipePanel.putConstraint(SpringLayout.EAST, rNamePanel, -107, SpringLayout.EAST, recipeDelete);
 		recipePanel.add(rNamePanel);
 		SpringLayout sl_rNamePanel = new SpringLayout();
@@ -230,11 +229,33 @@ public class MainPageViewNew extends View {
 		rNamePanel.add(rNameCombo);
 		
 		JButton rNameRefresh = new JButton("refresh");
+		sl_recipePanel.putConstraint(SpringLayout.SOUTH, rNameRefresh, -324, SpringLayout.SOUTH, recipePanel);
+		sl_recipePanel.putConstraint(SpringLayout.NORTH, recipeDelete, 31, SpringLayout.SOUTH, rNameRefresh);
 		sl_recipePanel.putConstraint(SpringLayout.WEST, rNameRefresh, 24, SpringLayout.EAST, rNamePanel);
-		sl_recipePanel.putConstraint(SpringLayout.SOUTH, rNameRefresh, -31, SpringLayout.NORTH, recipeDelete);
 		rNameRefresh.setBackground(new Color(255, 127, 80));
 		rNameRefresh.setForeground(Color.WHITE);
 		recipePanel.add(rNameRefresh);
+		
+		JTextArea rQuantity = new JTextArea();
+		sl_recipePanel.putConstraint(SpringLayout.NORTH, rQuantity, -30, SpringLayout.NORTH, recipeScroll);
+		sl_recipePanel.putConstraint(SpringLayout.WEST, rQuantity, 159, SpringLayout.WEST, recipePanel);
+		sl_recipePanel.putConstraint(SpringLayout.SOUTH, rQuantity, -6, SpringLayout.NORTH, recipeScroll);
+		sl_recipePanel.putConstraint(SpringLayout.EAST, rQuantity, 0, SpringLayout.EAST, recipeAdd);
+		rQuantity.setEditable(false);
+		recipePanel.add(rQuantity);
+		
+		JLabel lblNewLabel = new JLabel("quantity");
+		sl_recipePanel.putConstraint(SpringLayout.NORTH, lblNewLabel, 22, SpringLayout.SOUTH, btnUpdate);
+		sl_recipePanel.putConstraint(SpringLayout.EAST, lblNewLabel, -54, SpringLayout.WEST, rQuantity);
+		lblNewLabel.setFont(new Font("Calibri", Font.PLAIN, 20));
+		recipePanel.add(lblNewLabel);
+		
+		JTextArea rUnit = new JTextArea();
+		sl_recipePanel.putConstraint(SpringLayout.NORTH, rUnit, -28, SpringLayout.NORTH, recipeScroll);
+		sl_recipePanel.putConstraint(SpringLayout.WEST, rUnit, 7, SpringLayout.EAST, rQuantity);
+		sl_recipePanel.putConstraint(SpringLayout.SOUTH, rUnit, -6, SpringLayout.NORTH, recipeScroll);
+		sl_recipePanel.putConstraint(SpringLayout.EAST, rUnit, -26, SpringLayout.EAST, recipePanel);
+		recipePanel.add(rUnit);
 		panel_3.setBackground(new Color(245, 222, 179));
 		panel_3.setBorder(null);
 		frame.getContentPane().add(panel_3);
@@ -516,8 +537,17 @@ public class MainPageViewNew extends View {
 				
 				System.out.println("Selected index=" + ((JComboBox) e.getSource()).getItemCount());
 
+				
+				//	set amount information of recipe
+				Object[] recipeInfo = ((RecipeController) controllers.get(2)).getRecipeAmount((String)rNameCombo.getSelectedItem());
+				double quantity = (double)recipeInfo[0];
+				String unit = (String)recipeInfo[1];
+				rQuantity.setText(quantity + "");
+				rUnit.setText(unit);
+				
 				// create a table panel which show the recipe ingredient in selected recipe and
 				// add it to scroll panel
+				
 				Object[][] recipeIngreData = ((RecipeController) controllers.get(2))
 						.getRecipeIngreData((String) rNameCombo.getSelectedItem());
 				

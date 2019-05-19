@@ -1,12 +1,12 @@
 package brewDay;
 
-<<<<<<< HEAD
+
 import java.io.Serializable;
 
 public class Ingredient implements Serializable{
-=======
-public class Ingredient {
->>>>>>> branch 'master' of https://github.com/comp3053/Babbage.git
+
+//public class Ingredient {
+
 	private int id;
 	private String name;
 	private double amount;

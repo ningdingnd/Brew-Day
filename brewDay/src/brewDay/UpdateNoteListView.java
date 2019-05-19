@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class DeleteNoteListView extends View{
+public class UpdateNoteListView extends View{
 
 	private JFrame frame;
 	private ArrayList<JCheckBox> checkBox;
@@ -40,7 +40,7 @@ public class DeleteNoteListView extends View{
 			public void run() {
 				try {
 					Workbench w = new Workbench();
-					DeleteNoteListView window = new DeleteNoteListView(w);
+					UpdateNoteListView window = new UpdateNoteListView(w);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -51,7 +51,7 @@ public class DeleteNoteListView extends View{
 	/**
 	 * Create the application.
 	 */
-	public DeleteNoteListView(Workbench w) {
+	public UpdateNoteListView(Workbench w) {
 		super(w);
 		initialize();
 	}
@@ -60,7 +60,6 @@ public class DeleteNoteListView extends View{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		ArrayList index = new ArrayList<>();
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(245, 222, 179));
 		frame.setVisible(true);
@@ -85,36 +84,13 @@ public class DeleteNoteListView extends View{
 			}
 
 		});
-		JButton buttonDelete = new JButton("delete");
+		JButton buttonDelete = new JButton("confirm");
 		buttonDelete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				for(int i = 0; i < checkBox.size(); i++) {
 					if(checkBox.get(i).isSelected()) {
-						Connection connection = null;
-						try {
-							// create a database connection
-							connection = DriverManager.getConnection("jdbc:sqlite:data.db");
-							Statement statement = connection.createStatement();
-							statement.setQueryTimeout(30); // set timeout to 30 sec.
-
-							statement.executeUpdate("DELETE FROM Note WHERE ID = '" + index.get(i/2) + "' ");
-						} catch (SQLException e1) {
-							// it probably means no database file is found
-							System.err.println(e1.getMessage());
-						} finally {
-							try {
-								if (connection != null)
-									connection.close();
-							} catch (SQLException e1) {
-								// connection close failed.
-								System.err.println(e1.getMessage());
-							}
-						}
-						frame.setVisible(false);	//	close the input window
-						
-						//	give a success window
-						JOptionPane.showMessageDialog(null, "Delete success.", "Result", JOptionPane.PLAIN_MESSAGE);
+						new UpdateNoteView(w,i+1);
 						break;
 					}
 				}
@@ -158,7 +134,6 @@ public class DeleteNoteListView extends View{
 
 			ResultSet rsNote = statement.executeQuery("SELECT * FROM Note");
 			while(rsNote.next()) {
-				index.add(rsNote.getInt("ID"));
 				String Note = "";
 				Note = rsNote.getString("content") + "," + " ID: " + rsNote.getInt("ID") + "," + " Create Date: " + rsNote.getString("createDate");
 				JCheckBox cb = new JCheckBox(Note);
@@ -167,9 +142,7 @@ public class DeleteNoteListView extends View{
 				cb.setFont(new Font("Tahoma", Font.PLAIN, 17));
 				panel.add(cb);
 				checkBox.add(cb);
-				
 			}
-			System.out.println(checkBox.size());
 		} catch (SQLException e1) {
 			// it probably means no database file is found
 			System.err.println(e1.getMessage());

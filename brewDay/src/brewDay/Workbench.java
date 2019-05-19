@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -77,6 +78,7 @@ public class Workbench {
 			// if the error message is "out of memory",
 			// it probably means no database file is found
 			System.err.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, e.getMessage());
 		} finally {
 			try {
 				if (connection != null)
@@ -84,9 +86,11 @@ public class Workbench {
 			} catch (SQLException e) {
 				// connection close failed.
 				System.err.println(e.getMessage());
+				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
 		}
 		System.out.println("Batch size unavailable.");
+		JOptionPane.showMessageDialog(null, "Batch size cannot be larger than capacity of equipment.");
 		return result;
 	}
 

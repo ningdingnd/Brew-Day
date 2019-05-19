@@ -47,6 +47,7 @@ public class EquipmentController extends Controller {
 		} catch (SQLException e) {
 			// if the error message is "out of memory",
 			// it probably means no database file is found
+			JOptionPane.showMessageDialog(null, e.getMessage());
 			System.err.println(e.getMessage());
 		} finally {
 			try {

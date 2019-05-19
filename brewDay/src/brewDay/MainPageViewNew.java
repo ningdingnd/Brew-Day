@@ -148,6 +148,7 @@ public class MainPageViewNew extends View {
 		recipeDelete.setForeground(new Color(255, 255, 255));
 		recipeDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				new DeleteRecipeListView(w);
 			}
 		});
 		recipeDelete.setFont(new Font("Calibri", Font.PLAIN, 19));

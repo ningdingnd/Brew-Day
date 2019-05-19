@@ -132,7 +132,8 @@ public class Workbench {
 				System.out.println("\n\ncurr: " + curr + " recipeNum : " + recipeNum);
 			//while (allrecipes.next()) {	//	why not?????????????????????
 				int i = 0;
-				ResultSet currRecipe = statement.executeQuery("select DISTINCT rID from RecipeAndIngredients");
+				Statement statement2 = connection.createStatement();
+				ResultSet currRecipe = statement2.executeQuery("select DISTINCT rID from RecipeAndIngredients");
 				RecipeIngredient[] recipeIngredient;
 				int k = -1;
 				
@@ -141,14 +142,16 @@ public class Workbench {
 					currRecipe.next();
 				}
 				rid = currRecipe.getInt("rID");
-				ResultSet countIngre = statement.executeQuery("select COUNT(DISTINCT ingredientID) from RecipeAndIngredients WHERE rID = \'" + rid + "\'");
+				Statement statement3 = connection.createStatement();
+				ResultSet countIngre = statement3.executeQuery("select COUNT(DISTINCT ingredientID) from RecipeAndIngredients WHERE rID = \'" + rid + "\'");
 				ingreNum = countIngre.getInt(1);
 				
 				System.out.println("Recipe " + rid + " has " + ingreNum + " ingredients.");
 
 				System.out.println("Call check recipe " + rid + " in checkBrew method");
 
-				ResultSet recipeWIngre = statement.executeQuery("SELECT * FROM RecipeAndIngredients, RecipeIngredient"
+				Statement statement4 = connection.createStatement();
+				ResultSet recipeWIngre = statement4.executeQuery("SELECT * FROM RecipeAndIngredients, RecipeIngredient"
 						+ " WHERE " + " RecipeIngredient.ID = RecipeAndIngredients.ingredientID"
 						+ " AND RecipeAndIngredients.rID = \'" + rid + "\'");
 
@@ -169,8 +172,9 @@ public class Workbench {
 				System.out.println("construct ingredient list finished.");
 
 				// the recipe information part
-				ResultSet recipeInfo = statement
-						.executeQuery("SELECT * FROM Recipe WHERE ID = \'" + rid + "\'");
+				Statement statement5 = connection.createStatement();
+				ResultSet recipeInfo = statement5
+						.executeQuery("SELECT * FROM Recipe WHERE ID = '" + rid+"'");
 
 				String recipeName = recipeInfo.getString("name");
 				double recipeQuantity = recipeInfo.getDouble("quantity");
@@ -209,7 +213,8 @@ public class Workbench {
 				ArrayList shoppListSingle = new ArrayList();
 				// compare the amount of ingredient one by one
 				for (int i1 = 0; i1 < ingreNum; i1++) {
-					ResultSet rs1 = statement.executeQuery("SELECT * " + " FROM StorageIngredient, RecipeIngredient"
+					Statement statement6 = connection.createStatement();
+					ResultSet rs1 = statement6.executeQuery("SELECT * " + " FROM StorageIngredient, RecipeIngredient"
 							+ " WHERE StorageIngredient.name = \'" + ((Recipe)recipes.get(curr)).getIngredients()[i1].getName() + "\'"
 							+ " AND RecipeIngredient.name = StorageIngredient.name");
 					// if units of the recipe ingredient and storage ingredient not same
@@ -262,9 +267,8 @@ public class Workbench {
 //			else {
 //				result = availableRecipe;
 //			}
-			// }
 			
-
+			
 			// return false; // if none available, then false
 		} catch (SQLException e) {
 			// if the error message is "out of memory",
@@ -279,6 +283,7 @@ public class Workbench {
 				System.err.println(e.getMessage());
 			}
 		}
+		System.out.print("result is "+result.size());
 		return result;
 	}
 

@@ -251,6 +251,7 @@ public class MainPageViewNew extends View {
 		recipePanel.add(lblNewLabel);
 		
 		JTextArea rUnit = new JTextArea();
+		rUnit.setEditable(false);
 		sl_recipePanel.putConstraint(SpringLayout.NORTH, rUnit, -28, SpringLayout.NORTH, recipeScroll);
 		sl_recipePanel.putConstraint(SpringLayout.WEST, rUnit, 7, SpringLayout.EAST, rQuantity);
 		sl_recipePanel.putConstraint(SpringLayout.SOUTH, rUnit, -6, SpringLayout.NORTH, recipeScroll);

@@ -38,18 +38,17 @@ public class AddRecipeView extends View{
 
 	/**
 	 * Create the application.
-	 * @param recipePanel 
 	 * @param recipeController 
 	 */
-	public AddRecipeView(Workbench w, RecipeController recipeController, JPanel recipePanel) {
+	public AddRecipeView(Workbench w, RecipeController recipeController) {
 		super(w);
-		initialize(recipeController, recipePanel);
+		initialize(recipeController);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(RecipeController recipeController, JPanel recipePanel) {
+	private void initialize(RecipeController recipeController) {
 		//connect to database
 		ArrayList pack = w.getRecipe();
 		ArrayList availableIngredient= (ArrayList) pack.get(0);

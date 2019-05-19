@@ -8,6 +8,8 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 import javax.swing.BoxLayout;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
@@ -16,6 +18,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import java.awt.event.MouseAdapter;
@@ -66,7 +70,7 @@ public class MainPageViewNew extends View {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(245, 222, 179));
 		frame.setVisible(true);
-		frame.setBounds(100, 100, 1010, 764);
+		frame.setBounds(100, 100, 1050, 760);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		SpringLayout springLayout = new SpringLayout();
 		frame.getContentPane().setLayout(springLayout);
@@ -110,26 +114,12 @@ public class MainPageViewNew extends View {
 
 		/********** recipe name combo **************/
 		String[] recipeNames = ((RecipeController) controllers.get(2)).getRecipeNames();
-		JComboBox recipeNameCombo = new JComboBox(recipeNames);
 		
-		recipeNameCombo.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
-				System.out.println("Action detected!");
-				String[] recipeNames = ((RecipeController) controllers.get(2)).getRecipeNames();
-				JComboBox recipeNameCombo = new JComboBox(recipeNames);
-				recipePanel.add(recipeNameCombo);
-			}
-			
-		});
 		
 		
 		for (int i = 0; i < recipeNames.length; i++) {
 			System.out.println(recipeNames[i]);
 		}
-		recipePanel.add(recipeNameCombo);
 		
 		// recipe update
 		JButton btnUpdate = new JButton("update");
@@ -147,14 +137,15 @@ public class MainPageViewNew extends View {
 			}
 		});
 		SpringLayout sl_recipePanel = new SpringLayout();
-		sl_recipePanel.putConstraint(SpringLayout.WEST, btnUpdate, 14, SpringLayout.WEST, recipePanel);
+		sl_recipePanel.putConstraint(SpringLayout.NORTH, btnUpdate, 156, SpringLayout.NORTH, recipePanel);
+		sl_recipePanel.putConstraint(SpringLayout.WEST, btnUpdate, 22, SpringLayout.WEST, recipePanel);
 		recipePanel.setLayout(sl_recipePanel);
 		btnUpdate.setFont(new Font("Calibri", Font.PLAIN, 20));
 		recipePanel.add(btnUpdate);
 
 		JButton recipeDelete = new JButton("delete");
-		sl_recipePanel.putConstraint(SpringLayout.SOUTH, btnUpdate, 0, SpringLayout.SOUTH, recipeDelete);
-		sl_recipePanel.putConstraint(SpringLayout.EAST, recipeDelete, -11, SpringLayout.EAST, recipePanel);
+		sl_recipePanel.putConstraint(SpringLayout.NORTH, recipeDelete, 3, SpringLayout.NORTH, btnUpdate);
+		sl_recipePanel.putConstraint(SpringLayout.WEST, recipeDelete, 233, SpringLayout.WEST, recipePanel);
 		recipeDelete.setBackground(new Color(255, 140, 0));
 		recipeDelete.setForeground(new Color(255, 255, 255));
 		recipeDelete.addActionListener(new ActionListener() {
@@ -165,9 +156,10 @@ public class MainPageViewNew extends View {
 		recipePanel.add(recipeDelete);
 
 		JButton recipeAdd = new JButton("add");
+		sl_recipePanel.putConstraint(SpringLayout.WEST, recipeAdd, 150, SpringLayout.WEST, recipePanel);
+		sl_recipePanel.putConstraint(SpringLayout.EAST, recipeAdd, -3, SpringLayout.WEST, recipeDelete);
 		sl_recipePanel.putConstraint(SpringLayout.EAST, btnUpdate, -6, SpringLayout.WEST, recipeAdd);
-		sl_recipePanel.putConstraint(SpringLayout.WEST, recipeAdd, 142, SpringLayout.WEST, recipePanel);
-		sl_recipePanel.putConstraint(SpringLayout.EAST, recipeAdd, -6, SpringLayout.WEST, recipeDelete);
+		sl_recipePanel.putConstraint(SpringLayout.NORTH, recipeAdd, 2, SpringLayout.NORTH, btnUpdate);
 		recipeAdd.setBackground(new Color(255, 140, 0));
 		recipeAdd.setForeground(new Color(255, 255, 255));
 		
@@ -175,34 +167,25 @@ public class MainPageViewNew extends View {
 		recipePanel.add(recipeAdd);
 
 
-		sl_recipePanel.putConstraint(SpringLayout.NORTH, recipeAdd, 52, SpringLayout.SOUTH, recipeNameCombo);
-		sl_recipePanel.putConstraint(SpringLayout.NORTH, recipeDelete, 54, SpringLayout.SOUTH, recipeNameCombo);
-		sl_recipePanel.putConstraint(SpringLayout.NORTH, recipeNameCombo, 114, SpringLayout.NORTH, recipePanel);
-		sl_recipePanel.putConstraint(SpringLayout.SOUTH, recipeNameCombo, -298, SpringLayout.SOUTH, recipePanel);
-		sl_recipePanel.putConstraint(SpringLayout.NORTH, btnUpdate, 52, SpringLayout.SOUTH, recipeNameCombo);
-		sl_recipePanel.putConstraint(SpringLayout.WEST, recipeNameCombo, 14, SpringLayout.WEST, recipePanel);
-
-
 		
 		
 		recipeAdd.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new AddRecipeView(w, (RecipeController) controllers.get(2), recipePanel);
+				new AddRecipeView(w, (RecipeController) controllers.get(2));
 			}
 		});
 
 		JLabel selectRecipeLabel = new JLabel("Please select a recipe");
-		sl_recipePanel.putConstraint(SpringLayout.WEST, selectRecipeLabel, 10, SpringLayout.WEST, recipePanel);
-		sl_recipePanel.putConstraint(SpringLayout.SOUTH, selectRecipeLabel, -13, SpringLayout.NORTH, recipeNameCombo);
+		sl_recipePanel.putConstraint(SpringLayout.WEST, selectRecipeLabel, 0, SpringLayout.WEST, btnUpdate);
+		sl_recipePanel.putConstraint(SpringLayout.SOUTH, selectRecipeLabel, -359, SpringLayout.SOUTH, recipePanel);
 		selectRecipeLabel.setFont(new Font("Calibri", Font.PLAIN, 18));
 		recipePanel.add(selectRecipeLabel);
 
 		/********** recipe scroll panel *************/
 		ScrollPane recipeScroll = new ScrollPane();
-		sl_recipePanel.putConstraint(SpringLayout.SOUTH, recipeAdd, -6, SpringLayout.NORTH, recipeScroll);
-		sl_recipePanel.putConstraint(SpringLayout.SOUTH, recipeDelete, -4, SpringLayout.NORTH, recipeScroll);
-		sl_recipePanel.putConstraint(SpringLayout.EAST, recipeNameCombo, 0, SpringLayout.EAST, recipeScroll);
+		sl_recipePanel.putConstraint(SpringLayout.SOUTH, btnUpdate, -54, SpringLayout.NORTH, recipeScroll);
+		sl_recipePanel.putConstraint(SpringLayout.EAST, recipeDelete, 0, SpringLayout.EAST, recipeScroll);
 		sl_recipePanel.putConstraint(SpringLayout.WEST, recipeScroll, 14, SpringLayout.WEST, recipePanel);
 		sl_recipePanel.putConstraint(SpringLayout.EAST, recipeScroll, -6, SpringLayout.EAST, recipePanel);
 		sl_recipePanel.putConstraint(SpringLayout.NORTH, recipeScroll, -204, SpringLayout.SOUTH, recipePanel);
@@ -210,9 +193,8 @@ public class MainPageViewNew extends View {
 		recipePanel.add(recipeScroll);
 		
 		JLabel lblRecipe = new JLabel("Recipe");
-		sl_recipePanel.putConstraint(SpringLayout.NORTH, lblRecipe, 17, SpringLayout.NORTH, recipePanel);
-		sl_recipePanel.putConstraint(SpringLayout.WEST, recipeDelete, 159, SpringLayout.EAST, lblRecipe);
-		sl_recipePanel.putConstraint(SpringLayout.WEST, lblRecipe, 14, SpringLayout.WEST, recipePanel);
+		sl_recipePanel.putConstraint(SpringLayout.SOUTH, lblRecipe, -399, SpringLayout.SOUTH, recipePanel);
+		sl_recipePanel.putConstraint(SpringLayout.WEST, lblRecipe, 23, SpringLayout.WEST, recipePanel);
 		lblRecipe.setFont(new Font("Calibri", Font.BOLD, 20));
 		recipePanel.add(lblRecipe);
 
@@ -220,13 +202,55 @@ public class MainPageViewNew extends View {
 
 		JPanel panel_3 = new JPanel();
 		springLayout.putConstraint(SpringLayout.NORTH, panel_3, 0, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.WEST, panel_3, 646, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, panel_3, 452, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, panel_3, 986, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.WEST, panel_3, 33, SpringLayout.EAST, recipePanel);
+		springLayout.putConstraint(SpringLayout.SOUTH, panel_3, 0, SpringLayout.SOUTH, recipePanel);
+		
+		Panel rNamePanel = new Panel();
+		sl_recipePanel.putConstraint(SpringLayout.NORTH, rNamePanel, 8, SpringLayout.SOUTH, selectRecipeLabel);
+		sl_recipePanel.putConstraint(SpringLayout.WEST, rNamePanel, 10, SpringLayout.WEST, recipePanel);
+		sl_recipePanel.putConstraint(SpringLayout.SOUTH, rNamePanel, -22, SpringLayout.NORTH, btnUpdate);
+		sl_recipePanel.putConstraint(SpringLayout.EAST, rNamePanel, -107, SpringLayout.EAST, recipeDelete);
+		recipePanel.add(rNamePanel);
+		SpringLayout sl_rNamePanel = new SpringLayout();
+		rNamePanel.setLayout(sl_rNamePanel);
+		
+		
+		
+		
+		
+		
+		
+		String[] recipeNames1 = ((RecipeController) controllers.get(2)).getRecipeNames();
+		ComboBoxModel updateModel = new DefaultComboBoxModel(recipeNames1);
+		JComboBox rNameCombo = new JComboBox(updateModel);
+		sl_rNamePanel.putConstraint(SpringLayout.NORTH, rNameCombo, 0, SpringLayout.NORTH, rNamePanel);
+		sl_rNamePanel.putConstraint(SpringLayout.WEST, rNameCombo, 0, SpringLayout.WEST, rNamePanel);
+		sl_rNamePanel.putConstraint(SpringLayout.SOUTH, rNameCombo, 28, SpringLayout.NORTH, rNamePanel);
+		sl_rNamePanel.putConstraint(SpringLayout.EAST, rNameCombo, 217, SpringLayout.WEST, rNamePanel);
+		rNamePanel.add(rNameCombo);
+		
+		JButton rNameRefresh = new JButton("refresh");
+		sl_recipePanel.putConstraint(SpringLayout.WEST, rNameRefresh, 24, SpringLayout.EAST, rNamePanel);
+		sl_recipePanel.putConstraint(SpringLayout.SOUTH, rNameRefresh, -31, SpringLayout.NORTH, recipeDelete);
+		rNameRefresh.setBackground(new Color(255, 127, 80));
+		rNameRefresh.setForeground(Color.WHITE);
+		recipePanel.add(rNameRefresh);
 		panel_3.setBackground(new Color(245, 222, 179));
 		panel_3.setBorder(null);
 		frame.getContentPane().add(panel_3);
 
+		rNameRefresh.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				String[] recipeNames = ((RecipeController) controllers.get(2)).getRecipeNames();
+				ComboBoxModel updateModel = new DefaultComboBoxModel(recipeNames);
+				rNameCombo.setModel(updateModel);
+				
+				rNamePanel.add(rNameCombo);
+			}
+		});
+		
+		
 		// note update
 		JButton button_1 = new JButton("update");
 		button_1.setBackground(new Color(255, 140, 0));
@@ -238,7 +262,7 @@ public class MainPageViewNew extends View {
 			}
 		});
 		SpringLayout sl_panel_3 = new SpringLayout();
-		sl_panel_3.putConstraint(SpringLayout.EAST, button_1, -217, SpringLayout.EAST, panel_3);
+		sl_panel_3.putConstraint(SpringLayout.WEST, button_1, 19, SpringLayout.WEST, panel_3);
 		panel_3.setLayout(sl_panel_3);
 		button_1.setFont(new Font("Calibri", Font.PLAIN, 20));
 		panel_3.add(button_1);
@@ -246,7 +270,8 @@ public class MainPageViewNew extends View {
 		// note delete
 		JButton button_2 = new JButton("delete");
 		sl_panel_3.putConstraint(SpringLayout.NORTH, button_2, 0, SpringLayout.NORTH, button_1);
-		sl_panel_3.putConstraint(SpringLayout.WEST, button_2, 215, SpringLayout.WEST, panel_3);
+		sl_panel_3.putConstraint(SpringLayout.WEST, button_2, 247, SpringLayout.WEST, panel_3);
+		sl_panel_3.putConstraint(SpringLayout.EAST, button_2, -10, SpringLayout.EAST, panel_3);
 		button_2.setBackground(new Color(255, 140, 0));
 		button_2.setForeground(new Color(255, 255, 255));
 		button_2.addMouseListener(new MouseAdapter() {
@@ -260,9 +285,11 @@ public class MainPageViewNew extends View {
 
 		// note add
 		JButton button_3 = new JButton("add");
+		sl_panel_3.putConstraint(SpringLayout.WEST, button_3, 151, SpringLayout.WEST, panel_3);
+		sl_panel_3.putConstraint(SpringLayout.EAST, button_1, -16, SpringLayout.WEST, button_3);
 		sl_panel_3.putConstraint(SpringLayout.NORTH, button_3, 0, SpringLayout.NORTH, button_1);
-		sl_panel_3.putConstraint(SpringLayout.WEST, button_3, 16, SpringLayout.EAST, button_1);
-		sl_panel_3.putConstraint(SpringLayout.EAST, button_3, -12, SpringLayout.WEST, button_2);
+		sl_panel_3.putConstraint(SpringLayout.SOUTH, button_3, 0, SpringLayout.SOUTH, button_1);
+		sl_panel_3.putConstraint(SpringLayout.EAST, button_3, -17, SpringLayout.WEST, button_2);
 		button_3.setBackground(new Color(255, 140, 0));
 		button_3.setForeground(new Color(255, 255, 255));
 		button_3.addMouseListener(new MouseAdapter() {
@@ -275,29 +302,28 @@ public class MainPageViewNew extends View {
 		panel_3.add(button_3);
 
 		JButton ingreDelete = new JButton("Delete");
-		ingreDelete.setBackground(new Color(255, 127, 80));
 		springLayout.putConstraint(SpringLayout.NORTH, ingreDelete, 33, SpringLayout.SOUTH, panel_3);
+		ingreDelete.setBackground(new Color(255, 127, 80));
 		ingreDelete.setFont(new Font("Calibri", Font.PLAIN, 22));
 		ingreDelete.setForeground(new Color(255, 255, 255));
 		frame.getContentPane().add(ingreDelete);
 
 		JButton ingreUpdate = new JButton("Update");
-		ingreUpdate.setBackground(new Color(255, 127, 80));
 		springLayout.putConstraint(SpringLayout.NORTH, ingreUpdate, 33, SpringLayout.SOUTH, panel_3);
+		springLayout.putConstraint(SpringLayout.EAST, panel_3, 12, SpringLayout.EAST, ingreUpdate);
+		ingreUpdate.setBackground(new Color(255, 127, 80));
 		
 		ScrollPane noteScroll = new ScrollPane();
-		sl_panel_3.putConstraint(SpringLayout.EAST, button_2, 0, SpringLayout.EAST, noteScroll);
-		sl_panel_3.putConstraint(SpringLayout.WEST, button_1, 0, SpringLayout.WEST, noteScroll);
 		sl_panel_3.putConstraint(SpringLayout.SOUTH, button_1, -12, SpringLayout.NORTH, noteScroll);
+		sl_panel_3.putConstraint(SpringLayout.SOUTH, noteScroll, -10, SpringLayout.SOUTH, panel_3);
+		sl_panel_3.putConstraint(SpringLayout.EAST, noteScroll, 0, SpringLayout.EAST, button_2);
 		sl_panel_3.putConstraint(SpringLayout.NORTH, noteScroll, -318, SpringLayout.SOUTH, panel_3);
 		sl_panel_3.putConstraint(SpringLayout.WEST, noteScroll, 19, SpringLayout.WEST, panel_3);
-		sl_panel_3.putConstraint(SpringLayout.SOUTH, noteScroll, -18, SpringLayout.SOUTH, panel_3);
-		sl_panel_3.putConstraint(SpringLayout.EAST, noteScroll, 310, SpringLayout.WEST, panel_3);
 		panel_3.add(noteScroll);
 		
 		JLabel lblNote = new JLabel("Note");
 		sl_panel_3.putConstraint(SpringLayout.NORTH, lblNote, 26, SpringLayout.NORTH, panel_3);
-		sl_panel_3.putConstraint(SpringLayout.WEST, lblNote, 0, SpringLayout.WEST, noteScroll);
+		sl_panel_3.putConstraint(SpringLayout.WEST, lblNote, 19, SpringLayout.WEST, panel_3);
 		lblNote.setFont(new Font("Calibri", Font.BOLD, 20));
 		panel_3.add(lblNote);
 		springLayout.putConstraint(SpringLayout.WEST, ingreUpdate, 16, SpringLayout.EAST, ingreDelete);
@@ -476,15 +502,24 @@ public class MainPageViewNew extends View {
 		});
 		
 		
-		//	the recipe and note shown in main page
-		recipeNameCombo.addActionListener(new ActionListener() {
+	
+		
+		rNameCombo.addActionListener(new ActionListener() {
+
+			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				// TODO Auto-generated method stub
+				System.out.println("Action detected!");
+				
+				
+				
 				System.out.println("Selected index=" + ((JComboBox) e.getSource()).getItemCount());
 
 				// create a table panel which show the recipe ingredient in selected recipe and
 				// add it to scroll panel
 				Object[][] recipeIngreData = ((RecipeController) controllers.get(2))
-						.getRecipeIngreData((String) recipeNameCombo.getSelectedItem());
+						.getRecipeIngreData((String) rNameCombo.getSelectedItem());
 				
 				
 				String[] recipeIngreCol = ((RecipeController) controllers.get(2)).getRecipeIngreColNames();
@@ -492,7 +527,7 @@ public class MainPageViewNew extends View {
 				recipeScroll.add(recipeInfoPane);
 				
 				String[] notes = ((NoteController) controllers.get(3))
-						.getNote((String)recipeNameCombo.getSelectedItem());
+						.getNote((String)rNameCombo.getSelectedItem());
 				
 				//	prepare the string buffer to store all note contents
 				StringBuffer sBuffer = new StringBuffer("Notes:\r\n");
@@ -514,6 +549,7 @@ public class MainPageViewNew extends View {
 				noteText.setWrapStyleWord(true);
 				noteText.setEditable(false);
 				noteScroll.add(noteText);
+				
 				
 			}
 		});

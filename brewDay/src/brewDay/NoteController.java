@@ -43,7 +43,7 @@ public class NoteController extends Controller {
 			ResultSet noteContent = s1.executeQuery("SELECT content FROM Note, Brew, Recipe WHERE Brew.rID = Recipe.ID AND Note.ID = Brew.nID AND Recipe.name = '" + rName + "'");
 
 			int i = 0;
-			while(noteContent.next()) {
+			while(noteContent.next() && i < noteNum) {
 				notes[i++] = noteContent.getString(1);
 			}
 			

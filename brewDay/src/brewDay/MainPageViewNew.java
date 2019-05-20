@@ -281,7 +281,7 @@ public class MainPageViewNew extends View {
 		button_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new NoteListView(w);
+				new UpdateNoteListView(w);
 			}
 		});
 		SpringLayout sl_panel_3 = new SpringLayout();
@@ -301,7 +301,7 @@ public class MainPageViewNew extends View {
 		button_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new DeleteRecipeListView(w);
+				new DeleteNoteListView(w);
 			}
 		});
 		button_2.setFont(new Font("Calibri", Font.PLAIN, 20));

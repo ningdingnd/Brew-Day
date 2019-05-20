@@ -344,14 +344,22 @@ public class Workbench {
 					"INSERT INTO Recipe(name,quantity,unit) VALUES ('" + ((JTextArea) textfieled.get(0)).getText()
 							+ "','" + ((JTextArea) textfieled.get(1)).getText() + "','L')");
 			ResultSet RecipeNum = statement.executeQuery("SELECT MAX(ID) FROM Recipe");
+			RecipeNum.next();
+			int rID = RecipeNum.getInt(1);
 			for (int i = 0; i < loopNum; i++) {
 				if (Float.parseFloat(((JTextArea) textfieled.get(i + 2)).getText()) != 0) {
-					statement.executeUpdate(
+					Statement statement1 = connection1.createStatement();
+					statement1.setQueryTimeout(30); // set timeout to 30 sec.
+					statement1.executeUpdate(
 							"INSERT INTO RecipeIngredient(name,amount,unit) VALUES ('" + availableIngredient.get(i)
 									+ "','" + Float.parseFloat(((JTextArea) textfieled.get(i + 2)).getText()) + "','"
 									+ currentUnit.get(i) + "');");
-					ResultSet ingNum = statement.executeQuery("SELECT ID FROM RecipeIngredient ORDER BY ID DESC");
-					statement.executeUpdate("INSERT INTO RecipeAndIngredients VALUES ('" + ingNum.getInt(1) + "','"
+					ResultSet ingNum = statement1.executeQuery("SELECT MAX(ID) FROM RecipeIngredient");
+					
+					Statement statement2 = connection1.createStatement();
+					statement2.setQueryTimeout(30); // set timeout to 30 sec.
+					
+					statement2.executeUpdate("INSERT INTO RecipeAndIngredients VALUES ('" + ingNum.getInt(1) + "','"
 							+ RecipeNum.getInt(1) + "')");
 				}
 			}

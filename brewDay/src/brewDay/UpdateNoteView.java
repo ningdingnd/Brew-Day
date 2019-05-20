@@ -34,7 +34,7 @@ public class UpdateNoteView extends View {
 	
 	private JTextField textContent;
 	private JTextField textCreateDate;
-	private static int index;
+	private static int temp;
 
 	/**
 	 * Launch the application.
@@ -44,7 +44,7 @@ public class UpdateNoteView extends View {
 			public void run() {
 				try {
 					Workbench w = new Workbench();
-					UpdateNoteView window = new UpdateNoteView(w,index);
+					UpdateNoteView window = new UpdateNoteView(w,temp);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,9 +56,9 @@ public class UpdateNoteView extends View {
 	/**
 	 * Create the application.
 	 */
-	public UpdateNoteView(Workbench w, int index) {
+	public UpdateNoteView(Workbench w, int temp) {
 		super(w);
-		this.index =  index;
+		this.temp =  temp;
 		initialize();
 	}
 
@@ -67,6 +67,7 @@ public class UpdateNoteView extends View {
 	 */
 	private void initialize() {
 		// GUI
+		ArrayList index = new ArrayList<>();
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(245, 222, 179));
 		frame.setVisible(true);
@@ -98,8 +99,15 @@ public class UpdateNoteView extends View {
 					Statement statement = connection.createStatement();
 					statement.setQueryTimeout(30); // set timeout to 30 sec.
 
+					Statement statement1 = connection.createStatement();
+					statement1.setQueryTimeout(30); // set timeout to 30 sec.
+
+					ResultSet rsNote = statement.executeQuery("SELECT * FROM Note");
+					while(rsNote.next()) {
+						index.add(rsNote.getInt("ID"));
+					}
 					//Double.parseDouble(textQuantity.getText()), textUnit.getText()
-					statement.executeUpdate("UPDATE Note SET content = '" + textContent.getText() + "', createDate = '" + textCreateDate.getText() + "' WHERE ID = '" + index + "'");
+					statement.executeUpdate("UPDATE Note SET content = '" + textContent.getText() + "', createDate = '" + textCreateDate.getText() + "' WHERE ID = '" + index.get(temp/2) + "'");
 				} catch (SQLException e1) {
 					// it probably means no database file is found
 					System.err.println(e1.getMessage());

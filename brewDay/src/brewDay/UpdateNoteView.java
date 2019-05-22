@@ -151,7 +151,7 @@ public class UpdateNoteView extends View {
 		textContent.setColumns(10);
 		
 		
-		JLabel lblUnit = new JLabel("CreateDate:");
+		JLabel lblUnit = new JLabel("ModifyDate:");
 		lblUnit.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblUnit.setBounds(10, 169, 102, 15);
 		panel.add(lblUnit);

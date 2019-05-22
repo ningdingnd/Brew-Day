@@ -2,6 +2,7 @@ package brewDay;
 
 import static org.junit.Assert.assertFalse;
 
+import java.awt.ScrollPane;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -598,6 +599,7 @@ public class Workbench {
 		return true;		
 	}
 	
+	/************** note *****************/
 	//	this method add note to database, then return the nID
 	public int addNote(String content, String date) {
 		int nID = -1;
@@ -637,6 +639,250 @@ public class Workbench {
 		return nID;
 	}
 	
+	//	this method get note from database according to the recipe name
+	public String[] getNote(String rName) {
+
+		String[] notes = null;
+		int noteNum;
+		
+		Connection connection = null;
+
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+			// execute SQL
+			ResultSet noteNums = statement.executeQuery("select COUNT(DISTINCT Brew.nID) from Brew, Recipe WHERE Brew.rID = Recipe.ID AND Recipe.name = '" + rName + "'");
+			
+			Statement statement1 = connection.createStatement();
+			ResultSet updateNote = statement1.executeQuery("SELECT content FROM Note, Brew WHERE Brew.id =(SELECT MAX(ID) FROM Brew) AND Brew.nID = Note.ID");
+			noteNum = noteNums.getInt(1);
+			
+			notes = new String[noteNum];
+
+			System.out.println("note number: " + noteNum);
+			
+			
+			Statement s1 = connection.createStatement();
+			s1.setQueryTimeout(30); // set timeout to 30 sec.
+			ResultSet noteContent = s1.executeQuery("SELECT content FROM Note, Brew, Recipe WHERE Brew.rID = Recipe.ID AND Note.ID = Brew.nID AND Recipe.name = '" + rName + "'");
+
+			int i = 0;
+			while(noteContent.next() && i < noteNum) {
+				notes[i++] = noteContent.getString(1);
+			}
+			
+
+		} catch (SQLException e1) {
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+
+			JOptionPane.showMessageDialog(null, e1.getMessage());
+			System.err.println(e1.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e1) {
+
+				// connection close failed.
+				JOptionPane.showMessageDialog(null, e1.getMessage());
+				System.err.println(e1.getMessage());
+			}
+		}
+		return notes;
+	}
+	
+	
+	/**************** Equipment *******************/
+	
+	public String[] getEquipColNames() {
+		String[] columnNames = { "ID", "Capacity", "Unit" };
+		return columnNames;
+	}
+	
+//	this method get all equipment data from database
+	public Object[][] getEquipData() {
+
+		Object[][] data = null;
+		int equipNum;
+		int colNum = this.getEquipColNames().length;
+		Connection connection = null;
+
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+			// execute SQL
+			ResultSet countIngre = statement.executeQuery("select COUNT(DISTINCT ID) from Equipment");
+			equipNum = countIngre.getInt(1);
+
+			System.out.println("equipment number: " + equipNum);
+
+			ResultSet ingreInfo = statement.executeQuery("SELECT * FROM Equipment");
+
+			// get the data array ready
+			data = new Object[equipNum][colNum];
+			for (int i = 0; i < equipNum; i++) {
+				ingreInfo.next();
+				for (int j = 0; j < colNum; j++) {
+					if (j == 0) {
+						data[i][j] = ingreInfo.getInt("ID");
+					} else if (j == 1) {
+						data[i][j] = ingreInfo.getDouble("capacity");
+					} else if (j == 2) {
+						data[i][j] = ingreInfo.getString("unit");
+					} 
+				}
+			}
+
+		} catch (SQLException e1) {
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+
+			JOptionPane.showMessageDialog(null, e1.getMessage());
+			System.err.println(e1.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e1) {
+
+				// connection close failed.
+				JOptionPane.showMessageDialog(null, e1.getMessage());
+				System.err.println(e1.getMessage());
+			}
+		}
+		return data;
+	}
+	
+	public boolean deleteEquipment(int id, ScrollPane equipPanel) {
+
+		boolean result = false;
+		Connection connection = null;
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+			statement.executeUpdate("DELETE FROM Equipment WHERE id = '" + id + "' ");
+			
+//			update the table in main page
+					Object[][] equipData = this.getEquipData();
+					String[] equipColNames = this.getEquipColNames();
+					TablePane equipInfoPane = new TablePane(equipData, equipColNames);
+					equipPanel.add(equipInfoPane);
+					equipInfoPane.setVisible(true);
+			result = true;
+		} catch (SQLException e) {
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+			JOptionPane.showMessageDialog(null, e.getMessage());
+			System.err.println(e.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				// connection close failed.
+				System.err.println(e.getMessage());
+			}
+		}
+
+		return result;
+	}
+	
+	//	this method update equipment information
+	public boolean updateEquipment(int id, double nCapacity, String nUnit, ScrollPane equipPanel) {
+
+		boolean result = false;
+		Connection connection = null;
+		
+		System.out.println("You selected : " + id);
+		System.out.println("You input capacity: " + nCapacity);
+		System.out.println("You input unit: " + nUnit);
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+			
+			statement.executeUpdate("UPDATE Equipment SET capacity = '" + nCapacity + "', unit = '" + nUnit
+					+ "' WHERE ID = '" + id + "'");
+			
+			//			update the table in main page
+					Object[][] equipData = this.getEquipData();
+					String[] equipColNames = this.getEquipColNames();
+					TablePane equipInfoPane = new TablePane( equipData, equipColNames);
+					equipPanel.add(equipInfoPane);
+					equipInfoPane.setVisible(true);
+			result = true;
+		} catch (SQLException e) {
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+			System.err.println(e.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				// connection close failed.
+				System.err.println(e.getMessage());
+			}
+		}
+
+		return result;
+	}
+	
+	public boolean addEquipment(double quantity, String unit, ScrollPane equipPanel) {
+		Connection connection = null;
+		boolean result;
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+			System.out.println("quantity = " + quantity + " unit = " + unit);
+			// execute SQL
+			statement.executeUpdate("INSERT INTO Equipment (capacity, unit) VALUES ('" + quantity + "', '"
+					 + unit + "')");
+			System.out.println("Equipment added.");
+			
+			
+			//	update the table in main page
+			Object[][] equipData = this.getEquipData();
+			String[] equipColNames = this.getEquipColNames();
+			TablePane equipInfoPane = new TablePane(equipData, equipColNames);
+			equipPanel.add(equipInfoPane);
+			equipInfoPane.setVisible(true);
+			result = true;
+		} catch (SQLException e1) {
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+			result = false;
+			JOptionPane.showMessageDialog(null, e1.getMessage());
+			System.err.println(e1.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e1) {
+				result = false;
+				// connection close failed.
+				JOptionPane.showMessageDialog(null, e1.getMessage());
+				System.err.println(e1.getMessage());
+			}
+		}
+
+		return result;
+
+	}
 	
 
 	// test function

@@ -50,7 +50,7 @@ public class StorageIngredientController extends Controller {
 			
 			String[] colNames = this.getColNames();
 			Object[][] ingreData = this.getData();
-			TablePane ingreInfoTable = new TablePane(this, ingreData, colNames);
+			TablePane ingreInfoTable = new TablePane(ingreData, colNames);
 		
 			storageScroll.add(ingreInfoTable);
 			result = true;
@@ -86,7 +86,7 @@ public class StorageIngredientController extends Controller {
 			
 			String[] colNames = this.getColNames();
 			Object[][] ingreData = this.getData();
-			TablePane ingreInfoTable = new TablePane(this, ingreData, colNames);
+			TablePane ingreInfoTable = new TablePane(ingreData, colNames);
 		
 			storageScroll.add(ingreInfoTable);
 			result = true;
@@ -182,7 +182,7 @@ public class StorageIngredientController extends Controller {
 			
 			String[] colNames = this.getColNames();
 			Object[][] ingreData = this.getData();
-			TablePane ingreInfoTable = new TablePane(this, ingreData, colNames);
+			TablePane ingreInfoTable = new TablePane(ingreData, colNames);
 		
 			storageScroll.add(ingreInfoTable);
 			result = true;

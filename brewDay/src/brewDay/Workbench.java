@@ -884,6 +884,185 @@ public class Workbench {
 
 	}
 	
+	
+	/**************storage ingredient  *************/
+	public String[] getStroIngreColNames() {
+		String[] columnNames = { "ID", "Name", "Amount", "Unit" };
+		return columnNames;
+	}
+	
+	public Object[][] getStorIngreData() {
+
+		Object[][] data = null;
+		int ingreNum;
+		int colNum = this.getStroIngreColNames().length;
+		Connection connection = null;
+
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+			// execute SQL
+			ResultSet countIngre = statement.executeQuery("select COUNT(DISTINCT ID) from StorageIngredient");
+			ingreNum = countIngre.getInt(1);
+
+			System.out.println("storage ingredient number: " + ingreNum);
+
+			ResultSet ingreInfo = statement.executeQuery("SELECT * FROM StorageIngredient");
+
+			// get the data array ready
+			data = new Object[ingreNum][colNum];
+			for (int i = 0; i < ingreNum; i++) {
+				ingreInfo.next();
+				for (int j = 0; j < colNum; j++) {
+					if (j == 0) {
+						data[i][j] = ingreInfo.getInt("ID");
+					} else if (j == 1) {
+						data[i][j] = ingreInfo.getString("name");
+					} else if (j == 2) {
+						data[i][j] = ingreInfo.getDouble("amount");
+					} else if (j == 3) {
+						data[i][j] = ingreInfo.getString("unit");
+					}
+				}
+			}
+
+		} catch (SQLException e1) {
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+
+			JOptionPane.showMessageDialog(null, e1.getMessage());
+			System.err.println(e1.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e1) {
+
+				// connection close failed.
+				JOptionPane.showMessageDialog(null, e1.getMessage());
+				System.err.println(e1.getMessage());
+			}
+		}
+		return data;
+	}
+	
+	public boolean addIngredient(String name, double amount, String unit, ScrollPane storageScroll) {
+		Connection connection = null;
+		boolean result;
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+			System.out.println("name = " + name + " amount = " + amount + " unit = " + unit);
+			// execute SQL
+			statement.executeUpdate("INSERT INTO StorageIngredient (name, amount, unit) VALUES ('" + name + "', "
+					+ amount + ", '" + unit + "')");
+			System.out.println("ingredient 1 added.");
+			
+			String[] colNames = this.getStroIngreColNames();
+			Object[][] ingreData = this.getStorIngreData();
+			TablePane ingreInfoTable = new TablePane(ingreData, colNames);
+		
+			storageScroll.add(ingreInfoTable);
+			result = true;
+		} catch (SQLException e1) {
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+			result = false;
+			JOptionPane.showMessageDialog(null, e1.getMessage());
+			System.err.println(e1.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e1) {
+				result = false;
+				// connection close failed.
+				JOptionPane.showMessageDialog(null, e1.getMessage());
+				System.err.println(e1.getMessage());
+			}
+		}
+
+		return result;
+	}
+	
+	public boolean updateIngre(String name, double nAmount, String nUnit, ScrollPane storageScroll) {
+		// construct the storage ingredient instance
+		boolean result = false;
+		Connection connection = null;
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+			statement.executeUpdate("UPDATE StorageIngredient SET amount = '" + nAmount + "', unit = \'" + nUnit
+					+ "\' WHERE name = \'" + name + "\'");
+			
+			String[] colNames = this.getStroIngreColNames();
+			Object[][] ingreData = this.getStorIngreData();
+			TablePane ingreInfoTable = new TablePane(ingreData, colNames);
+		
+			storageScroll.add(ingreInfoTable);
+			result = true;
+		} catch (SQLException e) {
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+			System.err.println(e.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				// connection close failed.
+				System.err.println(e.getMessage());
+			}
+		}
+
+		return result;
+	}
+	
+	
+	public boolean deleteIngre(String name, ScrollPane storageScroll) {
+		// construct the storage ingredient instance
+		boolean result = false;
+		Connection connection = null;
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+			statement.executeUpdate("DELETE FROM StorageIngredient WHERE name = '" + name + "' ");
+			
+			String[] colNames = this.getStroIngreColNames();
+			Object[][] ingreData = this.getStorIngreData();
+			TablePane ingreInfoTable = new TablePane(ingreData, colNames);
+		
+			storageScroll.add(ingreInfoTable);
+			result = true;
+		} catch (SQLException e) {
+			// if the error message is "out of memory",
+			// it probably means no database file is found
+			System.err.println(e.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				// connection close failed.
+				System.err.println(e.getMessage());
+			}
+		}
+
+		return result;
+	}
+
 
 	// test function
 	public static void testWorkbench() {

@@ -93,6 +93,7 @@ public class ShoppingListOrRecipeView extends View {
 		for (int j = 0; j < shoppListRecipe.size(); j++) {
 			if ((boolean) condition.get(j)) {
 				genre = "recipe";
+				System.out.print("haha\n");
 				break;
 			}
 		}

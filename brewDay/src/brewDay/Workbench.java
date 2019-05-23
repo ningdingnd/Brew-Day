@@ -386,7 +386,114 @@ public class Workbench {
 			JOptionPane.showMessageDialog(null, "Add successfully!");
 		return result;
 	}
+	
+	public boolean updateNote_wzy(String content, String createDate, int i) {
+		ArrayList index = new ArrayList<>();
+		Connection connection = null;
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
 
+			Statement statement1 = connection.createStatement();
+			statement1.setQueryTimeout(30); // set timeout to 30 sec.
+
+			ResultSet rsNote = statement.executeQuery("SELECT * FROM Note");
+			while(rsNote.next()) {
+				index.add(rsNote.getInt("ID"));
+			}
+			//Double.parseDouble(textQuantity.getText()), textUnit.getText()
+			statement.executeUpdate("UPDATE Note SET content = '" + content + "', createDate = '" + createDate + "' WHERE ID = '" + index.get(i/2) + "'");
+		} catch (SQLException e1) {
+			// it probably means no database file is found
+			System.err.println(e1.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e1) {
+				// connection close failed.
+				System.err.println(e1.getMessage());
+			}
+		}
+		return true;
+	}
+	
+	public boolean deleteNote_wzy(int i) {
+		Connection connection = null;
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+			statement.executeUpdate("DELETE FROM Note WHERE ID = '" + i + "' ");
+		} catch (SQLException e1) {
+			// it probably means no database file is found
+			System.err.println(e1.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e1) {
+				// connection close failed.
+				System.err.println(e1.getMessage());
+			}
+		}
+		return true;
+	}
+	
+	public boolean updateRecipe_wzy(double quantity, String name, String unit, int index) {
+		Connection connection = null;
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+			//Double.parseDouble(textQuantity.getText()), textUnit.getText()
+			statement.executeUpdate("UPDATE Recipe SET quantity = '" + quantity + "', unit = '" + unit
+					+ "', name = '" + name + "' WHERE ID = '" + index + "'");
+		} catch (SQLException e1) {
+			// it probably means no database file is found
+			System.err.println(e1.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e1) {
+				// connection close failed.
+				System.err.println(e1.getMessage());
+			}
+		}
+		return true;
+	}
+	public boolean deleteRecipe_wzy(String name) {
+		Connection connection = null;
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+			statement.executeUpdate("DELETE FROM Recipe WHERE name = '" + name + "' ");
+		} catch (SQLException e1) {
+			// it probably means no database file is found
+			System.err.println(e1.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e1) {
+				// connection close failed.
+				System.err.println(e1.getMessage());
+			}
+		}
+		
+		return true;
+	}
+	
 	public void deleteRecipe() {
 		/////////////////// w.
 		// connect to database and get available recipe

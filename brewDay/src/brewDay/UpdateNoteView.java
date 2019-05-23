@@ -31,7 +31,7 @@ public class UpdateNoteView extends View {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
-	
+	private NoteController c;
 	private JTextField textContent;
 	private JTextField textCreateDate;
 	private static int temp;
@@ -39,26 +39,14 @@ public class UpdateNoteView extends View {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Workbench w = new Workbench();
-					UpdateNoteView window = new UpdateNoteView(w,temp);
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
-	public UpdateNoteView(Workbench w, int temp) {
+	public UpdateNoteView(Workbench w, int temp, NoteController c) {
 		super(w);
 		this.temp =  temp;
+		this.c = c;
 		initialize();
 	}
 
@@ -92,34 +80,7 @@ public class UpdateNoteView extends View {
 		buttonConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				Connection connection = null;
-				try {
-					// create a database connection
-					connection = DriverManager.getConnection("jdbc:sqlite:data.db");
-					Statement statement = connection.createStatement();
-					statement.setQueryTimeout(30); // set timeout to 30 sec.
-
-					Statement statement1 = connection.createStatement();
-					statement1.setQueryTimeout(30); // set timeout to 30 sec.
-
-					ResultSet rsNote = statement.executeQuery("SELECT * FROM Note");
-					while(rsNote.next()) {
-						index.add(rsNote.getInt("ID"));
-					}
-					//Double.parseDouble(textQuantity.getText()), textUnit.getText()
-					statement.executeUpdate("UPDATE Note SET content = '" + textContent.getText() + "', createDate = '" + textCreateDate.getText() + "' WHERE ID = '" + index.get(temp/2) + "'");
-				} catch (SQLException e1) {
-					// it probably means no database file is found
-					System.err.println(e1.getMessage());
-				} finally {
-					try {
-						if (connection != null)
-							connection.close();
-					} catch (SQLException e1) {
-						// connection close failed.
-						System.err.println(e1.getMessage());
-					}
-				}
+				boolean result = c.updateNote_wzy(textContent.getText(),textCreateDate.getText(),temp);
 				frame.setVisible(false);
 				// w.addListener(editNote);
 				JOptionPane.showMessageDialog(null, "Update success.", "Result", JOptionPane.PLAIN_MESSAGE);

@@ -33,31 +33,20 @@ public class DeleteRecipeListView extends View {
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	
+	private RecipeController c;
 	private ArrayList recipeIngrInfoArrayList;
 	private ArrayList<JCheckBox> checkBox;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Workbench w = new Workbench();
-					DeleteRecipeListView window = new DeleteRecipeListView(w);
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
-	public DeleteRecipeListView(Workbench w) {
+	public DeleteRecipeListView(Workbench w, RecipeController c) {
 		super(w);
+		this.c = c;
 		initialize();
 	}
 
@@ -98,6 +87,43 @@ public class DeleteRecipeListView extends View {
 			public void actionPerformed(ActionEvent e) {
 				int i = 0;
 				if(checkBox.get(i).isSelected()) {
+				String name = (String)((ArrayList)recipeIngrInfoArrayList.get(i)).get(0);
+				boolean result = c.deleteRecipe_wzy(name);
+				Connection connection = null;
+				try {
+					// create a database connection
+					connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+					Statement statement = connection.createStatement();
+					statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+					ResultSet rsRecipe = statement.executeQuery("SELECT * FROM Recipe");
+					if(rsRecipe.next()) {
+						for(i = 0; i < recipeIngrInfoArrayList.size(); i = i + 2) {
+							if(checkBox.get(i+2).isSelected()) {
+								String name1 = (String)((ArrayList)recipeIngrInfoArrayList.get((i+2)/2)).get(0);
+								boolean result1 = c.deleteRecipe_wzy(name1);
+							}
+						}
+					}
+				} catch (SQLException e1) {
+					// it probably means no database file is found
+					System.err.println(e1.getMessage());
+				} finally {
+					try {
+						if (connection != null)
+							connection.close();
+					} catch (SQLException e1) {
+						// connection close failed.
+						System.err.println(e1.getMessage());
+					}
+				}
+				frame.setVisible(false);	//	close the input window
+				
+				//	give a success window
+				JOptionPane.showMessageDialog(null, "Delete success.", "Result", JOptionPane.PLAIN_MESSAGE);
+				System.out.println("jump to success box.");
+				}
+				/*if(checkBox.get(i).isSelected()) {
 					String name = (String)((ArrayList)recipeIngrInfoArrayList.get(i)).get(0);
 					Connection connection = null;
 					try {
@@ -153,7 +179,7 @@ public class DeleteRecipeListView extends View {
 				
 				//	give a success window
 				JOptionPane.showMessageDialog(null, "Delete success.", "Result", JOptionPane.PLAIN_MESSAGE);
-				System.out.println("jump to success box.");
+				System.out.println("jump to success box.");*/
 			}
 		});
 		buttonDelete.setFont(new Font("Tahoma", Font.BOLD, 17));

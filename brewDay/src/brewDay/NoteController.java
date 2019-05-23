@@ -27,5 +27,10 @@ public class NoteController extends Controller {
 		int nID = w.addNote(content, date);
 		return nID;
 	}
-
+	public boolean deleteNote_wzy(int i) {
+		return w.deleteNote_wzy(i);
+	}
+	public boolean updateNote_wzy(String content, String createDate, int i) {
+		return w.updateNote_wzy(content, createDate, i);
+	}
 }

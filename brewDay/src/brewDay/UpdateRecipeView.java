@@ -40,26 +40,14 @@ public class UpdateRecipeView extends View {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Workbench w = new Workbench();
-					UpdateRecipeView window = new UpdateRecipeView(w,index);
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
-	public UpdateRecipeView(Workbench w, int index) {
+	public UpdateRecipeView(Workbench w, int index, RecipeController c) {
 		super(w);
 		this.index =  index;
+		this.c = c;
 		initialize();
 	}
 
@@ -100,28 +88,10 @@ public class UpdateRecipeView extends View {
 		buttonConfirm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
-				Connection connection = null;
-				try {
-					// create a database connection
-					connection = DriverManager.getConnection("jdbc:sqlite:data.db");
-					Statement statement = connection.createStatement();
-					statement.setQueryTimeout(30); // set timeout to 30 sec.
-
-					//Double.parseDouble(textQuantity.getText()), textUnit.getText()
-					statement.executeUpdate("UPDATE Recipe SET quantity = '" + Double.parseDouble(textQuantity.getText()) + "', unit = '" + textUnit.getText()
-							+ "', name = '" + textName.getText() + "' WHERE ID = '" + index + "'");
-				} catch (SQLException e1) {
-					// it probably means no database file is found
-					System.err.println(e1.getMessage());
-				} finally {
-					try {
-						if (connection != null)
-							connection.close();
-					} catch (SQLException e1) {
-						// connection close failed.
-						System.err.println(e1.getMessage());
-					}
-				}
+				double quantity = Double.parseDouble(textQuantity.getText());
+				String name = textName.getText();
+				String unit = textUnit.getText();
+				boolean result = ((RecipeController) c).updateRecipe_wzy(quantity, name, unit, index);
 				frame.setVisible(false);
 				// w.addListener(editNote);
 				JOptionPane.showMessageDialog(null, "Update success.", "Result", JOptionPane.PLAIN_MESSAGE);

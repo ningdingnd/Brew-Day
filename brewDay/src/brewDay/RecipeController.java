@@ -56,6 +56,13 @@ public class RecipeController extends Controller {
 		return names;
 	}
 	
+	public boolean updateRecipe_wzy(double quantity, String name, String unit, int index) {
+		return w.updateRecipe_wzy(quantity, name, unit, index);
+	}
+	
+	public boolean deleteRecipe_wzy(String name) {
+		return w.deleteRecipe_wzy(name);
+	}
 	
 	public Object[] getRecipeAmount(String rName) {
 		Object[] info = new Object[2];

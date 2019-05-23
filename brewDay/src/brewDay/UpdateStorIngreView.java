@@ -111,14 +111,16 @@ public class UpdateStorIngreView extends View{
 		lblNewLabel.setFont(new Font("Calibri", Font.PLAIN, 18));
 		frame.getContentPane().add(lblNewLabel);
 		
-		updateUnit = new JTextField();
+		String[] unit = {"kg", "g"};
+		JComboBox updateUnit = new JComboBox(unit);
+		
 		springLayout.putConstraint(SpringLayout.NORTH, updateUnit, 263, SpringLayout.NORTH, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.EAST, updateUnit, -151, SpringLayout.EAST, frame.getContentPane());
 		springLayout.putConstraint(SpringLayout.SOUTH, updateQuantity, -33, SpringLayout.NORTH, updateUnit);
 		springLayout.putConstraint(SpringLayout.NORTH, btnConfirm, 77, SpringLayout.SOUTH, updateUnit);
 		springLayout.putConstraint(SpringLayout.SOUTH, updateUnit, -168, SpringLayout.SOUTH, frame.getContentPane());
 		frame.getContentPane().add(updateUnit);
-		updateUnit.setColumns(10);
+		
 		
 		JLabel lblUnit = new JLabel("Unit");
 		springLayout.putConstraint(SpringLayout.EAST, lblUnit, -508, SpringLayout.EAST, frame.getContentPane());
@@ -170,7 +172,8 @@ public class UpdateStorIngreView extends View{
 			public void actionPerformed(ActionEvent arg0) {
 				// TODO Auto-generated method stub
 				
-				boolean result = c.updateIngre((String)nameCombo.getSelectedItem(), Double.parseDouble(updateQuantity.getText()), updateUnit.getText(), storageScroll);
+				//	call corresponding method in controller
+				boolean result = c.updateIngre((String)nameCombo.getSelectedItem(), Double.parseDouble(updateQuantity.getText()), (String)updateUnit.getSelectedItem(), storageScroll);
 				if(result == true) {
 					frame.setVisible(false);	//	close the input window
 					

@@ -31,28 +31,18 @@ public class UpdateNoteListView extends View{
 	private JFrame frame;
 	private ArrayList<JCheckBox> checkBox;
 	private ArrayList NoteInfoArrayList;
-
+	private NoteController c;
+	
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Workbench w = new Workbench();
-					UpdateNoteListView window = new UpdateNoteListView(w);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
-	public UpdateNoteListView(Workbench w) {
+	public UpdateNoteListView(Workbench w, NoteController c) {
 		super(w);
+		this.c = c;
 		initialize();
 	}
 
@@ -90,7 +80,7 @@ public class UpdateNoteListView extends View{
 			public void mouseClicked(MouseEvent arg0) {
 				for(int i = 0; i < checkBox.size(); i++) {
 					if(checkBox.get(i).isSelected()) {
-						new UpdateNoteView(w,i+1);
+						new UpdateNoteView(w,i+1,c);
 						break;
 					}
 				}

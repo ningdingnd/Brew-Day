@@ -12,6 +12,8 @@ import java.awt.ScrollPane;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.Color;
 import javax.swing.SpringLayout;
 import javax.swing.JLabel;
@@ -22,7 +24,7 @@ public class AddEquipmentView extends View{
 
 	private JFrame frame;
 	private JTextField capacityText;
-	private JTextField unitText;
+	private JComboBox unitText;
 	
 
 	private EquipmentController c;
@@ -68,27 +70,7 @@ public class AddEquipmentView extends View{
 	
 		
 		
-		buttonConfirm.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-				boolean result = c.addEquipment(Double.parseDouble(capacityText.getText()), unitText.getText(), panel);
-				if(result == true) {
-					frame.setVisible(false);	//	close the input window
-					
-					//	give a success window
-					JOptionPane.showMessageDialog(null, "Add success.", "Result", JOptionPane.PLAIN_MESSAGE);
-					System.out.println("jump to success box.");
-						
-					//	a success box,	then return to main
-				}
-				else {
-					System.out.println("jump to failed box.");
-				}
-			}
-		});
+		
 		
 		JButton buttonCancel = new JButton("cancel");
 		springLayout.putConstraint(SpringLayout.NORTH, buttonConfirm, 0, SpringLayout.NORTH, buttonCancel);
@@ -111,7 +93,9 @@ public class AddEquipmentView extends View{
 		lblNewLabel_1.setFont(new Font("Calibri", Font.PLAIN, 18));
 		frame.getContentPane().add(lblNewLabel_1);
 		
-		unitText = new JTextField();
+		
+		String[] unit = {"L", "mL", "galon"};
+		JComboBox unitText = new JComboBox(unit);
 		springLayout.putConstraint(SpringLayout.NORTH, buttonCancel, 78, SpringLayout.SOUTH, unitText);
 		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 8, SpringLayout.NORTH, unitText);
 		springLayout.putConstraint(SpringLayout.NORTH, unitText, 39, SpringLayout.SOUTH, capacityText);
@@ -119,7 +103,7 @@ public class AddEquipmentView extends View{
 		springLayout.putConstraint(SpringLayout.SOUTH, unitText, 77, SpringLayout.SOUTH, capacityText);
 		springLayout.putConstraint(SpringLayout.EAST, unitText, 0, SpringLayout.EAST, capacityText);
 		frame.getContentPane().add(unitText);
-		unitText.setColumns(10);
+		
 		buttonCancel.addActionListener(new ActionListener() {
 
 			@Override
@@ -130,6 +114,29 @@ public class AddEquipmentView extends View{
 				
 			}
 
+		});
+		
+		//	the actions after click confirm
+		buttonConfirm.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				boolean result = c.addEquipment(Double.parseDouble(capacityText.getText()), (String)unitText.getSelectedItem(), panel);
+				if(result == true) {
+					frame.setVisible(false);	//	close the input window
+					
+					//	give a success window
+					JOptionPane.showMessageDialog(null, "Add success.", "Result", JOptionPane.PLAIN_MESSAGE);
+					System.out.println("jump to success box.");
+						
+					//	a success box,	then return to main
+				}
+				else {
+					System.out.println("jump to failed box.");
+				}
+			}
 		});
 	}
 

@@ -25,6 +25,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.SpringLayout;
 import javax.swing.JLabel;
+import javax.swing.JComboBox;
 
 public class AddStorIngreView extends View{
 
@@ -35,7 +36,6 @@ public class AddStorIngreView extends View{
 	
 	private Workbench w;
 	private StorageIngredientController c;
-	private JTextField unit;
 
 	
 	
@@ -100,27 +100,7 @@ public class AddStorIngreView extends View{
 			confirm.setFont(new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 17));
 			frame.getContentPane().add(confirm);
 			
-			confirm.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					// TODO Auto-generated method stub
-					
-					boolean result = c.addIngredient(name.getText(), Double.parseDouble(amount.getText()), unit.getText(), storageScroll);
-					if(result == true) {
-						frame.setVisible(false);	//	close the input window
-						
-						//	give a success window
-						JOptionPane.showMessageDialog(null, "Add success.", "Result", JOptionPane.PLAIN_MESSAGE);
-						System.out.println("jump to success box.");
-							
-						//	a success box,	then return to main
-					}
-					else {
-						System.out.println("jump to failed box.");
-					}
-				}
-			});
+			
 		
 		name = new JTextField(0);
 		springLayout.putConstraint(SpringLayout.NORTH, name, 162, SpringLayout.NORTH, frame.getContentPane());
@@ -134,22 +114,13 @@ public class AddStorIngreView extends View{
 		
 		JLabel lblNewLabel = new JLabel("Unit");
 		springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 160, SpringLayout.WEST, frame.getContentPane());
+		springLayout.putConstraint(SpringLayout.EAST, lblNewLabel, -643, SpringLayout.EAST, frame.getContentPane());
 		lblNewLabel.setFont(new Font("Calibri", Font.PLAIN, 24));
 		lblNewLabel.setForeground(Color.BLACK);
 		frame.getContentPane().add(lblNewLabel);
 		
-		
-		unit = new JTextField();
-		springLayout.putConstraint(SpringLayout.WEST, unit, 264, SpringLayout.WEST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, lblNewLabel, -40, SpringLayout.WEST, unit);
-		springLayout.putConstraint(SpringLayout.NORTH, unit, 307, SpringLayout.NORTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.SOUTH, unit, -191, SpringLayout.SOUTH, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.EAST, unit, -193, SpringLayout.EAST, frame.getContentPane());
-		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel, 9, SpringLayout.NORTH, unit);
-		frame.getContentPane().add(unit);
-		unit.setColumns(10);
-		
 		JLabel lblNewLabel_1 = new JLabel("Amount");
+		springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel, 38, SpringLayout.SOUTH, lblNewLabel_1);
 		springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel_1, 0, SpringLayout.SOUTH, amount);
 		springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_1, -40, SpringLayout.WEST, amount);
 		lblNewLabel_1.setFont(new Font("Calibri", Font.PLAIN, 24));
@@ -162,6 +133,38 @@ public class AddStorIngreView extends View{
 		lblNewLabel_2.setFont(new Font("Calibri", Font.PLAIN, 24));
 		lblNewLabel_2.setForeground(Color.BLACK);
 		frame.getContentPane().add(lblNewLabel_2);
+		
+		
+		String[] unit = {"kg", "g"};
+		JComboBox comboBox = new JComboBox(unit);
+		springLayout.putConstraint(SpringLayout.NORTH, comboBox, -3, SpringLayout.NORTH, lblNewLabel);
+		springLayout.putConstraint(SpringLayout.WEST, comboBox, 0, SpringLayout.WEST, amount);
+		springLayout.putConstraint(SpringLayout.SOUTH, comboBox, -35, SpringLayout.NORTH, cancel);
+		springLayout.putConstraint(SpringLayout.EAST, comboBox, 0, SpringLayout.EAST, amount);
+		frame.getContentPane().add(comboBox);
+		
+		confirm.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				//	call corresponding method in controller
+				boolean result = c.addIngredient(name.getText(), Double.parseDouble(amount.getText()), (String)comboBox.getSelectedItem(), storageScroll);
+				if(result == true) {
+					frame.setVisible(false);	//	close the input window
+					
+					//	give a success window
+					JOptionPane.showMessageDialog(null, "Add success.", "Result", JOptionPane.PLAIN_MESSAGE);
+					System.out.println("jump to success box.");
+						
+					//	a success box,	then return to main
+				}
+				else {
+					System.out.println("jump to failed box.");
+				}
+			}
+		});
 		
 	}
 

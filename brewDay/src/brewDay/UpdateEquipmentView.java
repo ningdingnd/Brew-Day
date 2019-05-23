@@ -117,10 +117,13 @@ public class UpdateEquipmentView extends View{
 		lblNewLabel.setBounds(266, 300, 110, 28);
 		frame.getContentPane().add(lblNewLabel);
 		
-		unitText = new JTextField();
+
+		String[] unit = {"L", "mL", "galon"};
+		JComboBox unitText = new JComboBox(unit);
+		
 		unitText.setBounds(390, 378, 332, 38);
 		frame.getContentPane().add(unitText);
-		unitText.setColumns(10);
+		
 		
 		JLabel lblUnit = new JLabel("Unit");
 		lblUnit.setFont(new Font("Calibri", Font.PLAIN, 21));
@@ -134,6 +137,7 @@ public class UpdateEquipmentView extends View{
 		buttonConfirm.setBounds(328, 461, 135, 54);
 		frame.getContentPane().add(buttonConfirm);
 		
+		//	action after click confirm
 		buttonConfirm.addActionListener(new ActionListener() {
 
 			@Override
@@ -141,8 +145,9 @@ public class UpdateEquipmentView extends View{
 				// TODO Auto-generated method stub
 				System.out.println("You selected : " + (Integer)comboBox.getSelectedItem());
 				System.out.println("You input capacity: " + Double.parseDouble(capacityText.getText()));
-				System.out.println("You input unit: " + unitText.getText());
-				boolean result = c.updateEquipment((int)comboBox.getSelectedItem(), Double.parseDouble(capacityText.getText()), unitText.getText(), equipPanel);
+				
+				//	call corresponding method in controller
+				boolean result = c.updateEquipment((int)comboBox.getSelectedItem(), Double.parseDouble(capacityText.getText()), (String)unitText.getSelectedItem(), equipPanel);
 				
 				if(result == true) {
 					frame.setVisible(false);	//	close the input window

@@ -974,7 +974,14 @@ public class Workbench {
 			// if the error message is "out of memory",
 			// it probably means no database file is found
 			result = false;
-			JOptionPane.showMessageDialog(null, e1.getMessage());
+			if(e1.getMessage().equals("[SQLITE_CONSTRAINT_UNIQUE]  A UNIQUE constraint failed (UNIQUE constraint failed: StorageIngredient.name)")) {
+				System.out.println("get a non unique exception");
+				JOptionPane.showMessageDialog(null, "Cannot add item with same name as in database");
+			}
+			else {
+				System.out.println("get an known exception");
+				JOptionPane.showMessageDialog(null, e1.getMessage());
+			}
 			System.err.println(e1.getMessage());
 		} finally {
 			try {

@@ -571,6 +571,7 @@ public class Workbench {
 				Statement statement2 = connection.createStatement();
 				ResultSet rsAmount = statement2.executeQuery("SELECT amount FROM StorageIngredient WHERE name = \"" + recipe.getIngredients()[i].getName()+"\"");
 				Statement statement3 = connection.createStatement();
+				System.out.print(rsAmount.getDouble(1) +" : "+ recipe.getIngredients()[i].getAmount());
 				statement3.executeUpdate("UPDATE StorageIngredient SET amount = " + (rsAmount.getDouble(1) - recipe.getIngredients()[i].getAmount()) + " WHERE name = \"" + recipe.getIngredients()[i].getName()+"\"");
 				
 			}

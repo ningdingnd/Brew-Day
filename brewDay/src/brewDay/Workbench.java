@@ -919,6 +919,7 @@ public class Workbench {
 			Statement statement = connection.createStatement();
 			statement.setQueryTimeout(30); // set timeout to 30 sec.
 			
+			//	update equipment data sql
 			statement.executeUpdate("UPDATE Equipment SET capacity = '" + nCapacity + "', unit = '" + nUnit
 					+ "' WHERE ID = '" + id + "'");
 			

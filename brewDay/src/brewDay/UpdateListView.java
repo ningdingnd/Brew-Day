@@ -31,28 +31,17 @@ public class UpdateListView extends View{
 	private JFrame frame;
 	private ArrayList<JCheckBox> checkBox;
 	private ArrayList recipeIngrInfoArrayList;
-
+	private RecipeController c;
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Workbench w = new Workbench();
-					UpdateListView window = new UpdateListView(w);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
-	public UpdateListView(Workbench w) {
+	public UpdateListView(Workbench w, RecipeController c) {
 		super(w);
+		this.c = c;
 		initialize();
 	}
 
@@ -60,6 +49,7 @@ public class UpdateListView extends View{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		ArrayList index = new ArrayList<>();
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(245, 222, 179));
 		frame.setVisible(true);
@@ -85,17 +75,40 @@ public class UpdateListView extends View{
 
 		});
 		JButton buttonDelete = new JButton("confirm");
+		Connection connection = null;
+		try {
+			// create a database connection
+			connection = DriverManager.getConnection("jdbc:sqlite:data.db");
+			Statement statement = connection.createStatement();
+			statement.setQueryTimeout(30); // set timeout to 30 sec.
+
+			ResultSet rsNote = statement.executeQuery("SELECT * FROM Note");
+			while(rsNote.next()) {
+				index.add(rsNote.getInt("ID"));
+			}
+		} catch (SQLException e1) {
+			// it probably means no database file is found
+			System.err.println(e1.getMessage());
+		} finally {
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e1) {
+				// connection close failed.
+				System.err.println(e1.getMessage());
+			}
+		}
 		buttonDelete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if(checkBox.get(0).isSelected()) {
-					new UpdateRecipeView(w,1);
+					new UpdateRecipeView(w,(int) index.get(0),c);
 					frame.setVisible(false);
 					return;
 				}
 				for(int i = 0; i < recipeIngrInfoArrayList.size(); i = i + 2) {
 					if(checkBox.get(i+2).isSelected()) {
-						new UpdateRecipeView(w,((i+2)/2)+1);
+						new UpdateRecipeView(w,(int) index.get(((i+2)/2+1)),c);
 						frame.setVisible(false);
 						break;
 					}
@@ -131,6 +144,7 @@ public class UpdateListView extends View{
 		//get all recipe and ingredient info
 		recipeIngrInfoArrayList = w.getRecipeIngredient();
 		panel.setLayout(new GridLayout(0,1));
+		
 		//check box for all recipe list
 		checkBox = new ArrayList<>();
 		for (int i = 0;i <recipeIngrInfoArrayList.size(); i++) {

@@ -128,7 +128,7 @@ public class MainPageViewNew extends View {
 		btnUpdate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new UpdateListView(w);
+				new UpdateListView(w,(RecipeController) controllers.get(2));
 			}
 		});
 		btnUpdate.addActionListener(new ActionListener() {
@@ -148,7 +148,7 @@ public class MainPageViewNew extends View {
 		recipeDelete.setForeground(new Color(255, 255, 255));
 		recipeDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new DeleteRecipeListView(w);
+				new DeleteRecipeListView(w,(RecipeController) controllers.get(2));
 			}
 		});
 		recipeDelete.setFont(new Font("Calibri", Font.PLAIN, 19));
@@ -281,7 +281,7 @@ public class MainPageViewNew extends View {
 		button_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new UpdateNoteListView(w);
+				new UpdateNoteListView(w, (NoteController) controllers.get(3));
 			}
 		});
 		SpringLayout sl_panel_3 = new SpringLayout();
@@ -301,7 +301,7 @@ public class MainPageViewNew extends View {
 		button_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new DeleteNoteListView(w);
+				new DeleteNoteListView(w, (NoteController) controllers.get(3));
 			}
 		});
 		button_2.setFont(new Font("Calibri", Font.PLAIN, 20));

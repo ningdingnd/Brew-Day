@@ -31,28 +31,18 @@ public class DeleteNoteListView extends View{
 	private JFrame frame;
 	private ArrayList<JCheckBox> checkBox;
 	private ArrayList NoteInfoArrayList;
+	private NoteController c;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Workbench w = new Workbench();
-					DeleteNoteListView window = new DeleteNoteListView(w);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
 	 */
-	public DeleteNoteListView(Workbench w) {
+	public DeleteNoteListView(Workbench w, NoteController c) {
 		super(w);
+		this.c = c;
 		initialize();
 	}
 
@@ -91,26 +81,7 @@ public class DeleteNoteListView extends View{
 			public void mouseClicked(MouseEvent arg0) {
 				for(int i = 0; i < checkBox.size(); i++) {
 					if(checkBox.get(i).isSelected()) {
-						Connection connection = null;
-						try {
-							// create a database connection
-							connection = DriverManager.getConnection("jdbc:sqlite:data.db");
-							Statement statement = connection.createStatement();
-							statement.setQueryTimeout(30); // set timeout to 30 sec.
-
-							statement.executeUpdate("DELETE FROM Note WHERE ID = '" + index.get(i/2) + "' ");
-						} catch (SQLException e1) {
-							// it probably means no database file is found
-							System.err.println(e1.getMessage());
-						} finally {
-							try {
-								if (connection != null)
-									connection.close();
-							} catch (SQLException e1) {
-								// connection close failed.
-								System.err.println(e1.getMessage());
-							}
-						}
+						boolean result = c.deleteNote_wzy((int) index.get(i/2));
 						frame.setVisible(false);	//	close the input window
 						
 						//	give a success window

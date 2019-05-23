@@ -94,7 +94,7 @@ public class MainPageViewNew extends View {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				// create the new view to input batch size
-				InputBatchSizeView brew = new InputBatchSizeView(w, (NoteController) controllers.get(3));
+				InputBatchSizeView brew = new InputBatchSizeView(w, (BrewController) controllers.get(4));
 				w.addListener(brew);
 
 			}

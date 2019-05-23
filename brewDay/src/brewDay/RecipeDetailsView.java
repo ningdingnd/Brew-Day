@@ -26,7 +26,7 @@ public class RecipeDetailsView extends View{
 	private Recipe recipe;
 	private JTextPane textPane;
 	private double batchSize;
-	private NoteController c;
+	private BrewController c;
 
 //	/**
 //	 * Launch the application.
@@ -47,7 +47,7 @@ public class RecipeDetailsView extends View{
 	/**
 	 * Create the application.
 	 */
-	public RecipeDetailsView(Workbench w, Recipe recipe, double batchSize, NoteController c) {
+	public RecipeDetailsView(Workbench w, Recipe recipe, double batchSize, BrewController c) {
 		super(w);
 		this.recipe = recipe;
 		this.batchSize = batchSize;
@@ -58,7 +58,7 @@ public class RecipeDetailsView extends View{
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(NoteController c) {
+	private void initialize(BrewController c2) {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(new Color(245, 222, 179));
 		frame.getContentPane().setEnabled(false);
@@ -140,8 +140,8 @@ public class RecipeDetailsView extends View{
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				Brew brew = new Brew(batchSize);
-				int nID = c.addNote(notesTextArea.getText(), brew.getDate());
-				if (w.brew(recipe, brew, nID)) {
+				int nID = ((BrewController) c2).addNote(notesTextArea.getText(), brew.getDate());
+				if (((BrewController) c2).brew(recipe, brew, nID)) {
 					Object[] options = { "OK" }; 
 					JOptionPane.showOptionDialog(null, "Brew successfully!", "Message", 
 					JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, 

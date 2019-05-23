@@ -51,7 +51,7 @@ public class AddRecipeView extends View{
 	 */
 	private void initialize(RecipeController recipeController) {
 		//connect to database
-		ArrayList pack = w.getRecipe();
+		ArrayList pack = recipeController.getRecipe();
 		ArrayList availableIngredient= (ArrayList) pack.get(0);
 		ArrayList currentUnit= (ArrayList) pack.get(1);
 		
@@ -68,9 +68,7 @@ public class AddRecipeView extends View{
 		panel.setLayout(new GridLayout(0,2));
 		panel.setBackground(new Color(245, 245, 245));
 		panel.setBounds(20, 59, 457, 307);
-		//panel.setLayout(new FlowLayout(FlowLayout.LEFT, 2, 2));
 		ArrayList textfieled= new ArrayList();
-		//pan.setBorder(BorderFactory.createTitledBorder("Please add the amount of ingredient of recipe:"));
 		final int loopNum = availableIngredient.size();
 		for (int i = 0; i < loopNum+2; i++) {
 			JTextPane name = new JTextPane();
@@ -110,8 +108,7 @@ public class AddRecipeView extends View{
 			public void mouseClicked(MouseEvent a) {
 				//connected with database
 				//add the recipe to database
-				w.insertRecipe(loopNum,textfieled,availableIngredient,currentUnit,  recipeController);
-				
+				w.insertRecipe(loopNum,textfieled,availableIngredient,currentUnit);				
 				frame.dispose();
 			}
 		});

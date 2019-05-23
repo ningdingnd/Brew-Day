@@ -22,7 +22,7 @@ public class ShoppingListOrRecipeView extends View {
 	private ArrayList shoppListRecipe;
 	private JFrame frame;
 	private double batchSize;
-	private NoteController c;
+	private BrewController c;
 	
 	/**
 	 * Launch the application.
@@ -43,7 +43,7 @@ public class ShoppingListOrRecipeView extends View {
 	/**
 	 * Create the application.
 	 */
-	public ShoppingListOrRecipeView(Workbench w, ArrayList shoppListRecipe, double batchSize, NoteController c) {
+	public ShoppingListOrRecipeView(Workbench w, ArrayList shoppListRecipe, double batchSize, BrewController c) {
 		super(w);
 		this.shoppListRecipe = shoppListRecipe;
 		this.batchSize = batchSize;

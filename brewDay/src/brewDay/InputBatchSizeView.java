@@ -22,14 +22,14 @@ public class InputBatchSizeView extends View{
 
 	private JFrame frame;
 	private JTextField textField;
-	private NoteController c;
+	private BrewController c;
 
 	
 
 	/**
 	 * Create the application.
 	 */
-	public InputBatchSizeView(Workbench w, NoteController c) {
+	public InputBatchSizeView(Workbench w, BrewController c) {
 		super(w);
 		this.c = c;
 		initialize();
@@ -68,10 +68,10 @@ public class InputBatchSizeView extends View{
 				
 				//	check whether the batch size input is smaller than capacity of equipment
 				double batchSize = Integer.parseInt(textField.getText());
-				boolean equipAvailable = w.checkBatchSize(batchSize);
+				boolean equipAvailable = c.checkBatchSize(batchSize);
 				if(equipAvailable) {		
 					//	check whether there is any recipe available according to batch size
-					ArrayList shoppListRecipe = w.checkBrewAvailable(batchSize);
+					ArrayList shoppListRecipe = c.checkBrewAvailable(batchSize);
 					//System.out.print("recipe name:"+((Recipe)shoppListRecipe.get(1)).getName());
 					new ShoppingListOrRecipeView(w, shoppListRecipe,batchSize, c);
 					frame.dispose();

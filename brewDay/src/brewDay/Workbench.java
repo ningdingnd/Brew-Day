@@ -331,7 +331,7 @@ public class Workbench {
 		return pack;
 	}
 
-	public boolean insertRecipe(int loopNum, ArrayList textfieled, ArrayList availableIngredient, ArrayList currentUnit, RecipeController recipeController) {
+	public boolean insertRecipe(int loopNum, ArrayList textfieled, ArrayList availableIngredient, ArrayList currentUnit) {
 		boolean result = false;
 		Connection connection1 = null;
 		try {

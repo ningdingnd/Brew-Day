@@ -33,6 +33,9 @@ public class GUI {
 				NoteController nc = new NoteController(w);
 				controller.add(nc);
 				
+				BrewController bc = new BrewController(w);
+				controller.add(bc);
+				
 				MainPageViewNew mv = new MainPageViewNew(w, controller);
 				
 				

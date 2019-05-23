@@ -207,7 +207,15 @@ public class RecipeController extends Controller {
 	// ingredient quantity of recipe
 
 	// }
-
+	
+	public ArrayList getRecipe() {
+		return w.getRecipe();
+	}
+	
+	public void insertRecipe(int loopNum, ArrayList textfieled, ArrayList availableIngredient, ArrayList currentUnit) {
+		w.insertRecipe(loopNum,textfieled,availableIngredient,currentUnit);
+	}
+	
 	public static void testRecipeController() {
 		Workbench w = new Workbench();
 		RecipeController r = new RecipeController(w);

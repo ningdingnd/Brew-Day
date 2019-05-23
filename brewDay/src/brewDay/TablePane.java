@@ -54,7 +54,7 @@ import java.awt.GridLayout;
  */
 public class TablePane extends JPanel {
 	
-    public TablePane(Controller c, Object[][] data, String[] colNames) {
+    public TablePane(Object[][] data, String[] colNames) {
     	
         super(new GridLayout(1,0));
         

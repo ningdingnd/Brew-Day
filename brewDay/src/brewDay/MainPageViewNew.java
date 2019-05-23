@@ -379,7 +379,7 @@ public class MainPageViewNew extends View {
 		sl_equipPanel.putConstraint(SpringLayout.SOUTH, equipAdd, -23, SpringLayout.NORTH, equipScroll);
 		Object[][] equipData = ((EquipmentController) controllers.get(1)).getData();
 		String[] equipColNames = ((EquipmentController) controllers.get(1)).getColNames();
-		TablePane equipInfoPane = new TablePane(controllers.get(1), equipData, equipColNames);
+		TablePane equipInfoPane = new TablePane( equipData, equipColNames);
 		
 		equipScroll.add(equipInfoPane);
 		sl_equipPanel.putConstraint(SpringLayout.WEST, equipScroll, 0, SpringLayout.WEST, btnWhatToBrew);
@@ -458,7 +458,7 @@ public class MainPageViewNew extends View {
 		//	set the data of storage ingredients
 		String[] colNames = ((StorageIngredientController) controllers.get(0)).getColNames();
 		Object[][] ingreData = ((StorageIngredientController) controllers.get(0)).getData();
-		TablePane ingreInfoTable = new TablePane(controllers.get(1), ingreData, colNames);
+		TablePane ingreInfoTable = new TablePane(ingreData, colNames);
 	
 		storageScroll.add(ingreInfoTable);
 		
@@ -538,7 +538,7 @@ public class MainPageViewNew extends View {
 				
 				
 				String[] recipeIngreCol = ((RecipeController) controllers.get(2)).getRecipeIngreColNames();
-				TablePane recipeInfoPane = new TablePane(controllers.get(1), recipeIngreData, recipeIngreCol);
+				TablePane recipeInfoPane = new TablePane( recipeIngreData, recipeIngreCol);
 				recipeScroll.add(recipeInfoPane);
 				
 				String[] notes = ((NoteController) controllers.get(3))
